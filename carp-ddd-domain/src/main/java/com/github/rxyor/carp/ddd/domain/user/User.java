@@ -21,10 +21,6 @@ import lombok.Data;
 /**
  * 用户表
  */
-
-/**
- * 用户表
- */
 @Table(name = "user")
 @Data
 @Entity
