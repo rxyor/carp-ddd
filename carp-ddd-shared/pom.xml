@@ -27,5 +27,9 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-common-core</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -26,11 +26,23 @@ class UserRepositoryTest extends SpringWithJUnit5IT {
     @Test
     public void findAll() {
         try {
-            List<User> userList = userRepository.findAll();
-            log.info("result:\n{}",userList);
+            List<User> ret = userRepository.findAll();
+            log.info("result:\n{}", ret);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Transactional
+    @Test
+    public void find() {
+        try {
+            User ret = userRepository.find("qazwsxedcrfv");
+            log.info("result:\n{}", ret);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
