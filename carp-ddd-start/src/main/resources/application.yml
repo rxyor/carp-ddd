@@ -1,0 +1,11 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: carp-ddd
+  profiles:
+    include: redis
+logging:
+  file:
+    path: config/properties/log4j2.properties
