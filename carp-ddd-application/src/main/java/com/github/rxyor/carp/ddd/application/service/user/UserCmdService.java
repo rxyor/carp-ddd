@@ -1,11 +1,12 @@
 package com.github.rxyor.carp.ddd.application.service.user;
 
+import com.github.rxyor.carp.ddd.application.command.user.SaveUserCmd;
 import com.github.rxyor.carp.ddd.domain.user.User;
 import com.github.rxyor.carp.ddd.domain.user.UserRepository;
 import com.google.common.base.Preconditions;
-import com.github.rxyor.carp.ddd.application.command.user.SaveUserCmd;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *<p>
@@ -27,6 +28,7 @@ public class UserCmdService {
      *
      * @param cmd
      */
+    @Transactional(rollbackFor = Exception.class)
     public User save(SaveUserCmd cmd) {
         Preconditions.checkArgument(cmd != null,
             "用户信息不能为空");

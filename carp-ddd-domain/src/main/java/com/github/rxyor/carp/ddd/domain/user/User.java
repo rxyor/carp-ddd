@@ -32,7 +32,7 @@ public class User implements Serializable {
      * 自增主键
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", insertable = false, nullable = false)
     private Long id;
 
@@ -87,13 +87,13 @@ public class User implements Serializable {
     /**
      * 创建时间
      */
-    @Column(name = "create_time", nullable = false)
+    @Column(name = "create_time", insertable = false)
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @Column(name = "update_time")
+    @Column(name = "update_time", insertable = false)
     private Date updateTime;
 
     /**
