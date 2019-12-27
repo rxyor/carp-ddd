@@ -11,5 +11,11 @@
 
     <artifactId>carp-ddd-application</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-ddd-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

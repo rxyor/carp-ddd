@@ -13,6 +13,7 @@
         <module>carp-ddd-domain</module>
         <module>carp-ddd-application</module>
         <module>carp-ddd-insfrastructure</module>
+        <module>carp-ddd-query</module>
     </modules>
     <packaging>pom</packaging>
     <name>carp-ddd</name>
@@ -95,6 +96,11 @@
                 <version>${spring-boot.version}</version>
             </dependency>
             <!--db-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.zaxxer</groupId>
                 <artifactId>HikariCP</artifactId>

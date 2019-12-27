@@ -11,5 +11,16 @@
 
     <artifactId>carp-ddd-insfrastructure</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-ddd-application</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+    </dependencies>
 </project>
