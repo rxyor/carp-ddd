@@ -7,5 +7,6 @@ spring:
   profiles:
     include: redis
 logging:
+  config: classpath:config/properties/log4j2.properties
   file:
-    path: config/properties/log4j2.properties
+    path: logs

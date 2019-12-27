@@ -10,6 +10,9 @@
     <modules>
         <module>carp-ddd-start</module>
         <module>carp-ddd-shared</module>
+        <module>carp-ddd-domain</module>
+        <module>carp-ddd-application</module>
+        <module>carp-ddd-insfrastructure</module>
     </modules>
     <packaging>pom</packaging>
     <name>carp-ddd</name>
