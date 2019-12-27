@@ -1,6 +1,6 @@
 spring:
   redis:
-    host: test.dev
+    host: local.dev
     port: 6379
   cache:
     type: redis

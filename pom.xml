@@ -43,6 +43,7 @@
         <junit.version>4.12</junit.version>
         <junit5.version>5.5.2</junit5.version>
         <lombok.version>1.18.0</lombok.version>
+        <mapstruct.version>1.3.1.Final</mapstruct.version>
         <mybatis-plus.version>3.0.10</mybatis-plus.version>
         <mysql-connector-java.version>5.1.31</mysql-connector-java.version>
         <redisson.version>3.11.3</redisson.version>
@@ -167,6 +168,11 @@
                 <artifactId>redisson-spring-data-20</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -174,9 +180,14 @@
                 <version>${lombok.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>

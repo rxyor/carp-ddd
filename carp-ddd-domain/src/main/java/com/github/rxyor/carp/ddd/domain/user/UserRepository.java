@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface UserRepository extends
     CrudRepository<User, Long>, JpaRepository<User, Long> {
 
-    @Query("from User u where u.username=:username")
+    @Query("from User u where u.username=:username and u.disable=0")
     User find(@Param("username") String username);
 
 }
