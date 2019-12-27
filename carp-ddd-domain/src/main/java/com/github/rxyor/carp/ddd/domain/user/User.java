@@ -99,13 +99,9 @@ public class User implements Serializable {
     /**
      * 角色列表
      */
-    private List<Role> roleList = new ArrayList<>(8);
-
     @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role",
+    @JoinTable(name = "user_role_link",
         joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", unique = true),
         inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", unique = true))
-    public List<Role> getRoleList() {
-        return roleList;
-    }
+    private List<Role> roleList = new ArrayList<>(8);
 }
