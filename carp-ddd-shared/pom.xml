@@ -37,8 +37,15 @@
         </dependency>
         <dependency>
             <groupId>com.github.rxyor</groupId>
-            <artifactId>carp-common-core</artifactId>
+            <artifactId>carp-common-support</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-cacheablettl-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
     </dependencies>
 </project>

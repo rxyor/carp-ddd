@@ -32,11 +32,12 @@
         <maven-war-plugin.version>3.2.0</maven-war-plugin.version>
         <!--dependency-->
         <HikariCP.version>3.4.1</HikariCP.version>
-        <carp.version>1.0.14.1</carp.version>
+        <carp.version>1.0.14.2</carp.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <fastjson.version>1.2.58</fastjson.version>
         <guava.version>23.0</guava.version>
+        <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
         <jackson.version>2.9.6</jackson.version>
         <joda-time.version>2.10.4</joda-time.version>
         <junit-platform-runner.version>1.5.2</junit-platform-runner.version>
@@ -231,8 +232,18 @@
             </dependency>
             <dependency>
                 <groupId>com.github.rxyor</groupId>
-                <artifactId>carp-common-core</artifactId>
+                <artifactId>carp-common-support</artifactId>
                 <version>${carp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.rxyor</groupId>
+                <artifactId>carp-cacheablettl-starter</artifactId>
+                <version>${carp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
