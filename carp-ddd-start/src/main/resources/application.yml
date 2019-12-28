@@ -5,7 +5,7 @@ spring:
   application:
     name: carp-ddd
   profiles:
-    include: redis,jdbc
+    include: redis,jdbc,mybatis
 logging:
   config: classpath:config/properties/log4j2.properties
   file:

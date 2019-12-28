@@ -1,9 +1,9 @@
-package com.github.rxyor.carp.ddd.insfrastructure.controller.user;
+package com.github.rxyor.carp.ddd.insfrastructure.controller.permission;
 
-import com.github.rxyor.carp.ddd.application.command.user.SaveUserCmd;
-import com.github.rxyor.carp.ddd.application.service.user.UserCmdService;
-import com.github.rxyor.carp.ddd.insfrastructure.controller.user.request.SaveUserReq;
-import com.github.rxyor.carp.ddd.insfrastructure.controller.user.request.SaveUserReqMapper;
+import com.github.rxyor.carp.ddd.application.command.permission.SavePermissionCmd;
+import com.github.rxyor.carp.ddd.application.service.permission.PermissionCmdService;
+import com.github.rxyor.carp.ddd.insfrastructure.controller.permission.request.SavePermissionReq;
+import com.github.rxyor.carp.ddd.insfrastructure.controller.permission.request.SavePermissionReqMapper;
 import com.github.rxyor.common.core.model.R;
 import com.google.common.base.Preconditions;
 import io.swagger.annotations.Api;
@@ -23,22 +23,22 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/12/27 周五 18:38:00
  * @since 1.0.0
  */
-@Api(tags = "用户")
+@Api(tags = "权限")
 @AllArgsConstructor
 @RestController
-@RequestMapping("/ums/user")
-public class UserController {
+@RequestMapping("/ums/permission")
+public class PermissionController {
 
-    private final UserCmdService userCmdService;
+    private final PermissionCmdService permissionCmdService;
 
     @ApiOperation("保存用户")
     @PostMapping("/save")
     public R<Object> save(
-        @RequestBody SaveUserReq req) {
+        @RequestBody SavePermissionReq req) {
         Preconditions.checkNotNull(req, "请求参数不能为空");
 
-        SaveUserCmd cmd = SaveUserReqMapper.INSTANCE.toSaveUserCmd(req);
-        userCmdService.save(cmd);
+        SavePermissionCmd cmd = SavePermissionReqMapper.INSTANCE.toSavePermissionCmd(req);
+        permissionCmdService.save(cmd);
         return R.success("ok");
     }
 }

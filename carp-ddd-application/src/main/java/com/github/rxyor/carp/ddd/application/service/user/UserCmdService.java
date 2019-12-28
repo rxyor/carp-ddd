@@ -3,6 +3,7 @@ package com.github.rxyor.carp.ddd.application.service.user;
 import com.github.rxyor.carp.ddd.application.command.user.SaveUserCmd;
 import com.github.rxyor.carp.ddd.domain.user.User;
 import com.github.rxyor.carp.ddd.domain.user.UserRepository;
+import com.github.rxyor.carp.ddd.shared.common.support.uitl.BizUidGenerator;
 import com.google.common.base.Preconditions;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,7 @@ public class UserCmdService {
             "用户信息不能为空");
 
         User user = UserMapper.INSTANCE.from(cmd);
+        user.setUsername(BizUidGenerator.nextUid());
         return userRepository.save(user);
     }
 
