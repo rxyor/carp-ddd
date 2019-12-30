@@ -14,7 +14,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date 2019/12/30 周一 09:39:00
  * @since 1.0.0
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+    "com.github.rxyor.carp.auth"
+})
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = {
     "com.github.rxyor.carp.ums.api"

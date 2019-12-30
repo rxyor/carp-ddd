@@ -1,5 +1,6 @@
 package com.github.rxyor.carp.auth.security.support.oauth2;
 
+import com.github.rxyor.carp.auth.security.config.CarpAuthClientProperties;
 import com.github.rxyor.carp.auth.security.consts.SecurityConst.Prefix;
 import com.github.rxyor.carp.ums.api.dto.ums.PermissionRetDTO;
 import com.github.rxyor.carp.ums.api.dto.ums.RoleRetDTO;
@@ -17,7 +18,6 @@ import java.util.Optional;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -38,11 +38,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @AllArgsConstructor
 public class CarpUserDetailsService implements UserDetailsService {
 
+    private final CarpAuthClientProperties carpAuthClientProperties;
+
     private final UserFeignService userFeignService;
-
-    @Value("${carp.security.oauth2.client.access-token-validity-seconds:3600}")
-    private final Integer clientAccessTokenValiditySeconds;
-
 
     @CacheableTtl(cacheNames = "CarpUserDetailsService", ttl = 600)
     @Override

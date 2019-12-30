@@ -1,7 +1,6 @@
 package com.github.rxyor.carp.auth.security.config;
 
 import com.github.rxyor.carp.auth.security.support.redis.FastjsonRedisTokenStoreSerializationStrategy;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +17,6 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
  * @date 2019/12/29 周日 23:12:00
  * @since 1.0.0
  */
-@AllArgsConstructor
 @Configuration
 public class RedisStoreConfig {
 
@@ -26,6 +24,12 @@ public class RedisStoreConfig {
     private final String appName;
 
     private final RedisConnectionFactory redisConnectionFactory;
+
+    public RedisStoreConfig(@Value("${spring.application.name:carp-auth}") String appName,
+        RedisConnectionFactory redisConnectionFactory) {
+        this.appName = appName;
+        this.redisConnectionFactory = redisConnectionFactory;
+    }
 
     @Bean
     @Primary
