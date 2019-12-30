@@ -11,5 +11,28 @@
 
     <artifactId>carp-ums-api</artifactId>
 
+    <dependencies>
 
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-common-core</artifactId>
+        </dependency>
+
+        <!--util-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!--feign 依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+        </dependency>
+
+    </dependencies>
 </project>

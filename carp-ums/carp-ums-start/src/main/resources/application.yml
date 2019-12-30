@@ -3,9 +3,14 @@ server:
 
 spring:
   application:
-    name: carp-ddd
+    name: carp-ums
   profiles:
     include: redis,jdbc,mybatis
+  cloud:
+    zookeeper:
+      connect-string: test.dev:2181
+      discovery:
+        enabled: true
 logging:
   config: classpath:config/properties/log4j2.properties
   file:

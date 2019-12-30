@@ -55,7 +55,10 @@
         </dependency>
 
         <!--spring cloud-->
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
+        </dependency>
         <!--spring boot-->
         <!--web-->
         <dependency>
