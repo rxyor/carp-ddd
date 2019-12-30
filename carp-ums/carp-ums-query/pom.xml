@@ -11,5 +11,11 @@
 
     <artifactId>carp-ums-query</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-ums-shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

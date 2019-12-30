@@ -1,6 +1,6 @@
 package com.github.rxyor.carp.query.service.user;
 
-import com.github.rxyor.carp.api.dto.ums.UserRetDTO;
+import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
 
 /**
  *<p>

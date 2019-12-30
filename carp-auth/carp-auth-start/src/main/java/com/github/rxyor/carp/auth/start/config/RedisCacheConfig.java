@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.ums.start.config;
+package com.github.rxyor.carp.auth.start.config;
 
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 import com.github.rxyor.spring.boot.cacheablettl.TtlRedisCacheManager;
@@ -18,7 +18,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 @Configuration
 public class RedisCacheConfig {
 
-    @Value("${spring.application.name:carp-ums}")
+    @Value("${spring.application.name:carp-auth}")
     private String appName;
 
     @SuppressWarnings("unchecked")

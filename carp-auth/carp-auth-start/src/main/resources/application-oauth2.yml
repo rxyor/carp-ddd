@@ -1,0 +1,9 @@
+carp:
+  security:
+    oauth2:
+      client:
+        refresh-token-validity-seconds: 86400
+        authorized-grant-types: password,authorization_code,refresh_token,implicit,client_credentials
+        access-token-validity-seconds: 3600
+        client-secret: {noop}secret
+        scope: read,write,trust

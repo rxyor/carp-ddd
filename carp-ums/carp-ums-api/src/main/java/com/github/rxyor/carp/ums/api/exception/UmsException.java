@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.api.exception;
+package com.github.rxyor.carp.ums.api.exception;
 
 import com.github.rxyor.common.core.enums.KeyValue;
 import com.github.rxyor.common.core.exception.RpcInvokeException;

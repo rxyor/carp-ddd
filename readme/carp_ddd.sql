@@ -150,4 +150,34 @@ INSERT INTO `user_role_link` VALUES (1, 1, 1, '2019-12-27 17:16:30');
 INSERT INTO `user_role_link` VALUES (2, 1, 2, '2019-12-27 17:16:36');
 COMMIT;
 
+
+DROP TABLE IF EXISTS `oauth_client_details`;
+CREATE TABLE `oauth_client_details`
+(
+    `client_id`               varchar(32) NOT NULL COMMENT '客户端ID(Http Basic 用户名)',
+    `client_secret`           varchar(256)  DEFAULT NULL COMMENT '客户端密码(Http Basic 密码)',
+    `authorized_grant_types`  varchar(256)  DEFAULT NULL COMMENT '(Http Basic)认证方式(可多选),[password:密码,authorization_code:授权码,refresh_token:刷新令牌,implicit:隐式,client_credentials:客户端证书\n]',
+    `scope`                   varchar(256)  DEFAULT NULL COMMENT '可访问范围',
+    `authorities`             varchar(512)  DEFAULT NULL COMMENT '权限(client_credentials授权方式不会读取用户权限，会该权限）',
+    `resource_ids`            varchar(256)  DEFAULT NULL COMMENT '资源ID',
+    `access_token_validity`   int(11)       DEFAULT NULL COMMENT '令牌时效(秒)',
+    `refresh_token_validity`  int(11)       DEFAULT NULL COMMENT '刷新令牌时效(秒)',
+    `autoapprove`             varchar(32)   DEFAULT NULL COMMENT '授权码认证方式(单选)[true,false,read,write]',
+    `web_server_redirect_uri` varchar(512)  DEFAULT NULL COMMENT '授权码模式跳转URL',
+    `additional_information`  varchar(4096) DEFAULT NULL COMMENT '附件信息',
+    PRIMARY KEY (`client_id`),
+    KEY `idx_grant_type` (`authorized_grant_types`) USING BTREE,
+    KEY `idx_authorities` (`authorities`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  ROW_FORMAT = DYNAMIC COMMENT ='客户端信息表';
+
+-- ----------------------------
+-- Records of sys_oauth_client_details
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_oauth_client_details`
+VALUES ('carp', 'carp', 'password,refresh_token,authorization_code,client_credentials',
+        'server', 'ROLE_ADMIN', 'ums', 86400, 2592000, 'true', NULL, NULL);
+COMMIT;
 SET FOREIGN_KEY_CHECKS = 1;

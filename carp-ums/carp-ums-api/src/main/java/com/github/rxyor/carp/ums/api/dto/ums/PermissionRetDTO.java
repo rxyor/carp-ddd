@@ -1,9 +1,7 @@
-package com.github.rxyor.carp.api.dto.ums;
+package com.github.rxyor.carp.ums.api.dto.ums;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import lombok.Data;
 
 /**
@@ -16,27 +14,27 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
-public class RoleRetDTO implements Serializable {
+public class PermissionRetDTO implements Serializable {
 
-    private static final long serialVersionUID = 3339586648362111817L;
+    private static final long serialVersionUID = -7350242108052033850L;
 
     /**
-     * 角色id
+     * 权限id
      */
     private Long id;
 
     /**
-     * 角色编码
+     * 权限编码
      */
-    private String roleCode;
+    private String permissionCode;
 
     /**
-     * 角色名称
+     * 权限名称
      */
-    private String roleName;
+    private String permissionName;
 
     /**
-     * 角色描述
+     * 权限描述
      */
     private String remark;
 
@@ -54,11 +52,4 @@ public class RoleRetDTO implements Serializable {
      * 更新时间
      */
     private Date updateTime;
-
-    /**
-     * 权限列表
-     */
-    private List<PermissionRetDTO> permissionList = new ArrayList<>(8);
-
-
 }

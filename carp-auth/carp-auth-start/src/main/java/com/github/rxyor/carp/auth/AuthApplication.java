@@ -2,6 +2,8 @@ package com.github.rxyor.carp.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  *<p>
@@ -13,6 +15,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 1.0.0
  */
 @SpringBootApplication
+@EnableDiscoveryClient
+@EnableFeignClients(basePackages = {
+    "com.github.rxyor.carp.ums.api"
+})
 public class AuthApplication {
 
     public static void main(String[] args) {

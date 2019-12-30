@@ -1,0 +1,7 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: ddd-auth
+  profiles:
+    include: jdbc,redis,oauth2

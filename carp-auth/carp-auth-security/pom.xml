@@ -30,6 +30,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-cacheablettl-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-common-support</artifactId>
+        </dependency>
+
+        <!--feign api-->
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-ums-api</artifactId>
+        </dependency>
 
     </dependencies>
 

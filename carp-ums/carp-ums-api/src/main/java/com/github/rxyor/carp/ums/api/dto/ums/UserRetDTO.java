@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.api.dto.ums;
+package com.github.rxyor.carp.ums.api.dto.ums;
 
 import java.io.Serializable;
 import java.util.ArrayList;

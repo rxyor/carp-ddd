@@ -48,8 +48,14 @@
             <artifactId>carp-snowflake</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
+        <!--feign api-->
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-ums-api</artifactId>
         </dependency>
     </dependencies>
 </project>

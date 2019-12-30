@@ -28,7 +28,7 @@
         <maven-war-plugin.version>3.2.0</maven-war-plugin.version>
         <!--dependency-->
         <HikariCP.version>3.4.1</HikariCP.version>
-        <carp.version>1.0.14.2</carp.version>
+        <carp.version>1.0.14.4</carp.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <fastjson.version>1.2.58</fastjson.version>
@@ -52,7 +52,15 @@
         <springfox-swagger2.version>2.6.0</springfox-swagger2.version>
     </properties>
     <dependencyManagement>
+
         <dependencies>
+            <!--modules-->
+            <dependency>
+                <groupId>com.github.rxyor</groupId>
+                <artifactId>carp-ums-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!--junit5单元测试-->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
@@ -286,7 +294,7 @@
                 <version>${carp.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.hibernate</groupId>
+                <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate-validator.version}</version>
             </dependency>

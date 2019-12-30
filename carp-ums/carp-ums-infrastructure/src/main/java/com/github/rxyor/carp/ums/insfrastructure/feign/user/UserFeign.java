@@ -1,6 +1,6 @@
 package com.github.rxyor.carp.ums.insfrastructure.feign.user;
 
-import com.github.rxyor.carp.api.dto.ums.UserRetDTO;
+import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
 import com.github.rxyor.carp.query.service.user.UserQryService;
 import com.github.rxyor.common.core.model.R;
 import io.swagger.annotations.Api;
