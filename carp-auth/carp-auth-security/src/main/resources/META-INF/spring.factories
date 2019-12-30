@@ -1,3 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.github.rxyor.carp.auth.security.config.CarpAuthResourceProperties,\
-  com.github.rxyor.carp.auth.security.config.CarpAuthClientProperties
+  com.github.rxyor.carp.auth.security.config.CarpAuthAutoConfig

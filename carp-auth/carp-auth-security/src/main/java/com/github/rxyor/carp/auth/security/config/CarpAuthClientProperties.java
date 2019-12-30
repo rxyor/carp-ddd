@@ -1,10 +1,7 @@
 package com.github.rxyor.carp.auth.security.config;
 
 import lombok.Data;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.context.annotation.Configuration;
 
 /**
  *<p>
@@ -16,9 +13,6 @@ import org.springframework.context.annotation.Configuration;
  * @since 1.0.0
  */
 @Data
-@Configuration
-@RefreshScope
-@ConditionalOnExpression("!'{carp.security.oauth2.client}'.isEmpty()")
 @ConfigurationProperties(prefix = "carp.security.oauth2.client")
 public class CarpAuthClientProperties {
 
