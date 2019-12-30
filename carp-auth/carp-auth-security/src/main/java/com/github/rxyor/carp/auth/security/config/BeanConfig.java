@@ -1,7 +1,9 @@
 package com.github.rxyor.carp.auth.security.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.rxyor.carp.auth.security.support.oauth2.CarpClientDetailsService;
 import com.github.rxyor.carp.auth.security.support.oauth2.CarpUserDetailsService;
+import com.github.rxyor.carp.auth.security.support.oauth2.ResourceAuthExceptionEntryPoint;
 import com.github.rxyor.carp.ums.api.feign.user.UserFeignService;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
@@ -30,8 +32,14 @@ public class BeanConfig {
 
     @Bean
     @Primary
-    public CarpClientDetailsService carpClientDetailsService(DataSource dataSource){
+    public CarpClientDetailsService carpClientDetailsService(DataSource dataSource) {
         return new CarpClientDetailsService(dataSource);
+    }
+
+    @Bean
+    @Primary
+    public ResourceAuthExceptionEntryPoint resourceAuthExceptionEntryPoint(ObjectMapper objectMapper) {
+        return new ResourceAuthExceptionEntryPoint(objectMapper);
     }
 
 }

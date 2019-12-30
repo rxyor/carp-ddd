@@ -47,6 +47,10 @@
             <groupId>com.github.rxyor</groupId>
             <artifactId>carp-common-support</artifactId>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
 
         <!--feign api-->
         <dependency>
