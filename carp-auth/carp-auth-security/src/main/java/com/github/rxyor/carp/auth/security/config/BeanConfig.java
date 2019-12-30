@@ -6,6 +6,7 @@ import com.github.rxyor.carp.auth.security.support.oauth2.CarpUserDetailsService
 import com.github.rxyor.carp.auth.security.support.oauth2.ResourceAuthExceptionEntryPoint;
 import com.github.rxyor.carp.ums.api.feign.user.UserFeignService;
 import javax.sql.DataSource;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -40,6 +41,12 @@ public class BeanConfig {
     @Primary
     public ResourceAuthExceptionEntryPoint resourceAuthExceptionEntryPoint(ObjectMapper objectMapper) {
         return new ResourceAuthExceptionEntryPoint(objectMapper);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public SwaggerConfig swaggerConfig(){
+        return new SwaggerConfig();
     }
 
 }

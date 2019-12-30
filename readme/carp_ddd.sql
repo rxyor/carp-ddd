@@ -176,7 +176,7 @@ CREATE TABLE `oauth_client_details`
 -- Records of sys_oauth_client_details
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_oauth_client_details`
+INSERT INTO `oauth_client_details`
 VALUES ('carp', 'carp', 'password,refresh_token,authorization_code,client_credentials',
         'server', 'ROLE_ADMIN', 'ums', 86400, 2592000, 'true', NULL, NULL);
 COMMIT;

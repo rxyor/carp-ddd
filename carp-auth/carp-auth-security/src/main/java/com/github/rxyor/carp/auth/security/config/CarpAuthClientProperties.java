@@ -45,12 +45,12 @@ public class CarpAuthClientProperties {
     /**
      * access token 生命周期
      */
-    private Long accessTokenValiditySeconds = 3600L;
+    private Integer accessTokenValiditySeconds = 3600;
 
     /**
      * refresh token 生命周期
      */
-    private Long refreshTokenValiditySeconds = 30 * 86400L;
+    private Integer refreshTokenValiditySeconds = 30 * 86400;
 
     /**
      * 是否支持refresh token
