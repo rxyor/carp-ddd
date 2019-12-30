@@ -8,14 +8,8 @@
     <artifactId>carp-ddd-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>carp-ddd-start</module>
-        <module>carp-ddd-shared</module>
-        <module>carp-ddd-domain</module>
-        <module>carp-ddd-application</module>
-        <module>carp-ddd-insfrastructure</module>
-        <module>carp-ddd-query</module>
         <module>carp-auth</module>
-        <module>carp-ddd-api</module>
+        <module>carp-ums</module>
     </modules>
     <packaging>pom</packaging>
     <name>carp-ddd</name>

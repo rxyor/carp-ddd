@@ -22,7 +22,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 @Configuration
 public class RedisStoreConfig {
 
-    @Value("${spring.application.name:carp}")
+    @Value("${spring.application.name:carp-auth}")
     private final String appName;
 
     private final RedisConnectionFactory redisConnectionFactory;
