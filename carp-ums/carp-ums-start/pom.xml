@@ -54,6 +54,8 @@
             <scope>test</scope>
         </dependency>
 
+        <!--spring cloud-->
+
         <!--spring boot-->
         <!--web-->
         <dependency>
