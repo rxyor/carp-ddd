@@ -20,4 +20,11 @@
         <module>carp-ums-api</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-ums-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
