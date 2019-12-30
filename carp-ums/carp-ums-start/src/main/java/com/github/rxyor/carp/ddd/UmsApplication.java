@@ -13,9 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 1.0.0
  */
 @SpringBootApplication
-public class Bootstrap {
+public class UmsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Bootstrap.class);
+        SpringApplication.run(UmsApplication.class);
     }
 }

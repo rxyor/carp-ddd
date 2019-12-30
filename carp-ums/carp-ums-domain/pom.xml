@@ -3,18 +3,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>carp-ddd-parent</artifactId>
+        <artifactId>carp-ums</artifactId>
         <groupId>com.github.rxyor</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>carp-ddd-domain</artifactId>
+    <artifactId>carp-ums-domain</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.github.rxyor</groupId>
-            <artifactId>carp-ddd-shared</artifactId>
+            <artifactId>carp-ums-shared</artifactId>
             <version>${project.version}</version>
         </dependency>
 

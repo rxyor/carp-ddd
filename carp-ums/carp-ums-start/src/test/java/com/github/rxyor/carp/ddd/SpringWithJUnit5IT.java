@@ -16,7 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  * @date 2019/10/6 周日 13:44:00
  * @since 1.0.0
  */
-@SpringBootTest(classes = {Bootstrap.class})
+@SpringBootTest(classes = {UmsApplication.class})
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 public class SpringWithJUnit5IT extends JUnit5IT {
