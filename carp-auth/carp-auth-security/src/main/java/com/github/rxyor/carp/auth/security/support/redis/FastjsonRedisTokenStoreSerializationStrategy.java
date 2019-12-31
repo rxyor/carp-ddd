@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 
 /**
  *<p>
- *
+ * Fastjson序列化会导致异常
  *</p>
  *
  * @author liuyang
@@ -56,12 +56,13 @@ public class FastjsonRedisTokenStoreSerializationStrategy implements RedisTokenS
 
     @Override
     public byte[] serialize(Object object) {
-        if(object==null){
+        if (object == null) {
             return new byte[0];
         }
 
         try {
-            return JSON.toJSONBytes(object, SerializerFeature.WriteClassName);
+            return JSON.toJSONBytes(object, SerializerFeature.WriteClassName,
+                SerializerFeature.DisableCircularReferenceDetect);
         } catch (Exception ex) {
             throw new SerializationException("Could not serialize: " + ex.getMessage(), ex);
         }
@@ -69,7 +70,7 @@ public class FastjsonRedisTokenStoreSerializationStrategy implements RedisTokenS
 
     @Override
     public byte[] serialize(String data) {
-        if(data==null||data.length()==0){
+        if (data == null || data.length() == 0) {
             return new byte[0];
         }
 

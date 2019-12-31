@@ -5,7 +5,10 @@ import com.github.rxyor.carp.auth.security.support.oauth2.CarpClientDetailsServi
 import com.github.rxyor.carp.auth.security.support.oauth2.CarpUserDetailsService;
 import com.github.rxyor.carp.auth.security.support.oauth2.ResourceAuthExceptionEntryPoint;
 import com.github.rxyor.carp.ums.api.feign.user.UserFeignService;
+import com.github.rxyor.common.support.util.RedisKeyBuilder;
 import javax.sql.DataSource;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,12 +26,16 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class BeanConfig {
 
+    @Value("${spring.application.name}")
+    private String appName;
+
     @Bean
     @Primary
     public CarpUserDetailsService carpUserDetailsService(
         UserFeignService userFeignService,
-        CarpAuthClientProperties carpAuthClientProperties) {
-        return new CarpUserDetailsService(carpAuthClientProperties, userFeignService);
+        CarpAuthClientProperties carpAuthClientProperties,
+        RedissonClient redissonClient) {
+        return new CarpUserDetailsService(carpAuthClientProperties, userFeignService, redissonClient);
     }
 
     @Bean
@@ -45,8 +52,14 @@ public class BeanConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public SwaggerConfig swaggerConfig(){
+    public SwaggerConfig swaggerConfig() {
         return new SwaggerConfig();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public RedisKeyBuilder redisKeyBuilder() {
+        return new RedisKeyBuilder(appName, "::");
     }
 
 }

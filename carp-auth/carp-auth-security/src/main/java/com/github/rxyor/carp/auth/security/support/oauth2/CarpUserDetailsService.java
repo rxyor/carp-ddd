@@ -10,19 +10,22 @@ import com.github.rxyor.carp.ums.api.feign.user.UserFeignService;
 import com.github.rxyor.common.core.exception.BizException;
 import com.github.rxyor.common.core.model.R;
 import com.github.rxyor.common.support.util.CryptoUtil;
-import com.github.rxyor.spring.boot.cacheablettl.CacheableTtl;
+import com.github.rxyor.common.support.util.RedisKeyBuilder;
+import com.github.rxyor.common.util.lang2.BeanUtil;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.api.RBucket;
+import org.redisson.api.RedissonClient;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -41,30 +44,40 @@ public class CarpUserDetailsService implements UserDetailsService {
     private final CarpAuthClientProperties carpAuthClientProperties;
 
     private final UserFeignService userFeignService;
+    private final RedissonClient redissonClient;
 
-    @CacheableTtl(cacheNames = "CarpUserDetailsService", ttl = 600)
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        R<UserRetDTO> ret = userFeignService.get(username, CryptoUtil.sign(60L));
-        if (!R.isRequestSuccessCanNotNullData(ret)) {
-            throw new BizException("请求用户信息失败");
+    public Oauth2User loadUserByUsername(String username) throws UsernameNotFoundException {
+        final String key = RedisKeyBuilder.append("CarpUserDetailsService#" + username);
+        RBucket<Oauth2User> bucket = redissonClient.getBucket(key);
+        if (!bucket.isExists()) {
+            R<UserRetDTO> ret = userFeignService.get(username, CryptoUtil.sign(60L));
+            if (!R.isRequestSuccessCanNotNullData(ret)) {
+                throw new BizException("请求用户信息失败");
+            }
+            Oauth2User user = this.toCarpUser(ret.getData());
+            if (user != null) {
+                bucket.set(user);
+                bucket.expire(carpAuthClientProperties.getAccessTokenValiditySeconds().longValue(), TimeUnit.SECONDS);
+            }
+            return user;
         }
-        return this.toCarpUser(ret.getData());
+        return bucket.get();
     }
 
-    private UserDetails toCarpUser(UserRetDTO user) {
+    private Oauth2User toCarpUser(UserRetDTO user) {
         if (user == null) {
             return null;
         }
-        List<GrantedAuthority> authorities = this.getRoles(user);
-        return User.builder()
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        authorities.addAll(BeanUtil.copy(this.getRoles(user), SimpleGrantedAuthority.class));
+        return Oauth2User.builder()
             .username(user.getUsername())
             .password(user.getPassword())
-            .disabled(DisableEnum.DISABLE.getCode().equals(user.getDisable()))
-            .accountExpired(false)
-            .accountLocked(false)
-            .credentialsExpired(false)
+            .enabled(DisableEnum.ENABLE.getCode().equals(user.getDisable()))
+            .accountNonExpired(true)
+            .accountNonLocked(true)
+            .credentialsNonExpired(true)
             .authorities(authorities)
             .build();
     }
@@ -72,7 +85,7 @@ public class CarpUserDetailsService implements UserDetailsService {
     /**
      *获取用户的角色和权限
      *添加角色，角色需要加"ROLE_"前缀，原因：
-     * 见{@link  ExpressionUrlAuthorizationConfigurer#hasRole(String)} )}
+     * 见{@link  ExpressionUrlAuthorizationConfigurer}
      *
      * @author liuyang
      * @date 2019-04-07 Sun 17:55:03

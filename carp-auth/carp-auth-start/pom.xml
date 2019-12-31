@@ -71,7 +71,10 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-redisson-starter</artifactId>
+        </dependency>
 
         <!--feign api-->
         <dependency>

@@ -50,6 +50,10 @@
         </dependency>
         <dependency>
             <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-common-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
             <artifactId>carp-common-support</artifactId>
         </dependency>
         <dependency>

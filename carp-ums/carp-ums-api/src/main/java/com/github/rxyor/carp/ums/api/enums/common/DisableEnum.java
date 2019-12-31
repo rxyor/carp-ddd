@@ -17,7 +17,7 @@ import lombok.ToString;
 public enum DisableEnum implements KeyValue<Integer> {
 
     DISABLE(1, "禁用"),
-    ENABLE(1, "禁用"),
+    ENABLE(0, "启用"),
     ;
     @Getter
     private Integer code;

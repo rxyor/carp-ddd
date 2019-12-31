@@ -1,6 +1,5 @@
 package com.github.rxyor.carp.auth.security.config;
 
-import com.github.rxyor.carp.auth.security.support.redis.FastjsonRedisTokenStoreSerializationStrategy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +35,6 @@ public class RedisStoreConfig {
     public RedisTokenStore redisTokenStore() {
         RedisTokenStore store = new RedisTokenStore(redisConnectionFactory);
         store.setPrefix(appName + "::" + "auth:");
-        store.setSerializationStrategy(new FastjsonRedisTokenStoreSerializationStrategy());
         return store;
     }
 
