@@ -38,7 +38,6 @@ public class SwaggerConfig {
         "/oauth/check_token",
         "/oauth/authorize",
         "/actuator"
-
     );
 
 
@@ -132,7 +131,7 @@ public class SwaggerConfig {
         Contact contact = new Contact("巷子外的人",
             "https://blog.csdn.net/liuyanglglg", "rxyor@outlook.com");
         return new ApiInfoBuilder()
-            .title("shield cloud api")
+            .title("carp cloud api")
             .contact(contact)
             .version("1.0")
             .build();
