@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019-04-23 Tue 15:57:00
  * @since 1.0.0
  */
-@Api(tags = "token操作")
+@Api(tags = "Oauth2 Token")
 @RestController
 @RequestMapping("/oauth2")
 public class CarpTokenPoint {

@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.auth.security.support.oauth2;
+package com.github.rxyor.carp.auth.security.support.oauth2.provider;
 
 import javax.sql.DataSource;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;

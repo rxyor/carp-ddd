@@ -1,6 +1,7 @@
-package com.github.rxyor.carp.auth.security.support.oauth2;
+package com.github.rxyor.carp.auth.security.support.oauth2.resource;
 
 import com.github.rxyor.carp.auth.security.config.CarpAuthResourceProperties;
+import com.github.rxyor.carp.auth.security.support.security.web.ResourceAuthExceptionEntryPoint;
 import java.io.IOException;
 import javax.annotation.Resource;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

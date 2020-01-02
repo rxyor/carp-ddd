@@ -1,7 +1,6 @@
 package com.github.rxyor.carp.auth.security.exception;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.github.rxyor.carp.auth.security.exhandler.CarpOauth2ExceptionSerializer;
 import com.github.rxyor.common.core.enums.KeyValue;
 import org.springframework.http.HttpStatus;
 

@@ -2,8 +2,8 @@ package com.github.rxyor.carp.auth.start.config;
 
 import com.github.rxyor.carp.auth.security.config.CarpAuthClientProperties;
 import com.github.rxyor.carp.auth.security.consts.SecurityConst.TokenAccess;
-import com.github.rxyor.carp.auth.security.exhandler.CarpWebResponseExceptionTranslator;
-import com.github.rxyor.carp.auth.security.support.oauth2.CarpClientDetailsService;
+import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpWebResponseExceptionTranslator;
+import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpClientDetailsService;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

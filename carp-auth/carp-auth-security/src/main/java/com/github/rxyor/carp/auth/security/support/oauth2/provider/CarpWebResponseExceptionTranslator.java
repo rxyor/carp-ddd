@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.auth.security.exhandler;
+package com.github.rxyor.carp.auth.security.support.oauth2.provider;
 
 
 import com.github.rxyor.carp.auth.security.exception.CarpOauth2Exception;

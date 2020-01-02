@@ -1,9 +1,8 @@
-package com.github.rxyor.carp.auth.security.exhandler;
+package com.github.rxyor.carp.auth.security.exception;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.github.rxyor.carp.auth.security.exception.CarpOauth2Exception;
 import java.io.IOException;
 import lombok.EqualsAndHashCode;
 

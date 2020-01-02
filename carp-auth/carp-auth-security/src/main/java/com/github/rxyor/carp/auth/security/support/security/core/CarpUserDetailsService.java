@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.auth.security.support.oauth2;
+package com.github.rxyor.carp.auth.security.support.security.core;
 
 import com.github.rxyor.carp.auth.security.config.CarpAuthClientProperties;
 import com.github.rxyor.carp.auth.security.consts.SecurityConst.Prefix;

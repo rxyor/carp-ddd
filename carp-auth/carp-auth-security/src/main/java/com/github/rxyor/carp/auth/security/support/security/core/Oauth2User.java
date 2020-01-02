@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.auth.security.support.oauth2;
+package com.github.rxyor.carp.auth.security.support.security.core;
 
 import java.io.Serializable;
 import java.util.Collection;

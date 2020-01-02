@@ -1,7 +1,7 @@
 package com.github.rxyor.carp.auth.start.config;
 
-import com.github.rxyor.carp.auth.security.support.oauth2.CarpUserDetailsService;
-import com.github.rxyor.carp.auth.security.support.oauth2.NonPasswordEncoder;
+import com.github.rxyor.carp.auth.security.support.security.core.CarpUserDetailsService;
+import com.github.rxyor.carp.auth.security.support.security.crypto.NonPasswordEncoder;
 import javax.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;

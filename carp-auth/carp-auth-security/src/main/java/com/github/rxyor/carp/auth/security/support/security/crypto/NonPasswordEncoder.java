@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.auth.security.support.oauth2;
+package com.github.rxyor.carp.auth.security.support.security.crypto;
 
 import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
