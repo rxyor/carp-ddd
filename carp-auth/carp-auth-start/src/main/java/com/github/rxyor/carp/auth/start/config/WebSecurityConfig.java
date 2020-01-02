@@ -40,7 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.httpBasic();
         http.authorizeRequests()
-            .antMatchers("/oauth/token").permitAll();
+            .antMatchers("/oauth/token").permitAll()
+            .antMatchers("/oauth2/token/access").permitAll();
     }
 
     @Override

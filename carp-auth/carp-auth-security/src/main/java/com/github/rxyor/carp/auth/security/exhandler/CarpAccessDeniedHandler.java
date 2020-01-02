@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
-import org.springframework.stereotype.Component;
 
 /**
  *<p>
@@ -26,7 +25,6 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Slf4j
-@Component
 @AllArgsConstructor
 public class CarpAccessDeniedHandler extends OAuth2AccessDeniedHandler {
 

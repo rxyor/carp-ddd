@@ -3,14 +3,21 @@ package com.github.rxyor.carp.auth.start.endpoint;
 import com.github.rxyor.common.core.model.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import java.security.Principal;
+import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -24,11 +31,14 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "token操作")
 @RestController
-@AllArgsConstructor
-@RequestMapping("/oauth")
+@RequestMapping("/oauth2")
 public class CarpTokenPoint {
 
-    private final TokenStore tokenStore;
+    @Autowired
+    private TokenStore tokenStore;
+
+    @Autowired
+    private TokenEndpoint tokenEndpoint;
 
     @ApiOperation(value = "移除当前登录用户Token", httpMethod = "POST")
     @PostMapping("/token/remove")
@@ -45,4 +55,17 @@ public class CarpTokenPoint {
         return R.success(Boolean.TRUE);
     }
 
+    @RequestMapping(value = "/token/access", method = RequestMethod.GET)
+    public R<OAuth2AccessToken> getAccessToken(Principal principal, @RequestParam
+        Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+        ResponseEntity<OAuth2AccessToken> ret = tokenEndpoint.getAccessToken(principal, parameters);
+        return R.success(ret.getBody());
+    }
+
+    @RequestMapping(value = "/token/access", method = RequestMethod.POST)
+    public R<OAuth2AccessToken> postAccessToken(Principal principal, @RequestParam
+        Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+        ResponseEntity<OAuth2AccessToken> ret = tokenEndpoint.postAccessToken(principal, parameters);
+        return R.success(ret.getBody());
+    }
 }

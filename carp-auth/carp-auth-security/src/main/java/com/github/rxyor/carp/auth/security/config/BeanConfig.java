@@ -1,6 +1,8 @@
 package com.github.rxyor.carp.auth.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.rxyor.carp.auth.security.exhandler.CarpAccessDeniedHandler;
+import com.github.rxyor.carp.auth.security.exhandler.CarpWebResponseExceptionTranslator;
 import com.github.rxyor.carp.auth.security.support.oauth2.CarpClientDetailsService;
 import com.github.rxyor.carp.auth.security.support.oauth2.CarpUserDetailsService;
 import com.github.rxyor.carp.auth.security.support.oauth2.ResourceAuthExceptionEntryPoint;
@@ -60,6 +62,16 @@ public class BeanConfig {
     @ConditionalOnMissingBean
     public RedisKeyBuilder redisKeyBuilder() {
         return new RedisKeyBuilder(appName, "::");
+    }
+
+    @Bean
+    public CarpWebResponseExceptionTranslator webResponseExceptionTranslator(){
+        return new CarpWebResponseExceptionTranslator();
+    }
+
+    @Bean
+    public CarpAccessDeniedHandler accessDeniedHandler(ObjectMapper objectMapper){
+        return new CarpAccessDeniedHandler(objectMapper);
     }
 
 }
