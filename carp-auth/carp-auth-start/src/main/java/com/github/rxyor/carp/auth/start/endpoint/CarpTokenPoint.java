@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -69,8 +70,13 @@ public class CarpTokenPoint {
         return R.success(ret.getBody());
     }
 
-    @RequestMapping(value = "/token/detail",method = RequestMethod.GET)
+    @RequestMapping(value = "/token/detail", method = RequestMethod.GET)
     public R<OAuth2AccessToken> detail(String accessToken) {
         return R.success(tokenStore.readAccessToken(accessToken));
+    }
+
+    @RequestMapping(value = "/token/refresh", method = RequestMethod.GET)
+    public R<OAuth2RefreshToken> getRefreshToken(String refreshToken) {
+        return R.success(tokenStore.readRefreshToken(refreshToken));
     }
 }

@@ -1,6 +1,8 @@
 package com.github.rxyor.carp.auth.security.config;
 
+import com.alibaba.fastjson.parser.ParserConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.rxyor.carp.auth.security.support.oauth2.common.DefaultOauth2RefreshTokenSerializer;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpAccessDeniedHandler;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpClientDetailsService;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpWebResponseExceptionTranslator;
@@ -15,6 +17,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
 
 /**
  *<p>
@@ -26,7 +29,17 @@ import org.springframework.context.annotation.Primary;
  * @since 1.0.0
  */
 @Configuration
-public class BeanConfig {
+public class Oauth2BeanConfig {
+
+    protected static void init() {
+        //自定义oauth2序列化：DefaultOAuth2RefreshToken 没有setValue方法，会导致JSON序列化为null
+        ParserConfig.getGlobalInstance().putDeserializer(
+            DefaultOAuth2RefreshToken.class, new DefaultOauth2RefreshTokenSerializer());
+    }
+
+    static {
+        init();
+    }
 
     @Value("${spring.application.name}")
     private String appName;
@@ -65,12 +78,12 @@ public class BeanConfig {
     }
 
     @Bean
-    public CarpWebResponseExceptionTranslator webResponseExceptionTranslator(){
+    public CarpWebResponseExceptionTranslator webResponseExceptionTranslator() {
         return new CarpWebResponseExceptionTranslator();
     }
 
     @Bean
-    public CarpAccessDeniedHandler accessDeniedHandler(ObjectMapper objectMapper){
+    public CarpAccessDeniedHandler accessDeniedHandler(ObjectMapper objectMapper) {
         return new CarpAccessDeniedHandler(objectMapper);
     }
 }
