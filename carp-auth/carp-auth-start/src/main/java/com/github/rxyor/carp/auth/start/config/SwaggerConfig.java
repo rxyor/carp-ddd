@@ -1,10 +1,11 @@
-package com.github.rxyor.carp.auth.security.config;
+package com.github.rxyor.carp.auth.start.config;
 
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
@@ -28,6 +29,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @date 2018-12-07 Fri 13:27:46
  * @since 1.0.0
  */
+@Configuration
 @EnableWebMvc
 @EnableSwagger2
 public class SwaggerConfig {

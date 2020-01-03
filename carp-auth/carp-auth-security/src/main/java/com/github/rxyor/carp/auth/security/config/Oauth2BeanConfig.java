@@ -67,12 +67,6 @@ public class Oauth2BeanConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public SwaggerConfig swaggerConfig() {
-        return new SwaggerConfig();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
     public RedisKeyBuilder redisKeyBuilder() {
         return new RedisKeyBuilder(appName, "::");
     }
