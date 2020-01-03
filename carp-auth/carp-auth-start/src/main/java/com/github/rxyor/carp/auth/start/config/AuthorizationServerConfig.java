@@ -2,10 +2,12 @@ package com.github.rxyor.carp.auth.start.config;
 
 import com.github.rxyor.carp.auth.security.config.CarpAuthClientProperties;
 import com.github.rxyor.carp.auth.security.consts.SecurityConst.TokenAccess;
-import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpWebResponseExceptionTranslator;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpClientDetailsService;
+import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpTokenEnhancer;
+import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpWebResponseExceptionTranslator;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +19,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
  *<p>
@@ -36,8 +38,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Resource
     private CarpAuthClientProperties carpAuthClientProperties;
 
-    @Resource
-    private RedisTokenStore redisTokenStore;
+    @Autowired
+    private TokenStore tokenStore;
 
     @Resource
     private DataSource dataSource;
@@ -71,7 +73,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     public AuthorizationServerTokenServices authorizationServerTokenServices() {
         DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setTokenStore(redisTokenStore);
+        tokenServices.setTokenEnhancer(new CarpTokenEnhancer());
+        tokenServices.setTokenStore(tokenStore);
         tokenServices.setAccessTokenValiditySeconds(carpAuthClientProperties.getAccessTokenValiditySeconds());
         tokenServices.setRefreshTokenValiditySeconds(carpAuthClientProperties.getRefreshTokenValiditySeconds());
         tokenServices.setSupportRefreshToken(carpAuthClientProperties.getSupportRefreshToken());
@@ -89,11 +92,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-            .pathMapping("/oauth/token","/oauth2/token/access")
+            .pathMapping("/oauth/token", "/oauth2/token/access")
             .authenticationManager(authenticationManager)
             .tokenServices(authorizationServerTokenServices())
             .userDetailsService(userDetailsService)
-            .tokenStore(redisTokenStore)
+            .tokenStore(tokenStore)
             .exceptionTranslator(new CarpWebResponseExceptionTranslator());
     }
 

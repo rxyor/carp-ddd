@@ -2,8 +2,8 @@ package com.github.rxyor.carp.auth.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpAccessDeniedHandler;
-import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpWebResponseExceptionTranslator;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpClientDetailsService;
+import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpWebResponseExceptionTranslator;
 import com.github.rxyor.carp.auth.security.support.security.core.CarpUserDetailsService;
 import com.github.rxyor.carp.auth.security.support.security.web.ResourceAuthExceptionEntryPoint;
 import com.github.rxyor.carp.ums.api.feign.user.UserFeignService;
@@ -73,5 +73,4 @@ public class BeanConfig {
     public CarpAccessDeniedHandler accessDeniedHandler(ObjectMapper objectMapper){
         return new CarpAccessDeniedHandler(objectMapper);
     }
-
 }

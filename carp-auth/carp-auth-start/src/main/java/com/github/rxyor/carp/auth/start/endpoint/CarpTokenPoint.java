@@ -68,4 +68,9 @@ public class CarpTokenPoint {
         ResponseEntity<OAuth2AccessToken> ret = tokenEndpoint.postAccessToken(principal, parameters);
         return R.success(ret.getBody());
     }
+
+    @RequestMapping(value = "/token/detail",method = RequestMethod.GET)
+    public R<OAuth2AccessToken> detail(String accessToken) {
+        return R.success(tokenStore.readAccessToken(accessToken));
+    }
 }

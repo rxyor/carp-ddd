@@ -9,7 +9,7 @@ carp:
           - refresh_token
           - implicit
           - client_credentials
-        access-token-validity-seconds: 36000
+        access-token-validity-seconds: 6000
         client-secret: \{noop\}secret
         scope:
           - read
