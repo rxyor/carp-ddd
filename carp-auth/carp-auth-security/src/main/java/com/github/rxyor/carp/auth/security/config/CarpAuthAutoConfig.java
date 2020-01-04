@@ -1,8 +1,10 @@
 package com.github.rxyor.carp.auth.security.config;
 
 import com.alibaba.fastjson.parser.ParserConfig;
+import com.alibaba.fastjson.util.TypeUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.rxyor.carp.auth.security.support.oauth2.common.DefaultOauth2RefreshTokenSerializer;
+import com.github.rxyor.carp.auth.security.support.oauth2.common.OAuth2AuthenticationSerializer;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpAccessDeniedHandler;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpClientDetailsService;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpWebResponseExceptionTranslator;
@@ -20,6 +22,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
 /**
  *<p>
@@ -39,8 +42,12 @@ public class CarpAuthAutoConfig {
 
     protected static void init() {
         //自定义oauth2序列化：DefaultOAuth2RefreshToken 没有setValue方法，会导致JSON序列化为null
-        ParserConfig.getGlobalInstance().putDeserializer(
-            DefaultOAuth2RefreshToken.class, new DefaultOauth2RefreshTokenSerializer());
+        ParserConfig global = ParserConfig.getGlobalInstance();
+        TypeUtils.addMapping("org.springframework.security.oauth2.provider.OAuth2Authentication",OAuth2Authentication.class);
+        global.setAutoTypeSupport(true);
+        global.putDeserializer(DefaultOAuth2RefreshToken.class, new DefaultOauth2RefreshTokenSerializer());
+        global.putDeserializer(OAuth2Authentication.class, new OAuth2AuthenticationSerializer());
+        global.addAccept("org.springframework.security.oauth2.provider.");
     }
 
     static {

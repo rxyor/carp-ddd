@@ -2,7 +2,7 @@ server:
   port: 8002
 spring:
   application:
-    name: ddd-auth
+    name: carp-auth
   profiles:
     include: jdbc,redis,oauth2
   cloud:

@@ -34,6 +34,7 @@
         <carp.version>1.0.14.5</carp.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-lang3.version>3.7</commons-lang3.version>
+        <commons-beanutils.version>1.8.3</commons-beanutils.version>
         <fastjson.version>1.2.58</fastjson.version>
         <guava.version>23.0</guava.version>
         <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
@@ -240,6 +241,11 @@
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>${commons-collections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
