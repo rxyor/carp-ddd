@@ -7,7 +7,6 @@ import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpTokenEnha
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpWebResponseExceptionTranslator;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,7 +37,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Resource
     private CarpAuthClientProperties carpAuthClientProperties;
 
-    @Autowired
+    @Resource(name = "redisTokenStore")
     private TokenStore tokenStore;
 
     @Resource
