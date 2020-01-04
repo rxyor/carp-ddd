@@ -1,8 +1,12 @@
 package com.github.rxyor.carp.auth.security.support.oauth2.provider;
 
+import com.github.rxyor.spring.boot.cacheablettl.CacheableTtl;
 import javax.sql.DataSource;
+import org.redisson.api.RedissonClient;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
 import org.springframework.security.oauth2.provider.ClientDetails;
+import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 
 /**
@@ -16,35 +20,15 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
  */
 public class CarpClientDetailsService extends JdbcClientDetailsService {
 
-    private static final String CLIENT_TABLE_NAME = "oauth_client_details";
-
-    private static final String CLIENT_FIELDS_FOR_UPDATE = "resource_ids, scope, "
-        + "authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, "
-        + "refresh_token_validity, additional_information, autoapprove";
-
-    private static final String CLIENT_FIELDS =
-        "CONCAT('{noop}',client_secret) as client_secret, " + CLIENT_FIELDS_FOR_UPDATE;
-
-    private static final String BASE_FIND_STATEMENT = "select client_id, " + CLIENT_FIELDS
-        + " from " + CLIENT_TABLE_NAME;
-
-    public static final String DEFAULT_FIND_STATEMENT = BASE_FIND_STATEMENT + " order by client_id";
-
-    public static final String DEFAULT_SELECT_STATEMENT = BASE_FIND_STATEMENT + " where client_id = ?";
-
-    public static final String DEFAULT_INSERT_STATEMENT = "insert into " + CLIENT_TABLE_NAME + " (" + CLIENT_FIELDS
-        + ", client_id) values (?,?,?,?,?,?,?,?,?,?,?)";
-
-    public static final String DEFAULT_UPDATE_STATEMENT = "update " + CLIENT_TABLE_NAME + " " + "set "
-        + CLIENT_FIELDS_FOR_UPDATE.replaceAll(", ", "=?, ") + "=? where client_id = ?";
-
-    public static final String DEFAULT_UPDATE_SECRET_STATEMENT = "update " + CLIENT_TABLE_NAME + " "
-        + "set client_secret = ? where client_id = ?";
-
-    public static final String DEFAULT_DELETE_STATEMENT = "delete from " + CLIENT_TABLE_NAME + " where client_id = ?";
+    private RedissonClient redissonClient;
 
     public CarpClientDetailsService(DataSource dataSource) {
         super(dataSource);
+    }
+
+    public CarpClientDetailsService(DataSource dataSource, RedissonClient redissonClient) {
+        super(dataSource);
+        this.redissonClient = redissonClient;
     }
 
     /**
@@ -55,8 +39,27 @@ public class CarpClientDetailsService extends JdbcClientDetailsService {
      * @param clientId 客户端ID
      * @return ClientDetails
      */
+    @CacheableTtl(cacheNames = "CarpClientDetailsService", key = "#clientId", ttl = 86400, unless = "#result==null")
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws InvalidClientException {
         return super.loadClientByClientId(clientId);
+    }
+
+    @CacheEvict(cacheNames = "CarpClientDetailsService", key = "#clientDetails.clientId")
+    @Override
+    public void updateClientDetails(ClientDetails clientDetails) throws NoSuchClientException {
+        super.updateClientDetails(clientDetails);
+    }
+
+    @CacheEvict(cacheNames = "CarpClientDetailsService", key = "#clientId")
+    @Override
+    public void updateClientSecret(String clientId, String secret) throws NoSuchClientException {
+        super.updateClientSecret(clientId, secret);
+    }
+
+    @CacheEvict(cacheNames = "CarpClientDetailsService", key = "#clientId")
+    @Override
+    public void removeClientDetails(String clientId) throws NoSuchClientException {
+        super.removeClientDetails(clientId);
     }
 }

@@ -23,6 +23,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 
 /**
  *<p>
@@ -43,11 +44,15 @@ public class CarpAuthAutoConfig {
     protected static void init() {
         //自定义oauth2序列化：DefaultOAuth2RefreshToken 没有setValue方法，会导致JSON序列化为null
         ParserConfig global = ParserConfig.getGlobalInstance();
-        TypeUtils.addMapping("org.springframework.security.oauth2.provider.OAuth2Authentication",OAuth2Authentication.class);
+        TypeUtils.addMapping("org.springframework.security.oauth2.provider.OAuth2Authentication",
+            OAuth2Authentication.class);
+        TypeUtils.addMapping("org.springframework.security.oauth2.provider.client.BaseClientDetails",
+            BaseClientDetails.class);
         global.setAutoTypeSupport(true);
         global.putDeserializer(DefaultOAuth2RefreshToken.class, new DefaultOauth2RefreshTokenSerializer());
         global.putDeserializer(OAuth2Authentication.class, new OAuth2AuthenticationSerializer());
         global.addAccept("org.springframework.security.oauth2.provider.");
+        global.addAccept("org.springframework.security.oauth2.provider.client");
     }
 
     static {
@@ -68,8 +73,9 @@ public class CarpAuthAutoConfig {
 
     @Bean
     @Primary
-    public CarpClientDetailsService carpClientDetailsService(DataSource dataSource) {
-        return new CarpClientDetailsService(dataSource);
+    public CarpClientDetailsService carpClientDetailsService(DataSource dataSource,
+        RedissonClient redissonClient) {
+        return new CarpClientDetailsService(dataSource,redissonClient);
     }
 
     @Bean

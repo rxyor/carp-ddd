@@ -48,7 +48,7 @@ public class CarpUserDetailsService implements UserDetailsService {
 
     @Override
     public Oauth2User loadUserByUsername(String username) throws UsernameNotFoundException {
-        final String key = RedisKeyBuilder.append("CarpUserDetailsService#" + username);
+        final String key = RedisKeyBuilder.append("CarpUserDetailsService::" + username);
         RBucket<Oauth2User> bucket = redissonClient.getBucket(key);
         if (!bucket.isExists()) {
             R<UserRetDTO> ret = userFeignService.get(username, CryptoUtil.sign(60L));

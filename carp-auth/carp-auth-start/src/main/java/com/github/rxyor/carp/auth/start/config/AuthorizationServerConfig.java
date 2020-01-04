@@ -59,8 +59,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     private CarpClientDetailsService clientDetailsService() {
         CarpClientDetailsService clientDetailsService = new CarpClientDetailsService(dataSource);
-        clientDetailsService.setSelectClientDetailsSql(CarpClientDetailsService.DEFAULT_SELECT_STATEMENT);
-        clientDetailsService.setFindClientDetailsSql(CarpClientDetailsService.DEFAULT_FIND_STATEMENT);
         return clientDetailsService;
     }
 
