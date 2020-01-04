@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.auth.security.config;
+package com.github.rxyor.carp.auth.start.config;
 
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpRedisTokenStore;
 import org.redisson.api.RedissonClient;

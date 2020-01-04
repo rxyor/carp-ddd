@@ -1,0 +1,16 @@
+carp:
+  security:
+    oauth2:
+      resource:
+        enable: true
+        whitelabel-clients: carp
+
+security:
+  oauth2:
+    client:
+      client-id: carp
+      client-secret: carp
+    resource:
+      id: carp-ums
+      token-info-uri: http://carp-auth:8002/oauth2/token/check
+      loadBalanced: true

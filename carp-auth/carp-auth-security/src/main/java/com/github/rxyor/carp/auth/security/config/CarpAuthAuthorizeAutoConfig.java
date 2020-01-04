@@ -37,7 +37,7 @@ import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 @RefreshScope
 @Configuration
 @EnableConfigurationProperties({CarpAuthClientProperties.class, CarpAuthResourceProperties.class})
-public class CarpAuthAutoConfig {
+public class CarpAuthAuthorizeAutoConfig {
 
 
     protected static void init() {
@@ -96,7 +96,13 @@ public class CarpAuthAutoConfig {
     }
 
     @Bean
-    public CarpAccessDeniedHandler accessDeniedHandler(ObjectMapper objectMapper) {
+    public CarpAccessDeniedHandler carpAccessDeniedHandler(ObjectMapper objectMapper) {
         return new CarpAccessDeniedHandler(objectMapper);
     }
+
+    @Bean
+    public SwaggerWebMvcConfig swaggerWebMvcConfig(){
+        return new SwaggerWebMvcConfig();
+    }
+
 }

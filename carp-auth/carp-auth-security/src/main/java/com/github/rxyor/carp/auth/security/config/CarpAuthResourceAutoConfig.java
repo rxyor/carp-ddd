@@ -1,9 +1,10 @@
 package com.github.rxyor.carp.auth.security.config;
 
 import java.io.IOException;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -23,10 +24,11 @@ import org.springframework.web.client.RestTemplate;
  * @since 1.0.0
  */
 @Configuration
-public class CarpAuthResourceConfig {
+@RefreshScope
+@EnableConfigurationProperties({CarpAuthResourceProperties.class})
+public class CarpAuthResourceAutoConfig {
 
     @Bean
-    @ConditionalOnMissingBean(RemoteTokenServices.class)
     @Primary
     public RemoteTokenServices carpRemoteTokenServices(ResourceServerProperties properties,
         RestTemplate restTemplate) {
