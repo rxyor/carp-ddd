@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
+import org.springframework.security.oauth2.provider.endpoint.CheckTokenEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -33,13 +34,16 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "Oauth2 Token")
 @RestController
 @RequestMapping("/oauth2")
-public class CarpTokenPoint {
+public class CarpTokenEndpoint {
 
     @Autowired
     private TokenStore tokenStore;
 
     @Autowired
     private TokenEndpoint tokenEndpoint;
+
+    @Autowired
+    private CheckTokenEndpoint checkTokenEndpoint;
 
     @ApiOperation(value = "移除当前登录用户Token", httpMethod = "POST")
     @PostMapping("/token/remove")
@@ -78,5 +82,10 @@ public class CarpTokenPoint {
     @RequestMapping(value = "/token/refresh", method = RequestMethod.GET)
     public R<OAuth2RefreshToken> getRefreshToken(String refreshToken) {
         return R.success(tokenStore.readRefreshToken(refreshToken));
+    }
+
+    @RequestMapping(value = "/token/check", method = RequestMethod.GET)
+    public R<Map<String, ?>> checkToken(String accessToken) {
+        return R.success(checkTokenEndpoint.checkToken(accessToken));
     }
 }

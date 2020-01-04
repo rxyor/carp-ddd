@@ -17,3 +17,10 @@ logging:
   config: classpath:config/properties/log4j2.properties
   file:
     path: logs
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure:
+            security: debug
+        security: debug

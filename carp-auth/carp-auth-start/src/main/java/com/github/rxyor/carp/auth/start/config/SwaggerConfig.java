@@ -36,6 +36,7 @@ public class SwaggerConfig {
 
     private List<String> oauth2UrlList = Lists.newArrayList(
         "/oauth/token",
+        "/oauth2/token/access",
         "/oauth/confirm_access",
         "/oauth/check_token",
         "/oauth/authorize",

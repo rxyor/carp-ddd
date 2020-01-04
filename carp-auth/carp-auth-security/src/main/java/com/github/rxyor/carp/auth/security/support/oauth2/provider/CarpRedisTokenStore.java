@@ -69,7 +69,7 @@ public class CarpRedisTokenStore implements TokenStore {
 
     @Override
     public OAuth2Authentication readAuthentication(String token) {
-        RBucket<OAuth2Authentication> bucket = redissonClient.getBucket(wrapKey(token));
+        RBucket<OAuth2Authentication> bucket = redissonClient.getBucket(wrapKey(AUTH+token));
         return bucket.get();
     }
 
