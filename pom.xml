@@ -31,7 +31,7 @@
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <!--dependency-->
         <HikariCP.version>3.4.1</HikariCP.version>
-        <carp.version>1.0.14.5</carp.version>
+        <carp.version>1.0.14.6</carp.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <commons-beanutils.version>1.8.3</commons-beanutils.version>

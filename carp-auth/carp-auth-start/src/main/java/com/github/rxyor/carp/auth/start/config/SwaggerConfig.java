@@ -14,7 +14,6 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.Contact;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -131,11 +130,8 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        Contact contact = new Contact("巷子外的人",
-            "https://blog.csdn.net/liuyanglglg", "rxyor@outlook.com");
         return new ApiInfoBuilder()
-            .title("carp cloud api")
-            .contact(contact)
+            .title("auth")
             .version("1.0")
             .build();
     }

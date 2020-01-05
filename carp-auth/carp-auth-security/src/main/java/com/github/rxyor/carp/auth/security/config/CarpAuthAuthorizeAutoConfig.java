@@ -100,9 +100,4 @@ public class CarpAuthAuthorizeAutoConfig {
         return new CarpAccessDeniedHandler(objectMapper);
     }
 
-    @Bean
-    public SwaggerWebMvcConfig swaggerWebMvcConfig(){
-        return new SwaggerWebMvcConfig();
-    }
-
 }

@@ -3,6 +3,7 @@ package com.github.rxyor.carp.ums.insfrastructure.feign.user;
 import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
 import com.github.rxyor.carp.query.service.user.UserQryService;
 import com.github.rxyor.common.core.model.R;
+import com.github.rxyor.common.support.annotations.CryptoApi;
 import io.swagger.annotations.Api;
 import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,7 @@ public class UserFeign {
      * @param username
      * @return
      */
+    @CryptoApi
     @GetMapping("/get/username")
     public R<UserRetDTO> find(
         @NotBlank(message = "用户名不能为空")

@@ -4,6 +4,15 @@ carp:
       resource:
         enable: true
         whitelabel-clients: carp
+        whitelabel-urls:
+          #内部接口加密但不拦截
+          - /feign/**
+          #swagger接口
+          - /doc/api/**
+          - /swagger-ui.html
+          - /webjars/**
+          - /swagger-resources/**
+          - /v2/api-docs/**
 
 security:
   oauth2:

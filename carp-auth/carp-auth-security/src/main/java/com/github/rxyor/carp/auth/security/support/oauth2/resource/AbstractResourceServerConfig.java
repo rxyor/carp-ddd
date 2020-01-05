@@ -5,7 +5,6 @@ import com.github.rxyor.carp.auth.security.support.security.web.ResourceAuthExce
 import javax.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -58,7 +57,6 @@ public abstract class AbstractResourceServerConfig extends ResourceServerConfigu
         http.csrf().disable();
         http.formLogin().disable();
         http.headers().frameOptions().disable();
-        http.authenticationProvider(new DaoAuthenticationProvider());
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
             .authorizeRequests();
         //是否开启资源权限校验
