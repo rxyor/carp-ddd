@@ -18,9 +18,5 @@ logging:
   file:
     path: logs
   level:
-    org:
-      springframework:
-        boot:
-          autoconfigure:
-            security: debug
-        security: debug
+    root: info
+    org.springframework.security: info

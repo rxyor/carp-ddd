@@ -1,0 +1,8 @@
+spring:
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+      client:
+        reactive:
+          endpoints: test.dev:9200

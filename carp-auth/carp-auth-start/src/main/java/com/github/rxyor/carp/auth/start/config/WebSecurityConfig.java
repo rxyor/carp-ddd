@@ -21,7 +21,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @date 2019/2/13 Wed 18:02:00
  * @since 1.0.0
  */
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 

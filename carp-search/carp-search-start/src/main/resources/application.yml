@@ -1,0 +1,7 @@
+server:
+  port: 8010
+spring:
+  application:
+    name: carp-search
+  profiles:
+    include: datasource
