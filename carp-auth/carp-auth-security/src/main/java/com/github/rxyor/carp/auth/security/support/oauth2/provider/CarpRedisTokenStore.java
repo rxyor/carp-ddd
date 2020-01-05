@@ -128,20 +128,7 @@ public class CarpRedisTokenStore implements TokenStore {
     public OAuth2AccessToken readAccessToken(String tokenValue) {
         String key = wrapKey(ACCESS + tokenValue);
         RBucket<DefaultOAuth2AccessToken> bucket = redissonClient.getBucket(key);
-        OAuth2AccessToken accessToken = bucket.get();
-        //添加refresh token
-        RBucket<String> refreshBucket = redissonClient.getBucket(
-            wrapKey(ACCESS_TO_REFRESH + accessToken.getValue()));
-        String refreshTokenValue = refreshBucket.get();
-        if (StringUtils.isNotBlank(refreshTokenValue)) {
-            OAuth2RefreshToken refreshToken = readRefreshToken(refreshTokenValue);
-            if (refreshToken != null) {
-                DefaultOAuth2AccessToken newAccessToken = new DefaultOAuth2AccessToken(accessToken);
-                newAccessToken.setRefreshToken(new DefaultOAuth2RefreshToken(refreshTokenValue));
-                return newAccessToken;
-            }
-        }
-        return accessToken;
+        return bucket.get();
     }
 
     @Override
