@@ -5,7 +5,7 @@ spring:
   application:
     name: carp-ums
   profiles:
-    include: redis,jdbc,mybatis,feign,auth
+    include: redis,jdbc,mybatis,feign,auth2
   cloud:
     zookeeper:
       connect-string: test.dev:2181

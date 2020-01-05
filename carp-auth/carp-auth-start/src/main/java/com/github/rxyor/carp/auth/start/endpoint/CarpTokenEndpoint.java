@@ -80,13 +80,13 @@ public class CarpTokenEndpoint {
         return R.success(tokenStore.readAccessToken(accessToken));
     }
 
-    @RequestMapping(value = "/token/refresh", method = RequestMethod.GET)
+    @RequestMapping(value = "/token/refresh/get", method = RequestMethod.GET)
     public R<OAuth2RefreshToken> getRefreshToken(String refreshToken) {
         return R.success(tokenStore.readRefreshToken(refreshToken));
     }
 
-    @RequestMapping(value = "/token/check", method = RequestMethod.GET)
-    public R<Map<String, ?>> checkToken(String accessToken) {
-        return R.success(checkTokenEndpoint.checkToken(accessToken));
+    @RequestMapping(value = "/token/check")
+    public R<Map<String, ?>> checkToken(String token) {
+        return R.success(checkTokenEndpoint.checkToken(token));
     }
 }

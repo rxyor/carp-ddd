@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
@@ -24,6 +25,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
  * @since 1.0.0
  */
 @SuppressWarnings("all")
+@Slf4j
 @AllArgsConstructor
 public class ResourceAuthExceptionEntryPoint implements AuthenticationEntryPoint {
 
@@ -31,12 +33,16 @@ public class ResourceAuthExceptionEntryPoint implements AuthenticationEntryPoint
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
-        AuthenticationException authException) throws IOException, ServletException {
+        AuthenticationException e) throws IOException, ServletException {
+        if (log.isInfoEnabled()) {
+            log.warn("资源范围失败", e);
+        }
         response.setCharacterEncoding(StandardCharsets.UTF_8.displayName());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
         R<String> result = new R<>();
         result.setCode(HttpStatus.FORBIDDEN.value());
-        if (authException != null) {
+        if (e != null) {
             result.setMsg("无权访问");
         }
         response.setStatus(HttpStatus.FORBIDDEN.value());

@@ -1,6 +1,7 @@
 package com.github.rxyor.carp.auth.security.support.oauth2.resource;
 
 import com.github.rxyor.carp.auth.security.config.CarpAuthResourceProperties;
+import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpRemoteTokenServices;
 import com.github.rxyor.carp.auth.security.support.security.web.ResourceAuthExceptionEntryPoint;
 import javax.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +13,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
-import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.client.RestTemplate;
 
@@ -37,7 +37,7 @@ public abstract class AbstractResourceServerConfig extends ResourceServerConfigu
     protected UserDetailsService userDetailsService;
 
     @Resource(name = "carpRemoteTokenServices")
-    protected RemoteTokenServices remoteTokenServices;
+    protected CarpRemoteTokenServices remoteTokenServices;
 
     @Resource(name = "carpAccessDeniedHandler")
     protected AccessDeniedHandler accessDeniedHandler;

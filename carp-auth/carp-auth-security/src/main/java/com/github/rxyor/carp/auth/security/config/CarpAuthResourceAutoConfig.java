@@ -1,5 +1,6 @@
 package com.github.rxyor.carp.auth.security.config;
 
+import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpRemoteTokenServices;
 import java.io.IOException;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -10,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,9 +30,9 @@ public class CarpAuthResourceAutoConfig {
 
     @Bean
     @Primary
-    public RemoteTokenServices carpRemoteTokenServices(ResourceServerProperties properties,
+    public CarpRemoteTokenServices carpRemoteTokenServices(ResourceServerProperties properties,
         RestTemplate restTemplate) {
-        RemoteTokenServices services = new RemoteTokenServices();
+        CarpRemoteTokenServices services = new CarpRemoteTokenServices();
         services.setClientId(properties.getClientId());
         services.setClientSecret(properties.getClientSecret());
         services.setRestTemplate(restTemplate);
