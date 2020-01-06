@@ -4,4 +4,4 @@ spring:
   application:
     name: carp-search
   profiles:
-    include: datasource
+    include: elastic

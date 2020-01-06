@@ -18,6 +18,7 @@
         <module>carp-search-api</module>
         <module>carp-search-application</module>
         <module>carp-search-query</module>
+        <module>carp-search-shared</module>
     </modules>
 
 

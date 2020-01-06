@@ -37,10 +37,11 @@
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <commons-beanutils.version>1.8.3</commons-beanutils.version>
+        <elasticsearch.verision>6.8.3</elasticsearch.verision>
         <fastjson.version>1.2.58</fastjson.version>
         <guava.version>23.0</guava.version>
         <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
-        <jackson.version>2.9.6</jackson.version>
+        <jackson.version>2.10.0</jackson.version>
         <joda-time.version>2.10.4</joda-time.version>
         <junit-platform-runner.version>1.5.2</junit-platform-runner.version>
         <junit.version>4.12</junit.version>
@@ -50,10 +51,12 @@
         <mybatis-plus.version>3.0.10</mybatis-plus.version>
         <mybatis-boot.version>2.1.1</mybatis-boot.version>
         <mysql-connector-java.version>5.1.31</mysql-connector-java.version>
+        <reactor-core.version>3.3.0.RELEASE</reactor-core.version>
         <redisson.version>3.11.3</redisson.version>
         <spring-cloud-dependencies.version>Hoxton.RELEASE</spring-cloud-dependencies.version>
         <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
         <spring-cloud.version>2.2.0.RELEASE</spring-cloud.version>
+        <spring-data-elasticsearch.version>3.2.3.RELEASE</spring-data-elasticsearch.version>
         <spring-security-oauth2.version>2.3.4.RELEASE</spring-security-oauth2.version>
         <springfox-swagger2.version>2.6.0</springfox-swagger2.version>
     </properties>
@@ -217,6 +220,36 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.verision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.verision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${elasticsearch.verision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>transport</artifactId>
+                <version>${elasticsearch.verision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.plugin</groupId>
+                <artifactId>transport-netty4-client</artifactId>
+                <version>${elasticsearch.verision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.projectreactor</groupId>
+                <artifactId>reactor-core</artifactId>
+                <version>${reactor-core.version}</version>
             </dependency>
 
             <dependency>
