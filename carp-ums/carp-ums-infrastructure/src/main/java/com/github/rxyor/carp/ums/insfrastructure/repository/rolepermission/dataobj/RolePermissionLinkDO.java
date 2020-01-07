@@ -14,7 +14,7 @@ import lombok.Data;
  * 角色权限关系表
  */
 @Entity
-@Table(name = "role_permission_link")
+@Table(name = "ums_role_permission_link")
 @Data
 public class RolePermissionLinkDO implements Serializable {
   private static final long serialVersionUID = 1L;

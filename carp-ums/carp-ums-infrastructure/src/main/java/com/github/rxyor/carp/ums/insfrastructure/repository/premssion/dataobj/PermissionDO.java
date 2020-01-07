@@ -14,7 +14,7 @@ import lombok.Data;
  * 权限表
  */
 @Data
-@Table(name = "permission")
+@Table(name = "ums_permission")
 @Entity
 public class PermissionDO implements Serializable {
 

@@ -21,7 +21,7 @@ import lombok.Data;
 /**
  * 角色表
  */
-@Table(name = "role")
+@Table(name = "ums_role")
 @Entity
 @Data
 public class RoleDO implements Serializable {

@@ -21,7 +21,7 @@ import lombok.Data;
 /**
  * 用户表
  */
-@Table(name = "user")
+@Table(name = "ums_user")
 @Data
 @Entity
 public class UserDO implements Serializable {

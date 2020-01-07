@@ -13,7 +13,7 @@ import lombok.Data;
 /**
  * 用户角色关系表
  */
-@Table(name = "user_role_link")
+@Table(name = "ums_user_role_link")
 @Data
 @Entity
 public class UserRoleLinkDO implements Serializable {
