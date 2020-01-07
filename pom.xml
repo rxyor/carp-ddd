@@ -12,6 +12,7 @@
         <module>carp-ums</module>
         <module>carp-pms</module>
         <module>carp-search</module>
+        <module>carp-nacos</module>
     </modules>
     <packaging>pom</packaging>
     <name>carp-ddd</name>
