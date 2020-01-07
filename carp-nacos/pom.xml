@@ -8,8 +8,80 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>carp-nacos</artifactId>
 
+    <properties>
+        <nacos-config.version>1.1.4</nacos-config.version>
+        <nacos-naming.version>1.1.4</nacos-naming.version>
+        <jjwt.version>0.10.5</jjwt.version>
+    </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.pig4cloud.nacos</groupId>
+            <artifactId>nacos-config</artifactId>
+            <version>${nacos-config.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.pig4cloud.nacos</groupId>
+            <artifactId>nacos-naming</artifactId>
+            <version>${nacos-naming.version}</version>
+        </dependency>
+        <!-- log -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>static/report/**</exclude>
+                    <exclude>**/*.woff</exclude>
+                    <exclude>**/*.woff2</exclude>
+                    <exclude>**/*.ttf</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>static/report/**</include>
+                    <include>**/*.woff</include>
+                    <include>**/*.woff2</include>
+                    <include>**/*.ttf</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 </project>
