@@ -1,16 +1,27 @@
 server:
-  port: 3000
-
+  port: 8002
 spring:
   application:
-    name: @artifactId@
+    name: carp-auth
+  profiles:
+    active: nacos
+
   cloud:
     nacos:
       discovery:
-        server-addr: ${NACOS-HOST:pig-register}:${NACOS-PORT:8848}
+        server-addr:  ${NACOS-HOST:test.dev}:${NACOS-PORT:8848}
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yml
-        shared-dataids: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
-  profiles:
-    active: @profiles.active@
+        enabled: true
+        group: carp-auth
+        ext-config:
+          - data-id: application-jdbc.yml
+            group: carp-auth
+            refresh: true
+          - data-id: application-redis.yml
+            group: carp-auth
+            refresh: true
+          - data-id: application-oauth2.yml
+            group: carp-auth
+            refresh: true

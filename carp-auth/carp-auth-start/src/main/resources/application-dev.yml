@@ -1,8 +1,4 @@
-server:
-  port: 8002
 spring:
-  application:
-    name: carp-auth
   profiles:
     include: jdbc,redis,oauth2
   cloud:
