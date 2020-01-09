@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.auth.start.context;
+package com.github.rxyor.carp.auth.start.handler;
 
 import com.github.rxyor.common.core.model.R;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ErrorProperties.IncludeStacktrace;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -16,6 +17,13 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AccountExpiredException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +41,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.0.0
  */
 @SuppressWarnings("all")
+@Slf4j
 @Controller
 @RequestMapping({"${server.error.path:${error.path:/error}}"})
 public class ExceptionController implements ErrorController {
@@ -121,11 +130,29 @@ public class ExceptionController implements ErrorController {
     @ResponseBody
     public R<Object> error(HttpServletRequest request) {
         HttpStatus status = getStatus(request);
-        if (status == HttpStatus.NO_CONTENT) {
-            return R.fail(status.value(), status.getReasonPhrase());
+
+        Object e = request.getAttribute("org.springframework.boot.web.servlet.error.DefaultErrorAttributes.ERROR");
+        if (e != null) {
+            log.error("请求失败:", e);
+            if (e instanceof UsernameNotFoundException
+                || e instanceof BadCredentialsException
+                || e instanceof InvalidGrantException) {
+                return R.fail(status.value(), "用户名或密码错误", ((Exception) e).getMessage());
+            } else if (e instanceof DisabledException) {
+                return R.fail(status.value(), "用户已被禁用", ((Exception) e).getMessage());
+            } else if (e instanceof LockedException) {
+                return R.fail(status.value(), "账户被锁定", ((Exception) e).getMessage());
+            } else if (e instanceof AccountExpiredException) {
+                return R.fail(status.value(), "账户过期", ((Exception) e).getMessage());
+            } else if (e instanceof CredentialsExpiredException) {
+                return R.fail(status.value(), "证书过期", ((Exception) e).getMessage());
+            } else {
+                return R.fail(status.value(), "请求失败", ((Exception) e).getMessage());
+            }
         }
+
         Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
-        return R.fail(status.value(), status.getReasonPhrase(), body);
+        return R.fail(status.value(), "请求失败", body);
     }
 
     /**

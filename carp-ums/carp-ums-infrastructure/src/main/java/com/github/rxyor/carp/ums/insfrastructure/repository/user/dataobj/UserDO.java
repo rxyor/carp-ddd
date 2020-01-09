@@ -100,7 +100,7 @@ public class UserDO implements Serializable {
      * 角色列表
      */
     @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role_link",
+    @JoinTable(name = "ums_user_role_link",
         joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", unique = true),
         inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", unique = true))
     private List<RoleDO> roleList = new ArrayList<>(8);

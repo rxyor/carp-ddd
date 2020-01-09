@@ -76,10 +76,9 @@ public class RoleDO implements Serializable {
      * 权限列表
      */
     @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JoinTable(name = "role_permission_link",
+    @JoinTable(name = "ums_role_permission_link",
         joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", unique = true),
         inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id", unique = true))
     private List<PermissionDO> permissionList = new ArrayList<>(8);
-
 
 }

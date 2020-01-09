@@ -7,7 +7,6 @@ import com.github.rxyor.carp.ums.api.dto.ums.RoleRetDTO;
 import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
 import com.github.rxyor.carp.ums.api.enums.common.DisableEnum;
 import com.github.rxyor.carp.ums.api.feign.user.UserFeignService;
-import com.github.rxyor.common.core.exception.BizException;
 import com.github.rxyor.common.core.model.R;
 import com.github.rxyor.common.support.util.CryptoUtil;
 import com.github.rxyor.common.support.util.RedisKeyBuilder;
@@ -22,6 +21,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -51,9 +51,14 @@ public class CarpUserDetailsService implements UserDetailsService {
         final String key = RedisKeyBuilder.append("CarpUserDetailsService::" + username);
         RBucket<Oauth2User> bucket = redissonClient.getBucket(key);
         if (!bucket.isExists()) {
-            R<UserRetDTO> ret = userFeignService.get(username, CryptoUtil.sign(60L));
+            R<UserRetDTO> ret = null;
+            try {
+                ret = userFeignService.get(username, CryptoUtil.sign(60L));
+            } catch (Throwable e) {
+                throw new AccessDeniedException("请求用户信息失败", e);
+            }
             if (!R.isRequestSuccessCanNotNullData(ret)) {
-                throw new BizException("请求用户信息失败");
+                throw new AccessDeniedException("请求用户信息失败");
             }
             Oauth2User user = this.toCarpUser(ret.getData());
             if (user != null) {
