@@ -1,18 +1,5 @@
 spring:
   profiles:
     include: jdbc,redis,oauth2
-  cloud:
-    zookeeper:
-      connect-string: test.dev:2181
-      discovery:
-        enabled: true
   main:
     allow-bean-definition-overriding: true
-
-logging:
-  config: classpath:config/properties/log4j2.properties
-  file:
-    path: logs
-  level:
-    root: info
-    org.springframework.security: info

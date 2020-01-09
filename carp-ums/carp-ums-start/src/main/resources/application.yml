@@ -6,12 +6,3 @@ spring:
     name: carp-ums
   profiles:
     include: redis,jdbc,mybatis,feign,auth2
-  cloud:
-    zookeeper:
-      connect-string: test.dev:2181
-      discovery:
-        enabled: true
-logging:
-  config: classpath:config/properties/log4j2.properties
-  file:
-    path: logs
