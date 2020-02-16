@@ -38,7 +38,7 @@
         <!--1: plugin-->
         <HikariCP.version>3.4.1</HikariCP.version>
         <carp.version>1.0.14.6</carp.version>
-        <commons-beanutils.version>1.8.3</commons-beanutils.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <elasticsearch.verision>6.8.3</elasticsearch.verision>
