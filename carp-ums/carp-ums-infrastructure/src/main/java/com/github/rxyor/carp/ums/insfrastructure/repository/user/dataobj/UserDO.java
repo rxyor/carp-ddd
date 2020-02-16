@@ -55,10 +55,22 @@ public class UserDO implements Serializable {
     private String phone;
 
     /**
+     * 邮箱
+     */
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    /**
      * 昵称
      */
     @Column(name = "nickname", nullable = false)
     private String nickname;
+
+    /**
+     * 头像
+     */
+    @Column(name = "avatar", nullable = false)
+    private String avatar;
 
     /**
      * 随机盐

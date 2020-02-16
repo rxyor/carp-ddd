@@ -57,10 +57,9 @@ public class CarpTokenEndpoint {
         String token = authHeader.replace("Bearer", "").trim();
         try {
             OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
-            if (accessToken == null || StringUtils.isBlank(accessToken.getValue())) {
-                return R.<Boolean>fail().msg("退出登录失败");
+            if(accessToken!=null){
+                tokenStore.removeAccessToken(accessToken);
             }
-            tokenStore.removeAccessToken(accessToken);
         } catch (Throwable e) {
             log.error("Token[{}]退出登录失败, 错误:", token, e);
             return R.<Boolean>fail().msg("退出登录失败");

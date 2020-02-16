@@ -84,6 +84,8 @@ public class CarpUserDetailsService implements UserDetailsService {
             .accountNonLocked(true)
             .credentialsNonExpired(true)
             .authorities(authorities)
+            .email(user.getEmail())
+            .avatar(user.getAvatar())
             .build();
     }
 

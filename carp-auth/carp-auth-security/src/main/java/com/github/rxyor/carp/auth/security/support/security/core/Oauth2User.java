@@ -2,6 +2,7 @@ package com.github.rxyor.carp.auth.security.support.security.core;
 
 import java.io.Serializable;
 import java.util.Collection;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @date 209/2/3 周二 :2:00
  * @since .0.0
  */
+@AllArgsConstructor
 @Builder
 public class Oauth2User implements UserDetails, Serializable {
 
@@ -28,21 +30,12 @@ public class Oauth2User implements UserDetails, Serializable {
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
+    private String email;
+    private String avatar;
 
     public Oauth2User() {
     }
 
-    public Oauth2User(String username, String password,
-        Collection<SimpleGrantedAuthority> authorities, boolean accountNonExpired, boolean accountNonLocked,
-        boolean credentialsNonExpired, boolean enabled) {
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
-        this.accountNonExpired = accountNonExpired;
-        this.accountNonLocked = accountNonLocked;
-        this.credentialsNonExpired = credentialsNonExpired;
-        this.enabled = enabled;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -106,5 +99,21 @@ public class Oauth2User implements UserDetails, Serializable {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

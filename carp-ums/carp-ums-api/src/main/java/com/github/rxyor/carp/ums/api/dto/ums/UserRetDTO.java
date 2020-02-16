@@ -41,9 +41,19 @@ public class UserRetDTO implements Serializable {
     private String phone;
 
     /**
+     * 邮箱
+     */
+    private String email;
+
+    /**
      * 昵称
      */
     private String nickname;
+
+    /**
+     * 头像
+     */
+    private String avatar;
 
     /**
      * 随机盐
