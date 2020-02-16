@@ -86,6 +86,8 @@ public class CarpUserDetailsService implements UserDetailsService {
             .authorities(authorities)
             .email(user.getEmail())
             .avatar(user.getAvatar())
+            .phone(user.getPhone())
+            .nickname(user.getNickname())
             .build();
     }
 

@@ -25,13 +25,16 @@ public class Oauth2User implements UserDetails, Serializable {
 
     private String username;
     private String password;
+    private String nickname;
+    private String phone;
+    private String email;
+    private String avatar;
+
     private Collection<SimpleGrantedAuthority> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
-    private String email;
-    private String avatar;
 
     public Oauth2User() {
     }
@@ -42,10 +45,17 @@ public class Oauth2User implements UserDetails, Serializable {
         return this.authorities;
     }
 
+    public void setAuthorities(Collection<SimpleGrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
 
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -53,9 +63,17 @@ public class Oauth2User implements UserDetails, Serializable {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return accountNonExpired;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
     }
 
     @Override
@@ -63,38 +81,22 @@ public class Oauth2User implements UserDetails, Serializable {
         return accountNonLocked;
     }
 
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return credentialsNonExpired;
     }
 
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
     @Override
     public boolean isEnabled() {
         return enabled;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setAuthorities(Collection<SimpleGrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
-
-    public void setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
     }
 
     public void setEnabled(boolean enabled) {
@@ -115,5 +117,21 @@ public class Oauth2User implements UserDetails, Serializable {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
