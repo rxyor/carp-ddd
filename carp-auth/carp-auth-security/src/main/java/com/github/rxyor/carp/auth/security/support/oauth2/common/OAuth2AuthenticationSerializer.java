@@ -5,7 +5,6 @@ import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,8 +45,7 @@ public class OAuth2AuthenticationSerializer implements ObjectDeserializer {
         return null;
     }
 
-    private OAuth2Request parseOAuth2Request(JSONObject jsonObject)
-        throws IllegalAccessException, InvocationTargetException {
+    private OAuth2Request parseOAuth2Request(JSONObject jsonObject) {
         JSONObject json = jsonObject.getObject("oAuth2Request", JSONObject.class);
         Map<String, String> requestParameters = json.getObject("requestParameters", Map.class);
         String clientId = json.getString("clientId");

@@ -51,7 +51,7 @@ public class CarpUserDetailsService implements UserDetailsService {
         final String key = RedisKeyBuilder.append("CarpUserDetailsService::" + username);
         RBucket<Oauth2User> bucket = redissonClient.getBucket(key);
         if (!bucket.isExists()) {
-            R<UserRetDTO> ret = null;
+            R<UserRetDTO> ret;
             try {
                 ret = userFeignService.get(username, CryptoUtil.sign(60L));
             } catch (Throwable e) {

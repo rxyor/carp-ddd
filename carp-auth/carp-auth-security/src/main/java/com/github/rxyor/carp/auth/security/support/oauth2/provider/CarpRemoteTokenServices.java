@@ -2,6 +2,7 @@ package com.github.rxyor.carp.auth.security.support.oauth2.provider;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.logging.Log;
@@ -12,7 +13,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -126,9 +126,9 @@ public class CarpRemoteTokenServices implements ResourceServerTokenServices {
                 "Null Client ID or Client Secret detected. Endpoint that requires authentication will reject request with 401 error.");
         }
 
-        String creds = String.format("%s:%s", clientId, clientSecret);
+        String basicToken = String.format("%s:%s", clientId, clientSecret);
         try {
-            return "Basic " + new String(Base64.encode(creds.getBytes("UTF-8")));
+            return "Basic " + new String(Base64.getEncoder().encode(basicToken.getBytes("UTF-8")));
         } catch (UnsupportedEncodingException e) {
             throw new IllegalStateException("Could not convert String");
         }
