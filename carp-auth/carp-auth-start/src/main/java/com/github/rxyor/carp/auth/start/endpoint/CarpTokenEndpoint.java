@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import java.security.Principal;
 import java.util.Map;
 import javax.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019-04-23 Tue 15:57:00
  * @since 1.0.0
  */
+@Slf4j
 @Api(tags = "Oauth2 Token")
 @RestController
 @RequestMapping("/oauth2")
@@ -50,14 +52,19 @@ public class CarpTokenEndpoint {
     @PostMapping("/token/remove")
     public R<Boolean> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
         if (StringUtils.isBlank(authHeader)) {
-            return R.<Boolean>fail().msg("请求无法获取token,删除token失败");
+            return R.<Boolean>fail().msg("退出登录失败");
         }
-        String tokenValue = authHeader.replace("Bearer", "").trim();
-        OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
-        if (accessToken == null || StringUtils.isBlank(accessToken.getValue())) {
-            return R.<Boolean>fail().msg("找不到对应token, 删除token失败");
+        String token = authHeader.replace("Bearer", "").trim();
+        try {
+            OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
+            if (accessToken == null || StringUtils.isBlank(accessToken.getValue())) {
+                return R.<Boolean>fail().msg("退出登录失败");
+            }
+            tokenStore.removeAccessToken(accessToken);
+        } catch (Throwable e) {
+            log.error("Token[{}]退出登录失败, 错误:", token, e);
+            return R.<Boolean>fail().msg("退出登录失败");
         }
-        tokenStore.removeAccessToken(accessToken);
         return R.success(Boolean.TRUE);
     }
 
