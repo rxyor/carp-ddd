@@ -46,7 +46,7 @@ public class CarpTokenEndpoint {
     @Autowired
     private CheckTokenEndpoint checkTokenEndpoint;
 
-    @ApiOperation(value = "移除当前登录用户Token", httpMethod = "POST")
+    @ApiOperation(value = "登出接口", httpMethod = "POST")
     @PostMapping("/token/remove")
     public R<Boolean> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
         if (StringUtils.isBlank(authHeader)) {
@@ -61,6 +61,7 @@ public class CarpTokenEndpoint {
         return R.success(Boolean.TRUE);
     }
 
+    @ApiOperation(value = "登录接口", httpMethod = "GET")
     @RequestMapping(value = "/token/access", method = RequestMethod.GET)
     public R<OAuth2AccessToken> getAccessToken(Principal principal, @RequestParam
         Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
@@ -68,6 +69,7 @@ public class CarpTokenEndpoint {
         return R.success(ret.getBody());
     }
 
+    @ApiOperation(value = "登录接口", httpMethod = "POST")
     @RequestMapping(value = "/token/access", method = RequestMethod.POST)
     public R<OAuth2AccessToken> postAccessToken(Principal principal, @RequestParam
         Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
