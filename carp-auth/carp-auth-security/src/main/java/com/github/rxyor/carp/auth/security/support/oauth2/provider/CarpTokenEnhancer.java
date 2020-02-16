@@ -2,8 +2,13 @@ package com.github.rxyor.carp.auth.security.support.oauth2.provider;
 
 import com.github.rxyor.carp.auth.common.util.BuildSignatureUtil;
 import com.github.rxyor.carp.auth.security.support.security.core.Oauth2User;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -25,12 +30,12 @@ public class CarpTokenEnhancer implements TokenEnhancer {
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-        DefaultOAuth2AccessToken result = new DefaultOAuth2AccessToken(accessToken);
-        String tokenId = result.getValue();
+        DefaultOAuth2AccessToken ret = new DefaultOAuth2AccessToken(accessToken);
+        String tokenId = ret.getValue();
         String newTokenId = BuildSignatureUtil.createSignature(tokenId);
-        result.setValue(newTokenId);
+        ret.setValue(newTokenId);
 
-        OAuth2RefreshToken refreshToken = result.getRefreshToken();
+        OAuth2RefreshToken refreshToken = ret.getRefreshToken();
         if (refreshToken != null) {
             String refreshTokenId = refreshToken.getValue();
             String newRefreshTokenId = refreshTokenId;
@@ -43,9 +48,27 @@ public class CarpTokenEnhancer implements TokenEnhancer {
                 log.warn("refreshTokenId[%s]无法转换为压缩refreshToken");
             }
             DefaultOAuth2RefreshToken newRefreshToken = new DefaultOAuth2RefreshToken(newRefreshTokenId);
-            result.setRefreshToken(newRefreshToken);
+            ret.setRefreshToken(newRefreshToken);
         }
+        Map<String, Object> additionalInformation = getUserInfo(authentication);
+        ret.setAdditionalInformation(additionalInformation);
+        return ret;
+    }
+
+    private Map<String, Object> getUserInfo(OAuth2Authentication authentication) {
         Oauth2User user = (Oauth2User) authentication.getPrincipal();
-        return result;
+        Map<String, Object> map = new HashMap<>(2);
+
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("username", user.getUsername());
+        List<String> authorities = user.getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority)
+            .distinct().collect(Collectors.toList());
+        userMap.put("authorities", authorities);
+        userMap.put("enabled", user.isEnabled());
+
+        map.put("user", userMap);
+
+        return map;
     }
 }
