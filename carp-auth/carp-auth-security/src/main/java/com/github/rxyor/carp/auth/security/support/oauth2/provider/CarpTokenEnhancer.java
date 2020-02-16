@@ -66,6 +66,8 @@ public class CarpTokenEnhancer implements TokenEnhancer {
             .distinct().collect(Collectors.toList());
         userMap.put("authorities", authorities);
         userMap.put("enabled", user.isEnabled());
+        userMap.put("email", user.getEmail());
+        userMap.put("avatar", user.getAvatar());
 
         map.put("user", userMap);
 
