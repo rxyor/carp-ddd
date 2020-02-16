@@ -1,6 +1,8 @@
 package com.github.rxyor.carp.query.service.user;
 
+import com.github.rxyor.carp.query.qry.UserQry;
 import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
+import org.springframework.data.domain.Page;
 
 /**
  *<p>
@@ -20,4 +22,11 @@ public interface UserQryService {
      * @return
      */
     UserRetDTO find(String username);
+
+    /**
+     * 分页查询
+     *
+     * @return
+     */
+    Page<UserRetDTO> page(UserQry qry);
 }
