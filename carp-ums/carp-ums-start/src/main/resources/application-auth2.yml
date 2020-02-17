@@ -10,6 +10,7 @@ carp:
           #swagger接口
           - /doc/api/**
           - /swagger-ui.html
+          - /swagger-ui.html**
           - /webjars/**
           - /swagger-resources/**
           - /v2/api-docs/**

@@ -2,12 +2,15 @@ package com.github.rxyor.carp.ums.application.service.user;
 
 import com.github.rxyor.carp.ums.application.command.user.DisableUserCmd;
 import com.github.rxyor.carp.ums.application.command.user.SaveUserCmd;
+import com.github.rxyor.carp.ums.application.command.user.UpdateUserCmd;
 import com.github.rxyor.carp.ums.domain.user.IUserRepository;
 import com.github.rxyor.carp.ums.domain.user.User;
 import com.github.rxyor.carp.ums.shared.common.support.uitl.BizUidGenerator;
+import com.github.rxyor.common.core.exception.BizException;
 import com.github.rxyor.common.support.hibernate.validate.HibValidatorHelper;
 import com.google.common.base.Preconditions;
 import lombok.AllArgsConstructor;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +46,32 @@ public class UserCmdService {
     }
 
     /**
+     * update user
+     *
+     * @param cmd
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public User update(UpdateUserCmd cmd) {
+        Preconditions.checkArgument(cmd != null,
+            "用户信息不能为空");
+        HibValidatorHelper.validate(cmd);
+
+        User dbUser = userRepository.find(cmd.getId());
+        if (dbUser == null) {
+            throw new BizException(
+                String.format("id[%s]用户不存在", cmd.getId()));
+        }
+
+        User user = UserMapper.INSTANCE.from(cmd);
+        try {
+            BeanUtils.copyProperties(user, dbUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userRepository.save(user);
+    }
+
+    /**
      * 启用或禁用用户
      *
      * @param cmd
@@ -61,8 +90,8 @@ public class UserCmdService {
         userRepository.save(user);
     }
 
-    public void delete(Long id){
-        Preconditions.checkArgument(id!=null,
+    public void delete(Long id) {
+        Preconditions.checkArgument(id != null,
             "用户id不能为空");
 
         userRepository.delete(id);

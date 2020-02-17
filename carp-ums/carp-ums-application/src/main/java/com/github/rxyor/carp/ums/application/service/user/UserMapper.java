@@ -1,5 +1,6 @@
 package com.github.rxyor.carp.ums.application.service.user;
 
+import com.github.rxyor.carp.ums.application.command.user.UpdateUserCmd;
 import com.github.rxyor.carp.ums.domain.user.User;
 import com.github.rxyor.carp.ums.application.command.user.SaveUserCmd;
 import org.mapstruct.Mapper;
@@ -28,4 +29,10 @@ public interface UserMapper {
     @Mapping(target = "updateTime",ignore = true)
     @Mapping(target = "roleList",ignore = true)
     User from(SaveUserCmd cmd);
+
+    @Mapping(target = "salt",ignore = true)
+    @Mapping(target = "createTime",ignore = true)
+    @Mapping(target = "updateTime",ignore = true)
+    @Mapping(target = "roleList",ignore = true)
+    User from(UpdateUserCmd cmd);
 }

@@ -6,9 +6,12 @@ import com.github.rxyor.carp.query.service.user.UserQryService;
 import com.github.rxyor.carp.ums.api.enums.common.DisableEnum;
 import com.github.rxyor.carp.ums.application.command.user.DisableUserCmd;
 import com.github.rxyor.carp.ums.application.command.user.SaveUserCmd;
+import com.github.rxyor.carp.ums.application.command.user.UpdateUserCmd;
 import com.github.rxyor.carp.ums.application.service.user.UserCmdService;
 import com.github.rxyor.carp.ums.insfrastructure.controller.user.request.SaveUserReq;
 import com.github.rxyor.carp.ums.insfrastructure.controller.user.request.SaveUserReqMapper;
+import com.github.rxyor.carp.ums.insfrastructure.controller.user.request.UpdateUserReq;
+import com.github.rxyor.carp.ums.insfrastructure.controller.user.request.UpdateUserReqMapper;
 import com.github.rxyor.common.core.model.R;
 import com.google.common.base.Preconditions;
 import io.swagger.annotations.Api;
@@ -50,6 +53,16 @@ public class UserController {
 
         SaveUserCmd cmd = SaveUserReqMapper.INSTANCE.toSaveUserCmd(req);
         userCmdService.save(cmd);
+        return R.success("ok");
+    }
+
+    @ApiOperation("更新用户")
+    @PostMapping("/update")
+    public R<String> update(@RequestBody UpdateUserReq req) {
+        Preconditions.checkNotNull(req, "请求参数不能为空");
+
+        UpdateUserCmd cmd = UpdateUserReqMapper.INSTANCE.toUpdateUserCmd(req);
+        userCmdService.update(cmd);
         return R.success("ok");
     }
 

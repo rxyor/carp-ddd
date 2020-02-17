@@ -21,7 +21,7 @@ public class SaveUserCmd {
      * 密码
      */
     @NotBlank(message = "密码不能为空")
-    @Pattern(regexp = "[0-9a-zA-Z.]{6,18}",message = "密码必须是数字或字母或英文句号, 且6~18位")
+    @Pattern(regexp = "^[0-9a-zA-Z.]{6,18}$",message = "密码必须是数字或字母或英文句号, 且6~18位")
     private String password;
 
     /**
