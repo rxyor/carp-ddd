@@ -1,6 +1,6 @@
 package com.github.rxyor.carp.ums.insfrastructure.interfaces.qry.user;
 
-import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
+import com.github.rxyor.carp.query.dto.UserDTO;
 import com.github.rxyor.carp.ums.insfrastructure.repository.user.dataobj.UserDO;
 import com.github.rxyor.carp.ums.shared.common.uitl.BeanUtil;
 import com.github.rxyor.carp.ums.shared.common.uitl.PageUtil;
@@ -20,27 +20,27 @@ import org.springframework.data.domain.Page;
  * @since 1.0.0
  */
 @Mapper
-public abstract class UserRetDTOAssembler {
+public abstract class UserDTOAssembler {
 
-    public final static UserRetDTOAssembler INSTANCE = Mappers.getMapper(UserRetDTOAssembler.class);
+    public final static UserDTOAssembler INSTANCE = Mappers.getMapper(UserDTOAssembler.class);
 
-    public UserRetDTO userRetDTO(UserDO userDO) {
+    public UserDTO userDTO(UserDO userDO) {
         if (userDO == null) {
             return null;
         }
 
-        return BeanUtil.copy(userDO, UserRetDTO.class);
+        return BeanUtil.copy(userDO, UserDTO.class);
     }
 
-    @IterableMapping(elementTargetType = UserRetDTO.class)
-    public abstract List<UserRetDTO> userRetDTOList(List<UserDO> userDOList);
+    @IterableMapping(elementTargetType = UserDTO.class)
+    public abstract List<UserDTO> userDTOList(List<UserDO> userDOList);
 
-    public Page<UserRetDTO> userRetDTOPage(Page<UserDO> userDOPage) {
+    public Page<UserDTO> userDTOPage(Page<UserDO> userDOPage) {
         if (userDOPage == null) {
             return Page.empty();
         }
 
-        List<UserRetDTO> userRetDTOList = userRetDTOList(userDOPage.getContent());
-        return PageUtil.cast(userDOPage, userRetDTOList);
+        List<UserDTO> userDTOList = userDTOList(userDOPage.getContent());
+        return PageUtil.cast(userDOPage, userDTOList);
     }
 }

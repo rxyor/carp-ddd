@@ -1,5 +1,6 @@
 package com.github.rxyor.carp.query.service.user;
 
+import com.github.rxyor.carp.query.dto.UserDTO;
 import com.github.rxyor.carp.query.qry.UserQry;
 import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
 import org.springframework.data.domain.Page;
@@ -28,5 +29,5 @@ public interface UserQryService {
      *
      * @return
      */
-    Page<UserRetDTO> page(UserQry qry);
+    Page<UserDTO> page(UserQry qry);
 }

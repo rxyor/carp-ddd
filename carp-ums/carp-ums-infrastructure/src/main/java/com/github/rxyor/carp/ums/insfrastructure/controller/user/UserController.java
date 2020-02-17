@@ -1,8 +1,8 @@
 package com.github.rxyor.carp.ums.insfrastructure.controller.user;
 
+import com.github.rxyor.carp.query.dto.UserDTO;
 import com.github.rxyor.carp.query.qry.UserQry;
 import com.github.rxyor.carp.query.service.user.UserQryService;
-import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
 import com.github.rxyor.carp.ums.application.command.user.SaveUserCmd;
 import com.github.rxyor.carp.ums.application.service.user.UserCmdService;
 import com.github.rxyor.carp.ums.insfrastructure.controller.user.request.SaveUserReq;
@@ -48,10 +48,10 @@ public class UserController {
 
     @ApiOperation("分页查询")
     @PostMapping("/page")
-    public R<Page<UserRetDTO>> page(@RequestBody UserQry req) {
+    public R<Page<UserDTO>> page(@RequestBody UserQry req) {
         Preconditions.checkNotNull(req, "查询参数不能为空");
 
-        Page<UserRetDTO> page = userQryService.page(req);
+        Page<UserDTO> page = userQryService.page(req);
         return R.success(page);
     }
 }

@@ -1,5 +1,6 @@
 package com.github.rxyor.carp.ums.insfrastructure.interfaces.qry.user;
 
+import com.github.rxyor.carp.query.dto.UserDTO;
 import com.github.rxyor.carp.query.qry.UserQry;
 import com.github.rxyor.carp.query.service.user.UserQryService;
 import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
@@ -52,8 +53,8 @@ public class UserQryServiceImpl implements UserQryService {
      * @param qry
      */
     @Override
-    public Page<UserRetDTO> page(UserQry qry) {
+    public Page<UserDTO> page(UserQry qry) {
         Page<UserDO> page = userCriteria.selectPage(qry);
-        return UserRetDTOAssembler.INSTANCE.userRetDTOPage(page);
+        return UserDTOAssembler.INSTANCE.userDTOPage(page);
     }
 }
