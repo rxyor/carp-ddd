@@ -63,8 +63,8 @@ public class UserCmdService {
         }
 
         User user = UserMapper.INSTANCE.from(cmd);
-        SpringBeanUtil.copyIgnoreNull(dbUser, user);
-        return userRepository.save(user);
+        SpringBeanUtil.copyIgnoreNull(user, dbUser);
+        return userRepository.save(dbUser);
     }
 
     /**
