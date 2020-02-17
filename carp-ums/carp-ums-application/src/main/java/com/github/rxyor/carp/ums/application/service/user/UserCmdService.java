@@ -6,11 +6,11 @@ import com.github.rxyor.carp.ums.application.command.user.UpdateUserCmd;
 import com.github.rxyor.carp.ums.domain.user.IUserRepository;
 import com.github.rxyor.carp.ums.domain.user.User;
 import com.github.rxyor.carp.ums.shared.common.support.uitl.BizUidGenerator;
+import com.github.rxyor.carp.ums.shared.common.uitl.SpringBeanUtil;
 import com.github.rxyor.common.core.exception.BizException;
 import com.github.rxyor.common.support.hibernate.validate.HibValidatorHelper;
 import com.google.common.base.Preconditions;
 import lombok.AllArgsConstructor;
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,11 +63,7 @@ public class UserCmdService {
         }
 
         User user = UserMapper.INSTANCE.from(cmd);
-        try {
-            BeanUtils.copyProperties(user, dbUser);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        SpringBeanUtil.copyIgnoreNull(dbUser, user);
         return userRepository.save(user);
     }
 
