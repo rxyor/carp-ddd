@@ -2,11 +2,13 @@ package com.github.rxyor.carp.auth.security.support.security.core;
 
 import com.github.rxyor.carp.auth.security.config.CarpAuthClientProperties;
 import com.github.rxyor.carp.auth.security.consts.SecurityConst.Prefix;
+import com.github.rxyor.carp.auth.security.exception.CarpOauth2Exception;
 import com.github.rxyor.carp.ums.api.dto.ums.PermissionRetDTO;
 import com.github.rxyor.carp.ums.api.dto.ums.RoleRetDTO;
 import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
 import com.github.rxyor.carp.ums.api.enums.common.DisableEnum;
 import com.github.rxyor.carp.ums.api.feign.user.UserFeignService;
+import com.github.rxyor.common.core.enums.CoreExCodeEnum;
 import com.github.rxyor.common.core.model.R;
 import com.github.rxyor.common.support.util.CryptoUtil;
 import com.github.rxyor.common.support.util.RedisKeyBuilder;
@@ -58,7 +60,7 @@ public class CarpUserDetailsService implements UserDetailsService {
                 throw new AccessDeniedException("请求用户信息失败", e);
             }
             if (!R.isRequestSuccessCanNotNullData(ret)) {
-                throw new AccessDeniedException("请求用户信息失败");
+                throw new CarpOauth2Exception(CoreExCodeEnum.AUTHENTICATION_FAIL, "用户不存在");
             }
             Oauth2User user = this.toCarpUser(ret.getData());
             if (user != null) {

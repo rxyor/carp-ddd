@@ -55,6 +55,7 @@ public abstract class AbstractResourceServerConfig extends ResourceServerConfigu
     public void configure(HttpSecurity http) throws Exception {
         //允许使用iframe 嵌套，避免swagger-ui 不被加载的问题
         http.csrf().disable();
+        http.httpBasic().disable();
         http.formLogin().disable();
         http.headers().frameOptions().disable();
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http

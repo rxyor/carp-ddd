@@ -1,5 +1,6 @@
 package com.github.rxyor.carp.auth.start.handler;
 
+import com.github.rxyor.carp.auth.security.exception.CarpOauth2Exception;
 import com.github.rxyor.common.core.model.R;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -128,8 +129,14 @@ public class ExceptionController implements ErrorController {
 
     @RequestMapping
     @ResponseBody
-    public R<Object> error(HttpServletRequest request) {
+    public R<Object> error(HttpServletRequest request, HttpServletResponse response) {
         HttpStatus status = getStatus(request);
+        int code = status.value();
+        //401响应码会导致浏览器弹出登录框
+        if (code == 401) {
+            code = 403;
+        }
+        response.setStatus(code);
 
         Object e = request.getAttribute("org.springframework.boot.web.servlet.error.DefaultErrorAttributes.ERROR");
         if (e != null) {
@@ -137,22 +144,30 @@ public class ExceptionController implements ErrorController {
             if (e instanceof UsernameNotFoundException
                 || e instanceof BadCredentialsException
                 || e instanceof InvalidGrantException) {
-                return R.fail(status.value(), "用户名或密码错误", ((Exception) e).getMessage());
+                return R.fail(code, "用户名或密码错误", ((Exception) e).getMessage());
             } else if (e instanceof DisabledException) {
-                return R.fail(status.value(), "用户已被禁用", ((Exception) e).getMessage());
+                return R.fail(code, "用户已被禁用", ((Exception) e).getMessage());
             } else if (e instanceof LockedException) {
-                return R.fail(status.value(), "账户被锁定", ((Exception) e).getMessage());
+                return R.fail(code, "账户被锁定", ((Exception) e).getMessage());
             } else if (e instanceof AccountExpiredException) {
-                return R.fail(status.value(), "账户过期", ((Exception) e).getMessage());
+                return R.fail(code, "账户过期", ((Exception) e).getMessage());
             } else if (e instanceof CredentialsExpiredException) {
-                return R.fail(status.value(), "证书过期", ((Exception) e).getMessage());
-            } else {
-                return R.fail(status.value(), "请求失败", ((Exception) e).getMessage());
+                return R.fail(code, "证书过期", ((Exception) e).getMessage());
+            } else if (e instanceof Throwable) {
+                Throwable ex = (Throwable) e;
+                while (ex != null && !(ex instanceof CarpOauth2Exception)) {
+                    ex = ex.getCause();
+                }
+                if (ex != null && ex instanceof CarpOauth2Exception) {
+                    CarpOauth2Exception ce = (CarpOauth2Exception) ex;
+                    return R.fail(ce.getCode(), ce.getMsg());
+                }
             }
+            return R.fail(code, "请求失败", ((Exception) e).getMessage());
         }
 
         Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
-        return R.fail(status.value(), "请求失败", body);
+        return R.fail(code, "请求失败", body);
     }
 
     /**
