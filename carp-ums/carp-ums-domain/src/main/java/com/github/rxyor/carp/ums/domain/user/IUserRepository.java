@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface IUserRepository {
 
+    User find(Long id);
+
     User find(String username);
 
     List<User> findAll();

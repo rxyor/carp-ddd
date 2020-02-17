@@ -36,6 +36,16 @@ public class User implements Serializable {
     private String phone;
 
     /**
+     * 邮箱
+     */
+    private String email;
+
+    /**
+     * 头像
+     */
+    private String avatar;
+
+    /**
      * 昵称
      */
     private String nickname;

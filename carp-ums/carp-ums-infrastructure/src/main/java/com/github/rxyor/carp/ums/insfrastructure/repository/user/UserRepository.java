@@ -26,6 +26,12 @@ public class UserRepository implements IUserRepository {
     private final UserDAO userDAO;
 
     @Override
+    public User find(Long id) {
+        UserDO userDO = userDAO.find(id);
+        return BeanUtil.copy(userDO, User.class);
+    }
+
+    @Override
     public User find(String username) {
         UserDO userDO = userDAO.find(username);
         return BeanUtil.copy(userDO, User.class);
