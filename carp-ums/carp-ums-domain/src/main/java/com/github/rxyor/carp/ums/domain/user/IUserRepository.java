@@ -11,4 +11,6 @@ public interface IUserRepository {
     List<User> findAll();
 
     User save(User user);
+
+    void delete(Long id);
 }

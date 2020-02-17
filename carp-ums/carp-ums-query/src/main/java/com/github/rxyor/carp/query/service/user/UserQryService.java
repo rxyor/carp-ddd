@@ -25,6 +25,14 @@ public interface UserQryService {
     UserRetDTO find(String username);
 
     /**
+     * find by id
+     *
+     * @param id
+     * @return
+     */
+    UserDTO find(Long id);
+
+    /**
      * 分页查询
      *
      * @return

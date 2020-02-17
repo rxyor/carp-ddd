@@ -47,6 +47,21 @@ public class UserQryServiceImpl implements UserQryService {
     }
 
     /**
+     * find by id
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public UserDTO find(Long id) {
+        Preconditions.checkArgument(id!=null,
+            "id不能为空");
+
+        UserDO userDO = userCriteria.dao().find(id);
+        return BeanUtil.copy(userDO, UserDTO.class);
+    }
+
+    /**
      * 分页查询
      *
      * @return

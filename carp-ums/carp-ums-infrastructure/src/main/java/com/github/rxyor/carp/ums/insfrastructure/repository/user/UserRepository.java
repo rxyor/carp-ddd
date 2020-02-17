@@ -52,4 +52,12 @@ public class UserRepository implements IUserRepository {
         UserDO ret = userDAO.save(userDO);
         return BeanUtil.copy(ret, User.class);
     }
+
+    @Override
+    public void delete(Long id) {
+        Preconditions.checkArgument(id!=null,
+            "id不能为空");
+
+        userDAO.deleteById(id);
+    }
 }

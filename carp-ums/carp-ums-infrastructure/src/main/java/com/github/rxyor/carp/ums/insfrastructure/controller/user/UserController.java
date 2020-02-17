@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,14 @@ public class UserController {
         SaveUserCmd cmd = SaveUserReqMapper.INSTANCE.toSaveUserCmd(req);
         userCmdService.save(cmd);
         return R.success("ok");
+    }
+
+    @ApiOperation("获取用户信息[id]")
+    @GetMapping("/get")
+    public R<UserDTO> get(
+        @NotNull(message = "用户id不能为空")
+        @RequestParam("id") Long id) {
+        return R.success(userQryService.find(id));
     }
 
     @ApiOperation("分页查询")
@@ -86,6 +95,15 @@ public class UserController {
         cmd.setDisable(DisableEnum.DISABLE.getCode());
 
         userCmdService.disableOrEnable(cmd);
+        return R.success("ok");
+    }
+
+    @ApiOperation("禁用用户")
+    @PostMapping("/delete")
+    public R<Object> delete(
+        @NotNull(message = "用户id不能为空")
+        @RequestParam("id") Long id) {
+        userCmdService.delete(id);
         return R.success("ok");
     }
 }

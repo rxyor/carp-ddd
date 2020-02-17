@@ -61,4 +61,11 @@ public class UserCmdService {
         userRepository.save(user);
     }
 
+    public void delete(Long id){
+        Preconditions.checkArgument(id!=null,
+            "用户id不能为空");
+
+        userRepository.delete(id);
+    }
+
 }
