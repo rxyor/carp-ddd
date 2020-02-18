@@ -4,11 +4,14 @@ import com.github.rxyor.carp.query.dto.role.RoleDTO;
 import com.github.rxyor.carp.query.qry.role.RoleQry;
 import com.github.rxyor.carp.query.service.role.RoleQryService;
 import com.github.rxyor.carp.ums.api.enums.common.DisableEnum;
-import com.github.rxyor.carp.ums.application.command.role.SaveRoleCmd;
 import com.github.rxyor.carp.ums.application.command.role.DisableRoleCmd;
+import com.github.rxyor.carp.ums.application.command.role.SaveRoleCmd;
+import com.github.rxyor.carp.ums.application.command.role.UpdateRoleCmd;
 import com.github.rxyor.carp.ums.application.service.role.RoleCmdService;
 import com.github.rxyor.carp.ums.insfrastructure.controller.role.request.SaveRoleReq;
 import com.github.rxyor.carp.ums.insfrastructure.controller.role.request.SaveRoleReqMapper;
+import com.github.rxyor.carp.ums.insfrastructure.controller.role.request.UpdateRoleReq;
+import com.github.rxyor.carp.ums.insfrastructure.controller.role.request.UpdateRoleReqMapper;
 import com.github.rxyor.common.core.model.R;
 import com.google.common.base.Preconditions;
 import io.swagger.annotations.Api;
@@ -16,6 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +55,24 @@ public class RoleController {
         return R.success("ok");
     }
 
+    @ApiOperation("更新角色")
+    @PostMapping("/update")
+    public R<String> update(@RequestBody UpdateRoleReq req) {
+        Preconditions.checkNotNull(req, "请求参数不能为空");
+
+        UpdateRoleCmd cmd = UpdateRoleReqMapper.INSTANCE.toUpdateRoleCmd(req);
+        roleCmdService.update(cmd);
+        return R.success("ok");
+    }
+    
+    @ApiOperation("获取角色信息[id]")
+    @GetMapping("/get")
+    public R<RoleDTO> get(
+        @NotNull(message = "角色id不能为空")
+        @RequestParam("id") Long id) {
+        return R.success(roleQryService.find(id));
+    }
+    
     @ApiOperation("分页查询")
     @PostMapping("/page")
     public R<Page<RoleDTO>> page(@RequestBody RoleQry req) {

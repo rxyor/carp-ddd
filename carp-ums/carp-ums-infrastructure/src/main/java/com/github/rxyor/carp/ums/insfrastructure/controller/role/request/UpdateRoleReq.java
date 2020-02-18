@@ -15,7 +15,10 @@ import lombok.Data;
  */
 @ApiModel
 @Data
-public class SaveRoleReq {
+public class UpdateRoleReq {
+
+    @ApiModelProperty("id")
+    private String id;
 
     @ApiModelProperty("角色编码")
     private String roleCode;

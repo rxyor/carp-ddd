@@ -17,4 +17,6 @@ public interface RoleQryService {
 
     Page<RoleDTO> page(RoleQry qry);
 
+    RoleDTO find(Long id);
+
 }

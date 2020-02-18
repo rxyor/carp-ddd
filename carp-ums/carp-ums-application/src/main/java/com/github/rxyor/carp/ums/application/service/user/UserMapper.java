@@ -24,6 +24,7 @@ public interface UserMapper {
     @Mapping(target = "id",ignore = true)
     @Mapping(target = "disable",ignore = true)
     @Mapping(target = "locked",ignore = true)
+    @Mapping(target = "salt",ignore = true)
     @Mapping(target = "createTime",ignore = true)
     @Mapping(target = "updateTime",ignore = true)
     @Mapping(target = "roleList",ignore = true)

@@ -2,8 +2,11 @@ package com.github.rxyor.carp.ums.application.service.role;
 
 import com.github.rxyor.carp.ums.application.command.role.DisableRoleCmd;
 import com.github.rxyor.carp.ums.application.command.role.SaveRoleCmd;
+import com.github.rxyor.carp.ums.application.command.role.UpdateRoleCmd;
 import com.github.rxyor.carp.ums.domain.role.IRoleRepository;
 import com.github.rxyor.carp.ums.domain.role.Role;
+import com.github.rxyor.carp.ums.shared.common.uitl.SpringBeanUtil;
+import com.github.rxyor.common.core.exception.BizException;
 import com.github.rxyor.common.support.hibernate.validate.HibValidatorHelper;
 import com.google.common.base.Preconditions;
 import lombok.AllArgsConstructor;
@@ -39,6 +42,28 @@ public class RoleCmdService {
 
         Role role = RoleMapper.INSTANCE.from(cmd);
         return roleRepository.save(role);
+    }
+
+    /**
+     * update role
+     *
+     * @param cmd
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public Role update(UpdateRoleCmd cmd) {
+        Preconditions.checkArgument(cmd != null,
+            "用户信息不能为空");
+        HibValidatorHelper.validate(cmd);
+
+        Role dbRole = roleRepository.find(cmd.getId());
+        if (dbRole == null) {
+            throw new BizException(
+                String.format("id[%s]用户不存在", cmd.getId()));
+        }
+
+        Role role = RoleMapper.INSTANCE.from(cmd);
+        SpringBeanUtil.copyIgnoreNull(role, dbRole);
+        return roleRepository.save(dbRole);
     }
 
     /**
