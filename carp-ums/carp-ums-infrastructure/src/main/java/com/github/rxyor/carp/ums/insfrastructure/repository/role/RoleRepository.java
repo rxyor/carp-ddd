@@ -33,4 +33,21 @@ public class RoleRepository implements IRoleRepository {
         RoleDO ret = roleDAO.save(roleDO);
         return BeanUtil.copy(ret, Role.class);
     }
+
+    @Override
+    public Role find(Long id) {
+        Preconditions.checkArgument(id != null,
+            "id不能为空");
+
+        RoleDO roleDO = roleDAO.find(id);
+        return BeanUtil.copy(roleDO, Role.class);
+    }
+
+    @Override
+    public void delete(Long id) {
+        Preconditions.checkArgument(id != null,
+            "id不能为空");
+
+        roleDAO.deleteById(id);
+    }
 }

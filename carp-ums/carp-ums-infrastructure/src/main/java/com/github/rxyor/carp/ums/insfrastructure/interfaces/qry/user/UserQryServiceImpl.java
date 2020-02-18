@@ -1,7 +1,7 @@
 package com.github.rxyor.carp.ums.insfrastructure.interfaces.qry.user;
 
-import com.github.rxyor.carp.query.dto.UserDTO;
-import com.github.rxyor.carp.query.qry.UserQry;
+import com.github.rxyor.carp.query.dto.user.UserDTO;
+import com.github.rxyor.carp.query.qry.user.UserQry;
 import com.github.rxyor.carp.query.service.user.UserQryService;
 import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
 import com.github.rxyor.carp.ums.insfrastructure.repository.user.criteria.UserCriteria;

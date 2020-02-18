@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.query.dto;
+package com.github.rxyor.carp.query.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;

@@ -11,6 +11,10 @@ package com.github.rxyor.carp.ums.domain.role;
  */
 public interface IRoleRepository {
 
+    Role find(Long id);
+
     Role save(Role role);
+
+    void delete(Long id);
 
 }

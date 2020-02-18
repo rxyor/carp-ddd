@@ -1,6 +1,6 @@
 package com.github.rxyor.carp.ums.insfrastructure.interfaces.qry.user;
 
-import com.github.rxyor.carp.query.dto.UserDTO;
+import com.github.rxyor.carp.query.dto.user.UserDTO;
 import com.github.rxyor.carp.ums.insfrastructure.repository.user.dataobj.UserDO;
 import com.github.rxyor.carp.ums.shared.common.uitl.BeanUtil;
 import com.github.rxyor.carp.ums.shared.common.uitl.PageUtil;

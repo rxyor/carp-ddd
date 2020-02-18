@@ -27,6 +27,9 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public User find(Long id) {
+        Preconditions.checkArgument(id!=null,
+            "id不能为空");
+
         UserDO userDO = userDAO.find(id);
         return BeanUtil.copy(userDO, User.class);
     }

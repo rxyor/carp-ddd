@@ -1,8 +1,8 @@
 package com.github.rxyor.carp.ums.insfrastructure.repository.user.criteria;
 
-import com.github.rxyor.carp.query.qry.user.UserQry;
-import com.github.rxyor.carp.ums.insfrastructure.repository.user.dao.UserDAO;
-import com.github.rxyor.carp.ums.insfrastructure.repository.user.dataobj.UserDO;
+import com.github.rxyor.carp.query.qry.role.RoleQry;
+import com.github.rxyor.carp.ums.insfrastructure.repository.role.dao.RoleDAO;
+import com.github.rxyor.carp.ums.insfrastructure.repository.role.dataobj.RoleDO;
 import com.github.rxyor.carp.ums.shared.common.uitl.PageUtil;
 import com.github.rxyor.carp.ums.shared.common.uitl.SqlUtil;
 import com.google.common.base.Preconditions;
@@ -21,24 +21,24 @@ import org.springframework.stereotype.Repository;
  *</p>
  *
  * @author liuyang
- * @date 2020/2/16 周日 23:16:00
+ * @date 2020/2/18 周二 14:49:00
  * @since 1.0.0
  */
 @AllArgsConstructor
 @Repository
-public class UserCriteria {
+public class RoleCriteria {
 
-    private final UserDAO userDAO;
+    private final RoleDAO roleDAO;
 
-    public UserDAO dao() {
-        return userDAO;
+    public RoleDAO dao() {
+        return roleDAO;
     }
 
-    public Page<UserDO> selectPage(UserQry qry) {
+    public Page<RoleDO> selectPage(RoleQry qry){
         Preconditions.checkArgument(qry != null,
             "查询参数不能为空");
 
-        Specification<UserDO> spec = (Specification<UserDO>) (root, query, cb) -> {
+        Specification<RoleDO> spec = (Specification<RoleDO>) (root, query, cb) -> {
             List<Predicate> conditions = new ArrayList<>(4);
             if (qry.getId() != null) {
                 conditions.add(cb.equal(root.get("id"), qry.getId()));
@@ -46,8 +46,11 @@ public class UserCriteria {
             if (qry.getDisable() != null) {
                 conditions.add(cb.equal(root.get("disable"), qry.getDisable()));
             }
-            if (StringUtils.isNotBlank(qry.getUsername())) {
-                conditions.add(cb.like(root.get("username"), SqlUtil.allLike(qry.getUsername())));
+            if (StringUtils.isNotBlank(qry.getRoleName())) {
+                conditions.add(cb.like(root.get("roleName"), SqlUtil.allLike(qry.getRoleName())));
+            }
+            if (StringUtils.isNotBlank(qry.getRoleCode())) {
+                conditions.add(cb.like(root.get("roleCode"), SqlUtil.allLike(qry.getRoleCode())));
             }
 
             Predicate[] predicates = conditions.toArray(new Predicate[conditions.size()]);

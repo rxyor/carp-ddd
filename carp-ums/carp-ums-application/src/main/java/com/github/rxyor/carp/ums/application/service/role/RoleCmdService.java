@@ -1,8 +1,9 @@
 package com.github.rxyor.carp.ums.application.service.role;
 
+import com.github.rxyor.carp.ums.application.command.role.DisableRoleCmd;
 import com.github.rxyor.carp.ums.application.command.role.SaveRoleCmd;
-import com.github.rxyor.carp.ums.domain.role.Role;
 import com.github.rxyor.carp.ums.domain.role.IRoleRepository;
+import com.github.rxyor.carp.ums.domain.role.Role;
 import com.github.rxyor.common.support.hibernate.validate.HibValidatorHelper;
 import com.google.common.base.Preconditions;
 import lombok.AllArgsConstructor;
@@ -38,5 +39,31 @@ public class RoleCmdService {
 
         Role role = RoleMapper.INSTANCE.from(cmd);
         return roleRepository.save(role);
+    }
+
+    /**
+     * 启用或禁用角色
+     *
+     * @param cmd
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void disableOrEnable(DisableRoleCmd cmd) {
+        Preconditions.checkArgument(cmd != null,
+            "命令不能为空");
+        HibValidatorHelper.validate(cmd);
+
+        Role role = roleRepository.find(cmd.getId());
+        Preconditions.checkArgument(role != null,
+            String.format("ID:[%s]角色不存在", cmd.getId()));
+
+        role.setDisable(cmd.getDisable());
+        roleRepository.save(role);
+    }
+
+    public void delete(Long id) {
+        Preconditions.checkArgument(id != null,
+            "id不能为空");
+
+        roleRepository.delete(id);
     }
 }

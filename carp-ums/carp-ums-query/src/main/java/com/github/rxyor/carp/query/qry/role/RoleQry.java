@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.query.qry;
+package com.github.rxyor.carp.query.qry.role;
 
 import com.github.rxyor.carp.ums.shared.common.core.model.PageQry;
 import lombok.Data;
@@ -17,10 +17,11 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class UserQry extends PageQry {
+public class RoleQry extends PageQry {
 
     private Long id;
-    private String username;
+    private String roleCode;
+    private String roleName;
     private Integer disable;
 
 }
