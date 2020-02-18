@@ -11,6 +11,7 @@ import com.github.rxyor.common.core.exception.BizException;
 import com.github.rxyor.common.support.hibernate.validate.HibValidatorHelper;
 import com.google.common.base.Preconditions;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,7 +42,9 @@ public class UserCmdService {
         HibValidatorHelper.validate(cmd);
 
         User user = UserMapper.INSTANCE.from(cmd);
-        user.setUsername(BizUidGenerator.nextUid());
+        if(StringUtils.isBlank(user.getUsername())){
+            user.setUsername(BizUidGenerator.nextUid());
+        }
         return userRepository.save(user);
     }
 

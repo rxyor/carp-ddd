@@ -1,6 +1,7 @@
 package com.github.rxyor.carp.auth.start.handler;
 
 import com.github.rxyor.carp.auth.security.exception.CarpOauth2Exception;
+import com.github.rxyor.common.core.enums.CoreExCodeEnum;
 import com.github.rxyor.common.core.model.R;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +26,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
+import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -131,12 +133,15 @@ public class ExceptionController implements ErrorController {
     @ResponseBody
     public R<Object> error(HttpServletRequest request, HttpServletResponse response) {
         HttpStatus status = getStatus(request);
-        int code = status.value();
+        int statusCode = status.value();
+
+        int code = 500;
+        final int invalidAuthCode = CoreExCodeEnum.AUTHENTICATION_FAIL.getCode();
         //401响应码会导致浏览器弹出登录框
-        if (code == 401) {
-            code = 403;
+        if (statusCode == invalidAuthCode) {
+            code = invalidAuthCode;
         }
-        response.setStatus(code);
+        response.setStatus(200);
 
         Object e = request.getAttribute("org.springframework.boot.web.servlet.error.DefaultErrorAttributes.ERROR");
         if (e != null) {
@@ -144,15 +149,17 @@ public class ExceptionController implements ErrorController {
             if (e instanceof UsernameNotFoundException
                 || e instanceof BadCredentialsException
                 || e instanceof InvalidGrantException) {
-                return R.fail(code, "用户名或密码错误", ((Exception) e).getMessage());
+                return R.fail(invalidAuthCode, "用户名或密码错误", ((Exception) e).getMessage());
             } else if (e instanceof DisabledException) {
-                return R.fail(code, "用户已被禁用", ((Exception) e).getMessage());
+                return R.fail(invalidAuthCode, "用户已被禁用", ((Exception) e).getMessage());
             } else if (e instanceof LockedException) {
-                return R.fail(code, "账户被锁定", ((Exception) e).getMessage());
+                return R.fail(invalidAuthCode, "账户被锁定", ((Exception) e).getMessage());
             } else if (e instanceof AccountExpiredException) {
-                return R.fail(code, "账户过期", ((Exception) e).getMessage());
+                return R.fail(invalidAuthCode, "账户过期", ((Exception) e).getMessage());
             } else if (e instanceof CredentialsExpiredException) {
-                return R.fail(code, "证书过期", ((Exception) e).getMessage());
+                return R.fail(invalidAuthCode, "证书过期", ((Exception) e).getMessage());
+            } else if (e instanceof InvalidTokenException) {
+                return R.fail(invalidAuthCode, "Token无效或者已过期", ((Exception) e).getMessage());
             } else if (e instanceof Throwable) {
                 Throwable ex = (Throwable) e;
                 while (ex != null && !(ex instanceof CarpOauth2Exception)) {

@@ -17,39 +17,27 @@ import lombok.Data;
 @Data
 public class SaveUserReq {
 
-    /**
-     * 用户名
-     */
     @ApiModelProperty("用户名")
     private String username;
 
-    /**
-     * 密码
-     */
     @ApiModelProperty("密码")
     private String password;
 
-    /**
-     * 手机号
-     */
     @ApiModelProperty("手机号")
     private String phone;
 
-    /**
-     * 昵称
-     */
+    @ApiModelProperty("邮箱")
+    private String email;
+
     @ApiModelProperty("昵称")
     private String nickname;
 
-    /**
-     * 随机盐
-     */
+    @ApiModelProperty("头像")
+    private String avatar;
+
     @ApiModelProperty("随机盐")
     private String salt = "";
 
-    /**
-     * 备注
-     */
     @ApiModelProperty("备注")
     private String remark;
 }
