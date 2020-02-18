@@ -21,13 +21,6 @@
     </modules>
 
     <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.github.rxyor</groupId>
-                <artifactId>carp-ums-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-        </dependencies>
     </dependencyManagement>
 
 </project>

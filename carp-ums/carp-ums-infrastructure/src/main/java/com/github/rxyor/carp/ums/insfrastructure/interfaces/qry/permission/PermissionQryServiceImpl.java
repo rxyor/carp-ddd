@@ -3,10 +3,13 @@ package com.github.rxyor.carp.ums.insfrastructure.interfaces.qry.permission;
 import com.github.rxyor.carp.query.dto.permission.PermissionDTO;
 import com.github.rxyor.carp.query.qry.permission.PermissionQry;
 import com.github.rxyor.carp.query.service.permission.PermissionQryService;
+import com.github.rxyor.carp.ums.api.enums.common.DisableEnum;
 import com.github.rxyor.carp.ums.insfrastructure.repository.premssion.criteria.PermissionCriteria;
 import com.github.rxyor.carp.ums.insfrastructure.repository.premssion.dataobj.PermissionDO;
 import com.github.rxyor.carp.ums.shared.common.uitl.BeanUtil;
 import com.google.common.base.Preconditions;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -39,5 +42,15 @@ public class PermissionQryServiceImpl implements PermissionQryService {
 
         PermissionDO permissionDO = permissionCriteria.dao().find(id);
         return BeanUtil.copy(permissionDO, PermissionDTO.class);
+    }
+
+    @Override
+    public List<PermissionDTO> listEnable() {
+        List<PermissionDO> list = permissionCriteria.dao()
+            .findByDisable(DisableEnum.ENABLE.getCode());
+        if (list == null || list.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return PermissionDTOAssembler.INSTANCE.permissionDTOList(list);
     }
 }

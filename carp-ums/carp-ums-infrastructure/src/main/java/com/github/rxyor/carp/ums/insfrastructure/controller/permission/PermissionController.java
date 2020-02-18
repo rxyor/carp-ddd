@@ -16,6 +16,7 @@ import com.github.rxyor.common.core.model.R;
 import com.google.common.base.Preconditions;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -44,6 +45,30 @@ public class PermissionController {
     private final PermissionCmdService permissionCmdService;
     private final PermissionQryService permissionQryService;
 
+    @ApiOperation("获取权限信息[id]")
+    @GetMapping("/get")
+    public R<PermissionDTO> get(
+        @NotNull(message = "权限id不能为空")
+        @RequestParam("id") Long id) {
+        return R.success(permissionQryService.find(id));
+    }
+
+    @ApiOperation("分页查询")
+    @PostMapping("/page")
+    public R<Page<PermissionDTO>> page(@RequestBody PermissionQry req) {
+        Preconditions.checkNotNull(req, "查询参数不能为空");
+
+        Page<PermissionDTO> page = permissionQryService.page(req);
+        return R.success(page);
+    }
+
+    @ApiOperation("查询所有启用")
+    @PostMapping("/list/enable")
+    public R<List<PermissionDTO>> listEnable() {
+        List<PermissionDTO> list = permissionQryService.listEnable();
+        return R.success(list);
+    }
+
     @ApiOperation("保存权限")
     @PostMapping("/save")
     public R<Object> save(
@@ -63,23 +88,6 @@ public class PermissionController {
         UpdatePermissionCmd cmd = UpdatePermissionReqMapper.INSTANCE.toUpdatePermissionCmd(req);
         permissionCmdService.update(cmd);
         return R.success("ok");
-    }
-    
-    @ApiOperation("获取权限信息[id]")
-    @GetMapping("/get")
-    public R<PermissionDTO> get(
-        @NotNull(message = "权限id不能为空")
-        @RequestParam("id") Long id) {
-        return R.success(permissionQryService.find(id));
-    }
-    
-    @ApiOperation("分页查询")
-    @PostMapping("/page")
-    public R<Page<PermissionDTO>> page(@RequestBody PermissionQry req) {
-        Preconditions.checkNotNull(req, "查询参数不能为空");
-
-        Page<PermissionDTO> page = permissionQryService.page(req);
-        return R.success(page);
     }
 
     @ApiOperation("启用权限")

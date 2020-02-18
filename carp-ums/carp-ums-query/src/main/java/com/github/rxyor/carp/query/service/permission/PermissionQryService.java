@@ -2,6 +2,7 @@ package com.github.rxyor.carp.query.service.permission;
 
 import com.github.rxyor.carp.query.dto.permission.PermissionDTO;
 import com.github.rxyor.carp.query.qry.permission.PermissionQry;
+import java.util.List;
 import org.springframework.data.domain.Page;
 
 /**
@@ -18,5 +19,7 @@ public interface PermissionQryService {
     Page<PermissionDTO> page(PermissionQry qry);
 
     PermissionDTO find(Long id);
+
+    List<PermissionDTO> listEnable();
 
 }
