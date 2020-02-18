@@ -12,4 +12,8 @@ package com.github.rxyor.carp.ums.domain.premssion;
 public interface IPermissionRepository {
 
     Permission save(Permission permission);
+
+    Permission find(Long id);
+
+    void delete(Long id);
 }

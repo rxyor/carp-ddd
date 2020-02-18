@@ -52,13 +52,13 @@ public class RoleCmdService {
     @Transactional(rollbackFor = Exception.class)
     public Role update(UpdateRoleCmd cmd) {
         Preconditions.checkArgument(cmd != null,
-            "用户信息不能为空");
+            "角色信息不能为空");
         HibValidatorHelper.validate(cmd);
 
         Role dbRole = roleRepository.find(cmd.getId());
         if (dbRole == null) {
             throw new BizException(
-                String.format("id[%s]用户不存在", cmd.getId()));
+                String.format("id[%s]角色不存在", cmd.getId()));
         }
 
         Role role = RoleMapper.INSTANCE.from(cmd);

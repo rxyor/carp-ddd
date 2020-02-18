@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  *</p>
  *
  * @author liuyang
- * @date 2019/12/30 周一 13:55:00
+ * @date 2019/12/30 周一 13:51:00
  * @since 1.0.0
  */
 @AllArgsConstructor
@@ -32,5 +32,22 @@ public class PermissionRepository implements IPermissionRepository {
         PermissionDO permissionDO = BeanUtil.copy(permission, PermissionDO.class);
         PermissionDO ret = permissionDAO.save(permissionDO);
         return BeanUtil.copy(ret, Permission.class);
+    }
+
+    @Override
+    public Permission find(Long id) {
+        Preconditions.checkArgument(id != null,
+            "id不能为空");
+
+        PermissionDO permissionDO = permissionDAO.find(id);
+        return BeanUtil.copy(permissionDO, Permission.class);
+    }
+
+    @Override
+    public void delete(Long id) {
+        Preconditions.checkArgument(id != null,
+            "id不能为空");
+
+        permissionDAO.deleteById(id);
     }
 }

@@ -1,8 +1,8 @@
-package com.github.rxyor.carp.ums.insfrastructure.repository.user.criteria;
+package com.github.rxyor.carp.ums.insfrastructure.repository.premssion.criteria;
 
-import com.github.rxyor.carp.query.qry.role.RoleQry;
-import com.github.rxyor.carp.ums.insfrastructure.repository.role.dao.RoleDAO;
-import com.github.rxyor.carp.ums.insfrastructure.repository.role.dataobj.RoleDO;
+import com.github.rxyor.carp.query.qry.permission.PermissionQry;
+import com.github.rxyor.carp.ums.insfrastructure.repository.premssion.dao.PermissionDAO;
+import com.github.rxyor.carp.ums.insfrastructure.repository.premssion.dataobj.PermissionDO;
 import com.github.rxyor.carp.ums.shared.common.uitl.PageUtil;
 import com.github.rxyor.carp.ums.shared.common.uitl.SqlUtil;
 import com.google.common.base.Preconditions;
@@ -26,19 +26,19 @@ import org.springframework.stereotype.Repository;
  */
 @AllArgsConstructor
 @Repository
-public class RoleCriteria {
+public class PermissionCriteria {
 
-    private final RoleDAO roleDAO;
+    private final PermissionDAO permissionDAO;
 
-    public RoleDAO dao() {
-        return roleDAO;
+    public PermissionDAO dao() {
+        return permissionDAO;
     }
 
-    public Page<RoleDO> selectPage(RoleQry qry){
+    public Page<PermissionDO> selectPage(PermissionQry qry){
         Preconditions.checkArgument(qry != null,
             "查询参数不能为空");
 
-        Specification<RoleDO> spec = (Specification<RoleDO>) (root, query, cb) -> {
+        Specification<PermissionDO> spec = (Specification<PermissionDO>) (root, query, cb) -> {
             List<Predicate> conditions = new ArrayList<>(4);
             if (qry.getId() != null) {
                 conditions.add(cb.equal(root.get("id"), qry.getId()));
@@ -46,11 +46,11 @@ public class RoleCriteria {
             if (qry.getDisable() != null) {
                 conditions.add(cb.equal(root.get("disable"), qry.getDisable()));
             }
-            if (StringUtils.isNotBlank(qry.getRoleName())) {
-                conditions.add(cb.like(root.get("roleName"), SqlUtil.allLike(qry.getRoleName())));
+            if (StringUtils.isNotBlank(qry.getPermissionName())) {
+                conditions.add(cb.like(root.get("permissionName"), SqlUtil.allLike(qry.getPermissionName())));
             }
-            if (StringUtils.isNotBlank(qry.getRoleCode())) {
-                conditions.add(cb.like(root.get("roleCode"), SqlUtil.allLike(qry.getRoleCode())));
+            if (StringUtils.isNotBlank(qry.getPermissionCode())) {
+                conditions.add(cb.like(root.get("permissionCode"), SqlUtil.allLike(qry.getPermissionCode())));
             }
 
             Predicate[] predicates = conditions.toArray(new Predicate[conditions.size()]);
