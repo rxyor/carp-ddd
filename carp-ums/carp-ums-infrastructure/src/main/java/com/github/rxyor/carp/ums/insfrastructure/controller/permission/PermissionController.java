@@ -20,6 +20,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/12/27 周五 18:38:00
  * @since 1.0.0
  */
+@Validated
 @Api(tags = "Permission")
 @AllArgsConstructor
 @RestController
@@ -63,7 +65,7 @@ public class PermissionController {
     }
 
     @ApiOperation("查询所有启用")
-    @PostMapping("/list/enable")
+    @GetMapping("/list/enable")
     public R<List<PermissionDTO>> listEnable() {
         List<PermissionDTO> list = permissionQryService.listEnable();
         return R.success(list);

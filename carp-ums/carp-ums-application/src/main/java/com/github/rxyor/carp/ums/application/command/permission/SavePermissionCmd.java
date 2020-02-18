@@ -25,7 +25,6 @@ public class SavePermissionCmd {
     @Length(min = 2, max = 50, message = "权限名称有效长度[{min}~{max}]")
     private String permissionName;
 
-    @NotBlank(message = "备注不能为空")
     @Length(min = 2, max = 50, message = "备注有效长度[{min}~{max}]")
     private String remark;
 }

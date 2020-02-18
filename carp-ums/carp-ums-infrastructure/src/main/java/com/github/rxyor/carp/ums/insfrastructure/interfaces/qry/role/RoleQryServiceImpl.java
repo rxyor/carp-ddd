@@ -3,6 +3,7 @@ package com.github.rxyor.carp.ums.insfrastructure.interfaces.qry.role;
 import com.github.rxyor.carp.query.dto.role.RoleDTO;
 import com.github.rxyor.carp.query.qry.role.RoleQry;
 import com.github.rxyor.carp.query.service.role.RoleQryService;
+import com.github.rxyor.carp.ums.api.dto.ums.RoleRetDTO;
 import com.github.rxyor.carp.ums.insfrastructure.repository.role.dataobj.RoleDO;
 import com.github.rxyor.carp.ums.insfrastructure.repository.role.criteria.RoleCriteria;
 import com.github.rxyor.carp.ums.shared.common.uitl.BeanUtil;
@@ -39,5 +40,14 @@ public class RoleQryServiceImpl implements RoleQryService {
 
         RoleDO roleDO = roleCriteria.dao().find(id);
         return BeanUtil.copy(roleDO, RoleDTO.class);
+    }
+
+    @Override
+    public RoleRetDTO findWithPermissions(Long id) {
+        Preconditions.checkArgument(id != null,
+            "id不能为空");
+
+        RoleDO roleDO = roleCriteria.dao().find(id);
+        return BeanUtil.copy(roleDO, RoleRetDTO.class);
     }
 }

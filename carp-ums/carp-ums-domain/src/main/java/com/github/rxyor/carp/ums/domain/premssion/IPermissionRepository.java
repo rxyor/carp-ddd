@@ -1,5 +1,7 @@
 package com.github.rxyor.carp.ums.domain.premssion;
 
+import java.util.List;
+
 /**
  *<p>
  *
@@ -11,9 +13,11 @@ package com.github.rxyor.carp.ums.domain.premssion;
  */
 public interface IPermissionRepository {
 
-    Permission save(Permission permission);
-
     Permission find(Long id);
+
+    List<Permission> findList(List<Long> idList);
+
+    Permission save(Permission permission);
 
     void delete(Long id);
 }

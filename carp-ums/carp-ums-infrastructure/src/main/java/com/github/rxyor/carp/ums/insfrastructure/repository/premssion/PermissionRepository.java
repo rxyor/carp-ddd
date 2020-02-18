@@ -6,6 +6,8 @@ import com.github.rxyor.carp.ums.insfrastructure.repository.premssion.dao.Permis
 import com.github.rxyor.carp.ums.insfrastructure.repository.premssion.dataobj.PermissionDO;
 import com.github.rxyor.carp.ums.shared.common.uitl.BeanUtil;
 import com.google.common.base.Preconditions;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +27,25 @@ public class PermissionRepository implements IPermissionRepository {
     private final PermissionDAO permissionDAO;
 
     @Override
+    public Permission find(Long id) {
+        Preconditions.checkArgument(id != null,
+            "id不能为空");
+
+        PermissionDO permissionDO = permissionDAO.find(id);
+        return BeanUtil.copy(permissionDO, Permission.class);
+    }
+
+    @Override
+    public List<Permission> findList(List<Long> idList) {
+        if (idList == null || idList.isEmpty()) {
+            return new ArrayList<>(0);
+        }
+
+        List<PermissionDO> permissionDOList = permissionDAO.findAllById(idList);
+        return BeanUtil.copy(permissionDOList, Permission.class);
+    }
+
+    @Override
     public Permission save(Permission permission) {
         Preconditions.checkArgument(permission != null,
             "permission can't be null");
@@ -32,15 +53,6 @@ public class PermissionRepository implements IPermissionRepository {
         PermissionDO permissionDO = BeanUtil.copy(permission, PermissionDO.class);
         PermissionDO ret = permissionDAO.save(permissionDO);
         return BeanUtil.copy(ret, Permission.class);
-    }
-
-    @Override
-    public Permission find(Long id) {
-        Preconditions.checkArgument(id != null,
-            "id不能为空");
-
-        PermissionDO permissionDO = permissionDAO.find(id);
-        return BeanUtil.copy(permissionDO, Permission.class);
     }
 
     @Override

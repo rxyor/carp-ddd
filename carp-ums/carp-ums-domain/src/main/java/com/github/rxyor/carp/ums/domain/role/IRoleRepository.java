@@ -1,5 +1,7 @@
 package com.github.rxyor.carp.ums.domain.role;
 
+import java.util.List;
+
 /**
  *<p>
  *
@@ -12,6 +14,8 @@ package com.github.rxyor.carp.ums.domain.role;
 public interface IRoleRepository {
 
     Role find(Long id);
+
+    List<Role> findList(List<Long> idList);
 
     Role save(Role role);
 

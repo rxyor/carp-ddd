@@ -38,6 +38,5 @@ public class SaveUserCmd {
     @NotBlank(message = "头像不能为空")
     private String avatar;
 
-    @NotBlank(message = "备注不能为空")
     private String remark;
 }

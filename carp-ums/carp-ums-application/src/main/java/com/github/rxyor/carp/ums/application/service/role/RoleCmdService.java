@@ -1,14 +1,18 @@
 package com.github.rxyor.carp.ums.application.service.role;
 
+import com.github.rxyor.carp.ums.application.command.role.AllocPermissionCmd;
 import com.github.rxyor.carp.ums.application.command.role.DisableRoleCmd;
 import com.github.rxyor.carp.ums.application.command.role.SaveRoleCmd;
 import com.github.rxyor.carp.ums.application.command.role.UpdateRoleCmd;
+import com.github.rxyor.carp.ums.domain.premssion.IPermissionRepository;
+import com.github.rxyor.carp.ums.domain.premssion.Permission;
 import com.github.rxyor.carp.ums.domain.role.IRoleRepository;
 import com.github.rxyor.carp.ums.domain.role.Role;
 import com.github.rxyor.carp.ums.shared.common.uitl.SpringBeanUtil;
 import com.github.rxyor.common.core.exception.BizException;
 import com.github.rxyor.common.support.hibernate.validate.HibValidatorHelper;
 import com.google.common.base.Preconditions;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RoleCmdService {
 
     private final IRoleRepository roleRepository;
+    private final IPermissionRepository permissionRepository;
 
     /**
      * save role
@@ -90,5 +95,20 @@ public class RoleCmdService {
             "id不能为空");
 
         roleRepository.delete(id);
+    }
+
+    public void allocPermissions(AllocPermissionCmd cmd) {
+        Preconditions.checkArgument(cmd != null,
+            "命令不能为空");
+        HibValidatorHelper.validate(cmd);
+
+        Role role = roleRepository.find(cmd.getId());
+        Preconditions.checkArgument(role != null,
+            String.format("ID:[%s]角色不存在", cmd.getId()));
+
+        List<Permission> permissionList = permissionRepository
+            .findList(cmd.getPermissionIdList());
+        role.setPermissionList(permissionList);
+        roleRepository.save(role);
     }
 }

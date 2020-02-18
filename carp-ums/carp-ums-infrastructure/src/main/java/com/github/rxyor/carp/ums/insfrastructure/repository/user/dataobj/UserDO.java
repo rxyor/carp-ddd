@@ -93,7 +93,7 @@ public class UserDO implements Serializable {
     /**
      * 备注
      */
-    @Column(name = "remark")
+    @Column(name = "remark", insertable = false)
     private String remark;
 
     /**
