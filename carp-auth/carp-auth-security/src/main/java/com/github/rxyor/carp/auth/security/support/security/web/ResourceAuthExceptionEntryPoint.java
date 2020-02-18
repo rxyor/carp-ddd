@@ -1,10 +1,12 @@
 package com.github.rxyor.carp.auth.security.support.security.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.rxyor.carp.auth.security.exception.CarpOauth2Exception;
 import com.github.rxyor.common.core.model.R;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,10 +42,17 @@ public class ResourceAuthExceptionEntryPoint implements AuthenticationEntryPoint
         response.setCharacterEncoding(StandardCharsets.UTF_8.displayName());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        R<String> result = new R<>();
+        R<String> result = R.fail();
         result.setCode(HttpStatus.FORBIDDEN.value());
         if (e != null) {
-            result.setMsg("无权访问");
+            Throwable cause = e.getCause();
+            if (cause instanceof CarpOauth2Exception) {
+                CarpOauth2Exception oe = (CarpOauth2Exception) cause;
+                String msg = Optional.ofNullable(oe.getMsg()).orElse("无权访问");
+                result.code(oe.getCode()).msg(msg);
+            } else {
+                result.setMsg("无权访问");
+            }
         }
         response.setStatus(HttpStatus.FORBIDDEN.value());
         PrintWriter printWriter = response.getWriter();

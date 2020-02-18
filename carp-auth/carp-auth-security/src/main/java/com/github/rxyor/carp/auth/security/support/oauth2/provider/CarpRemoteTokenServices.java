@@ -1,5 +1,7 @@
 package com.github.rxyor.carp.auth.security.support.oauth2.provider;
 
+import com.github.rxyor.carp.auth.security.exception.UnauthorizedException;
+import com.github.rxyor.common.core.enums.CoreExCodeEnum;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
@@ -21,6 +23,7 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
@@ -141,11 +144,19 @@ public class CarpRemoteTokenServices implements ResourceServerTokenServices {
         }
         @SuppressWarnings("rawtypes")
         Map map = restTemplate.exchange(path, HttpMethod.POST,
-            new HttpEntity<MultiValueMap<String, String>>(formData, headers), Map.class).getBody();
+            new HttpEntity<>(formData, headers), Map.class).getBody();
         if (map != null) {
             @SuppressWarnings("unchecked")
-            Map<String, Object> result = (Map<String, Object>) map.get("data");
-            return result;
+            Object data = map.get("data");
+            if (data != null && data instanceof Map) {
+                return (Map<String, Object>) map.get("data");
+            } else {
+                String msg = (String) map.get("msg");
+                if (StringUtils.isEmpty(msg)) {
+                    msg = "获取token失败";
+                }
+                throw new UnauthorizedException(CoreExCodeEnum.AUTHENTICATION_FAIL.getCode(),msg);
+            }
         }
         return new HashMap<>(0);
     }
