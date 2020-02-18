@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0.0
  */
 @Slf4j
-@Api(tags = "Oauth2 Token")
+@Api(tags = "Oauth2")
 @RestController
 @RequestMapping("/oauth2")
 public class CarpTokenEndpoint {

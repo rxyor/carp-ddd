@@ -1,6 +1,7 @@
 package com.github.rxyor.carp.ums.insfrastructure.repository.premssion.dao;
 
 import com.github.rxyor.carp.ums.insfrastructure.repository.premssion.dataobj.PermissionDO;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -11,4 +12,6 @@ public interface PermissionDAO
 
     @Query("from PermissionDO  p where p.id=:id")
     PermissionDO find(@Param("id") Long id);
+
+    List<PermissionDO> findByDisable(Integer disable);
 }

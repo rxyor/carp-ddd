@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0.0
  */
 @Validated
-@Api(tags = "feign-user")
+@Api(tags = "FeignUser")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/feign/user")

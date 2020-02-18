@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0.0
  */
 @Validated
-@Api(tags = "用户")
+@Api(tags = "User")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/ums/user")

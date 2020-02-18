@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/12/27 周五 18:38:00
  * @since 1.0.0
  */
-@Api(tags = "权限")
+@Api(tags = "Permission")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/ums/permission")
