@@ -1,7 +1,7 @@
 package com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig.serializer;
 
 import com.github.rxyor.carp.ums.domain.kvconfig.KvConfig;
-import com.github.rxyor.carp.ums.insfrastructure.repository.KvConfigDO;
+import com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig.dataobj.KvConfigDO;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

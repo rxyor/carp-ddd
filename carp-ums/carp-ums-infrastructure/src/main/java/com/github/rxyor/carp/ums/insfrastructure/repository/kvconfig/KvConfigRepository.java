@@ -3,7 +3,7 @@ package com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig;
 import com.github.rxyor.carp.ums.domain.kvconfig.IKvConfigRepository;
 import com.github.rxyor.carp.ums.domain.kvconfig.KvConfig;
 import com.github.rxyor.carp.ums.domain.kvconfig.KvList;
-import com.github.rxyor.carp.ums.insfrastructure.repository.KvConfigDO;
+import com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig.dataobj.KvConfigDO;
 import com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig.dao.KvConfigDAO;
 import com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig.serializer.KvConfigSerializer;
 import com.github.rxyor.common.support.hibernate.validate.HibValidatorHelper;

@@ -1,7 +1,7 @@
 package com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig.criteria;
 
 import com.github.rxyor.carp.query.qry.kvconfig.KvConfigQry;
-import com.github.rxyor.carp.ums.insfrastructure.repository.KvConfigDO;
+import com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig.dataobj.KvConfigDO;
 import com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig.dao.KvConfigDAO;
 import com.github.rxyor.carp.ums.shared.common.uitl.PageUtil;
 import com.github.rxyor.carp.ums.shared.common.uitl.SqlUtil;

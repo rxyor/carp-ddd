@@ -1,6 +1,6 @@
 package com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig.dao;
 
-import com.github.rxyor.carp.ums.insfrastructure.repository.KvConfigDO;
+import com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig.dataobj.KvConfigDO;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

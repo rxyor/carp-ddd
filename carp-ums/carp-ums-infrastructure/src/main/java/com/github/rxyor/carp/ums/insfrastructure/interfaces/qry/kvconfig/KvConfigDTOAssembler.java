@@ -1,7 +1,7 @@
 package com.github.rxyor.carp.ums.insfrastructure.interfaces.qry.kvconfig;
 
 import com.github.rxyor.carp.query.dto.kvconfig.KvConfigDTO;
-import com.github.rxyor.carp.ums.insfrastructure.repository.KvConfigDO;
+import com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig.dataobj.KvConfigDO;
 import com.github.rxyor.carp.ums.shared.common.uitl.PageUtil;
 import java.util.List;
 import org.mapstruct.IterableMapping;

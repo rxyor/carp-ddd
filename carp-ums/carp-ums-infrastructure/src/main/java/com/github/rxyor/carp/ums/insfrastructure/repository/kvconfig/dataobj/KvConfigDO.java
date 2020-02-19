@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.ums.insfrastructure.repository;
+package com.github.rxyor.carp.ums.insfrastructure.repository.kvconfig.dataobj;
 
 import java.util.Date;
 import javax.persistence.Column;
