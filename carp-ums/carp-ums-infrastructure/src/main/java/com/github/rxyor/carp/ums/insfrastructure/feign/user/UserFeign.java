@@ -44,4 +44,18 @@ public class UserFeign {
         @RequestParam("username") String username) {
         return R.success(userQryService.find(username));
     }
+
+    /**
+     * find by username
+     *
+     * @param account
+     * @return
+     */
+    @CryptoApi
+    @GetMapping("/get/account")
+    public R<UserRetDTO> findAccount(
+        @NotBlank(message = "账号不能为空")
+        @RequestParam("account") String account) {
+        return R.success(userQryService.findAccount(account));
+    }
 }

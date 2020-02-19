@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
  */
 public interface UserQryService {
 
+    UserRetDTO findAccount(String account);
 
     UserRetDTO find(String username);
 

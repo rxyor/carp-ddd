@@ -18,4 +18,7 @@ public interface UserDAO extends JpaSpecificationExecutor<UserDO>,
 
     @Query("from UserDO u where  u.disable=0")
     List<UserDO> findAll();
+
+    List<UserDO> findByUsernameOrPhoneOrEmail(String username,
+        String phone, String email);
 }

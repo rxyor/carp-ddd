@@ -55,7 +55,7 @@ public class CarpUserDetailsService implements UserDetailsService {
         if (!bucket.isExists()) {
             R<UserRetDTO> ret;
             try {
-                ret = userFeignService.get(username, CryptoUtil.sign(60L));
+                ret = userFeignService.match(username, CryptoUtil.sign(60L));
             } catch (Throwable e) {
                 throw new AccessDeniedException("请求用户信息失败", e);
             }

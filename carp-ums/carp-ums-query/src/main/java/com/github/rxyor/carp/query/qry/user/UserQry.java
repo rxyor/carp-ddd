@@ -21,6 +21,8 @@ public class UserQry extends PageQry {
 
     private Long id;
     private String username;
+    private String phone;
+    private String email;
     private Integer disable;
 
 }

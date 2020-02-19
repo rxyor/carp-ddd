@@ -49,6 +49,12 @@ public class UserCriteria {
             if (StringUtils.isNotBlank(qry.getUsername())) {
                 conditions.add(cb.like(root.get("username"), SqlUtil.allLike(qry.getUsername())));
             }
+            if (StringUtils.isNotBlank(qry.getPhone())) {
+                conditions.add(cb.like(root.get("phone"), SqlUtil.rightLike(qry.getPhone())));
+            }
+            if (StringUtils.isNotBlank(qry.getEmail())) {
+                conditions.add(cb.like(root.get("email"), SqlUtil.rightLike(qry.getEmail())));
+            }
 
             Predicate[] predicates = conditions.toArray(new Predicate[conditions.size()]);
             return cb.and(predicates);

@@ -24,4 +24,8 @@ public interface UserFeignService {
     @GetMapping("/feign/user/get/username")
     R<UserRetDTO> get(@RequestParam("username") String username,
         @RequestHeader(Crypt.SECURITY_KEY) String sign);
+
+    @GetMapping("/feign/user/get/account")
+    R<UserRetDTO> match(@RequestParam("account") String account,
+        @RequestHeader(Crypt.SECURITY_KEY) String sign);
 }

@@ -30,6 +30,25 @@ public class UserQryServiceImpl implements UserQryService {
     private final UserCriteria userCriteria;
 
     /**
+     * find by username or phone or email
+     *
+     * @param account
+     * @return
+     */
+    @Override
+    public UserRetDTO findAccount(String account) {
+        Preconditions.checkArgument(StringUtils.isNotBlank(account),
+            "account can't be blank");
+
+        List<UserDO> list = userCriteria.dao().findByUsernameOrPhoneOrEmail(
+            account, account, account);
+        if (list != null && list.size() > 0) {
+            return BeanUtil.copy(list.get(0), UserRetDTO.class);
+        }
+        return null;
+    }
+
+    /**
      * find by username
      *
      * @param username
@@ -49,7 +68,7 @@ public class UserQryServiceImpl implements UserQryService {
 
     @Override
     public UserRetDTO findWithRoles(Long id) {
-        Preconditions.checkArgument(id!=null,
+        Preconditions.checkArgument(id != null,
             "id不能为空");
 
         UserDO userDO = userCriteria.dao().find(id);
@@ -64,7 +83,7 @@ public class UserQryServiceImpl implements UserQryService {
      */
     @Override
     public UserDTO find(Long id) {
-        Preconditions.checkArgument(id!=null,
+        Preconditions.checkArgument(id != null,
             "id不能为空");
 
         UserDO userDO = userCriteria.dao().find(id);

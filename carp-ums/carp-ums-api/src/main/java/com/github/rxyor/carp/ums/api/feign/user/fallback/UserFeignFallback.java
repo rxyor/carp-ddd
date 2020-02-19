@@ -28,4 +28,10 @@ public class UserFeignFallback implements UserFeignService {
         log.error("feign user fail:", cause);
         return null;
     }
+
+    @Override
+    public R<UserRetDTO> match(String account, String sign) {
+        log.error("feign user fail:", cause);
+        return null;
+    }
 }
