@@ -81,19 +81,19 @@ public class UserDO implements Serializable {
     /**
      * 禁用标识[0:启用, 1:禁用]
      */
-    @Column(name = "disable", nullable = false)
+    @Column(name = "disable")
     private Integer disable = 0;
 
     /**
      * 锁定标识[0:未锁定, 1:锁定]
      */
-    @Column(name = "locked", nullable = false)
+    @Column(name = "locked")
     private Integer locked = 0;
 
     /**
      * 备注
      */
-    @Column(name = "remark", insertable = false)
+    @Column(name = "remark")
     private String remark;
 
     /**

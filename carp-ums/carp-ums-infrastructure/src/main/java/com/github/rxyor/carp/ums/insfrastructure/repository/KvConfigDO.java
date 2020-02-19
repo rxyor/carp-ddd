@@ -28,7 +28,7 @@ public class KvConfigDO {
     /**
      * 键
      */
-    @Column(name = "key", nullable = false)
+    @Column(name = "`key`", nullable = false)
     private String key;
 
     /**
@@ -40,13 +40,13 @@ public class KvConfigDO {
     /**
      * 描述或备注
      */
-    @Column(name = "desc", insertable = false)
+    @Column(name = "`desc`")
     private String desc;
 
     /**
      * 描述或备注
      */
-    @Column(name = "app_id", insertable = false)
+    @Column(name = "app_id")
     private String appId;
 
     /**

@@ -43,13 +43,13 @@ public class PermissionDO implements Serializable {
     /**
      * 权限描述
      */
-    @Column(name = "remark", insertable = false)
+    @Column(name = "remark")
     private String remark = "";
 
     /**
      * 禁用标识, 0:启用, 1:禁用
      */
-    @Column(name = "disable", nullable = false)
+    @Column(name = "disable")
     private Integer disable = 0;
 
     /**

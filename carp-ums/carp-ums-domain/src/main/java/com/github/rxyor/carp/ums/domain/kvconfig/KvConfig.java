@@ -2,7 +2,6 @@ package com.github.rxyor.carp.ums.domain.kvconfig;
 
 import java.util.Date;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -20,7 +19,6 @@ public class KvConfig {
     /**
      * 自增主键
      */
-    @NotNull(message = "id不能为空")
     private Long id;
 
     /**

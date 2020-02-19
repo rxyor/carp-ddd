@@ -122,7 +122,7 @@ public class UserController {
         return R.success("ok");
     }
 
-    @ApiOperation("禁用用户")
+    @ApiOperation("删除用户")
     @PostMapping("/delete")
     public R<Object> delete(
         @NotNull(message = "用户id不能为空")
