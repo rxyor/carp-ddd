@@ -4,10 +4,12 @@ import com.github.rxyor.carp.query.dto.user.UserDTO;
 import com.github.rxyor.carp.query.qry.user.UserQry;
 import com.github.rxyor.carp.query.service.user.UserQryService;
 import com.github.rxyor.carp.ums.api.enums.common.DisableEnum;
+import com.github.rxyor.carp.ums.application.command.user.AllocRoleCmd;
 import com.github.rxyor.carp.ums.application.command.user.DisableUserCmd;
 import com.github.rxyor.carp.ums.application.command.user.SaveUserCmd;
 import com.github.rxyor.carp.ums.application.command.user.UpdateUserCmd;
 import com.github.rxyor.carp.ums.application.service.user.UserCmdService;
+import com.github.rxyor.carp.ums.insfrastructure.controller.user.request.AllocRoleReq;
 import com.github.rxyor.carp.ums.insfrastructure.controller.user.request.SaveUserReq;
 import com.github.rxyor.carp.ums.insfrastructure.controller.user.request.SaveUserReqMapper;
 import com.github.rxyor.carp.ums.insfrastructure.controller.user.request.UpdateUserReq;
@@ -46,6 +48,23 @@ public class UserController {
     private final UserCmdService userCmdService;
     private final UserQryService userQryService;
 
+    @ApiOperation("获取用户信息[id]")
+    @GetMapping("/get")
+    public R<UserDTO> get(
+        @NotNull(message = "用户id不能为空")
+        @RequestParam("id") Long id) {
+        return R.success(userQryService.find(id));
+    }
+
+    @ApiOperation("分页查询")
+    @PostMapping("/page")
+    public R<Page<UserDTO>> page(@RequestBody UserQry req) {
+        Preconditions.checkNotNull(req, "查询参数不能为空");
+
+        Page<UserDTO> page = userQryService.page(req);
+        return R.success(page);
+    }
+
     @ApiOperation("保存用户")
     @PostMapping("/save")
     public R<String> save(@RequestBody SaveUserReq req) {
@@ -64,23 +83,6 @@ public class UserController {
         UpdateUserCmd cmd = UpdateUserReqMapper.INSTANCE.toUpdateUserCmd(req);
         userCmdService.update(cmd);
         return R.success("ok");
-    }
-
-    @ApiOperation("获取用户信息[id]")
-    @GetMapping("/get")
-    public R<UserDTO> get(
-        @NotNull(message = "用户id不能为空")
-        @RequestParam("id") Long id) {
-        return R.success(userQryService.find(id));
-    }
-
-    @ApiOperation("分页查询")
-    @PostMapping("/page")
-    public R<Page<UserDTO>> page(@RequestBody UserQry req) {
-        Preconditions.checkNotNull(req, "查询参数不能为空");
-
-        Page<UserDTO> page = userQryService.page(req);
-        return R.success(page);
     }
 
     @ApiOperation("启用用户")
@@ -117,6 +119,16 @@ public class UserController {
         @NotNull(message = "用户id不能为空")
         @RequestParam("id") Long id) {
         userCmdService.delete(id);
+        return R.success("ok");
+    }
+
+    @ApiOperation("分配角色")
+    @PostMapping("/alloc")
+    public R<Object> alloc(@RequestBody AllocRoleReq req) {
+        Preconditions.checkNotNull(req, "参数不能为空");
+
+        AllocRoleCmd cmd = new AllocRoleCmd(req.getId(), req.getRoleIdList());
+        userCmdService.allocRoles(cmd);
         return R.success("ok");
     }
 }

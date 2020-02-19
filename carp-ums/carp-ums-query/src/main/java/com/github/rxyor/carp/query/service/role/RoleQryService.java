@@ -3,6 +3,7 @@ package com.github.rxyor.carp.query.service.role;
 import com.github.rxyor.carp.query.dto.role.RoleDTO;
 import com.github.rxyor.carp.query.qry.role.RoleQry;
 import com.github.rxyor.carp.ums.api.dto.ums.RoleRetDTO;
+import java.util.List;
 import org.springframework.data.domain.Page;
 
 /**
@@ -21,5 +22,7 @@ public interface RoleQryService {
     RoleDTO find(Long id);
 
     RoleRetDTO findWithPermissions(Long id);
+
+    List<RoleDTO> listEnable();
 
 }

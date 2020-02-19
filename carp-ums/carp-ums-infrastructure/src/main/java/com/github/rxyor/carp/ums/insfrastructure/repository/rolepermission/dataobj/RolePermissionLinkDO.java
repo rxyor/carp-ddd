@@ -31,13 +31,13 @@ public class RolePermissionLinkDO implements Serializable {
    * 角色id
    */
   @Column(name = "role_id", nullable = false)
-  private Integer roleId;
+  private Long roleId;
 
   /**
    * 权限id
    */
   @Column(name = "permission_id")
-  private Integer permissionId;
+  private Long permissionId;
 
   /**
    * 创建时间

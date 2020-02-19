@@ -1,6 +1,7 @@
 package com.github.rxyor.carp.ums.insfrastructure.repository.role.dao;
 
 import com.github.rxyor.carp.ums.insfrastructure.repository.role.dataobj.RoleDO;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -10,4 +11,6 @@ public interface RoleDAO extends JpaRepository<RoleDO, Long>, JpaSpecificationEx
 
     @Query("from RoleDO r where r.id=:id")
     RoleDO find(@Param("id") Long id);
+
+    List<RoleDO> findAllByDisable(Integer disable);
 }

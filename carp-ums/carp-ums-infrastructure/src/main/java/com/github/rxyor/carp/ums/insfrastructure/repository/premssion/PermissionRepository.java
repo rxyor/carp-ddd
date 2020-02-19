@@ -4,12 +4,14 @@ import com.github.rxyor.carp.ums.domain.premssion.IPermissionRepository;
 import com.github.rxyor.carp.ums.domain.premssion.Permission;
 import com.github.rxyor.carp.ums.insfrastructure.repository.premssion.dao.PermissionDAO;
 import com.github.rxyor.carp.ums.insfrastructure.repository.premssion.dataobj.PermissionDO;
+import com.github.rxyor.carp.ums.insfrastructure.repository.rolepermission.dao.RolePermissionLinkDAO;
 import com.github.rxyor.carp.ums.shared.common.uitl.BeanUtil;
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *<p>
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Repository;
 public class PermissionRepository implements IPermissionRepository {
 
     private final PermissionDAO permissionDAO;
+    private final RolePermissionLinkDAO rolePermissionLinkDAO;
 
     @Override
     public Permission find(Long id) {
@@ -55,11 +58,13 @@ public class PermissionRepository implements IPermissionRepository {
         return BeanUtil.copy(ret, Permission.class);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(Long id) {
         Preconditions.checkArgument(id != null,
             "id不能为空");
 
         permissionDAO.deleteById(id);
+        rolePermissionLinkDAO.deleteAllByPermissionId(id);
     }
 }

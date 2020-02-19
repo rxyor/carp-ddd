@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface UserRoleLinkDAO extends JpaRepository<UserRoleLinkDO, Long>, JpaSpecificationExecutor<UserRoleLinkDO> {
 
+    void deleteAllByRoleId(Long id);
 }

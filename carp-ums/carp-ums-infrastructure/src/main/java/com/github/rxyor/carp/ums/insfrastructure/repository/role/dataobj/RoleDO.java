@@ -51,7 +51,7 @@ public class RoleDO implements Serializable {
     /**
      * 角色描述
      */
-    @Column(name = "remark", nullable = false)
+    @Column(name = "remark", insertable = false)
     private String remark;
 
     /**
@@ -63,19 +63,19 @@ public class RoleDO implements Serializable {
     /**
      * 创建时间
      */
-    @Column(name = "create_time",insertable = false)
+    @Column(name = "create_time", insertable = false)
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @Column(name = "update_time",insertable = false)
+    @Column(name = "update_time", insertable = false)
     private Date updateTime;
 
     /**
      * 权限列表
      */
-    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(name = "ums_role_permission_link",
         joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", unique = true),
         inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id", unique = true))

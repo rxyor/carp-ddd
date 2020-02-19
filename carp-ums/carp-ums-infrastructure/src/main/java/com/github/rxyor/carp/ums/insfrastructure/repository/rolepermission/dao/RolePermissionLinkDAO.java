@@ -4,6 +4,8 @@ import com.github.rxyor.carp.ums.insfrastructure.repository.rolepermission.datao
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface RolePermissionLinkDAO extends JpaRepository<RolePermissionLinkDO, Long>, JpaSpecificationExecutor<RolePermissionLinkDO> {
+public interface RolePermissionLinkDAO extends JpaRepository<RolePermissionLinkDO, Long>,
+    JpaSpecificationExecutor<RolePermissionLinkDO> {
 
+    void deleteAllByPermissionId(Long id);
 }

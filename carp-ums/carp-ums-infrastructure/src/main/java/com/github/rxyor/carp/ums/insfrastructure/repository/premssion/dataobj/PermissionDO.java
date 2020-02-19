@@ -43,7 +43,7 @@ public class PermissionDO implements Serializable {
     /**
      * 权限描述
      */
-    @Column(name = "remark", nullable = false)
+    @Column(name = "remark", insertable = false)
     private String remark = "";
 
     /**
@@ -61,8 +61,7 @@ public class PermissionDO implements Serializable {
     /**
      * 更新时间
      */
-    @Column(name = "update_time",insertable = false)
+    @Column(name = "update_time", insertable = false)
     private Date updateTime;
-
 
 }

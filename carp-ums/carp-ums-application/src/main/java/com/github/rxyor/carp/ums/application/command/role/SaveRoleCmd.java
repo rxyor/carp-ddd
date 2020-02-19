@@ -25,7 +25,6 @@ public class SaveRoleCmd {
     @Length(min = 2, max = 50, message = "角色名称有效长度[{min}~{max}]")
     private String roleName;
 
-    @NotBlank(message = "备注不能为空")
     @Length(min = 2, max = 50, message = "备注有效长度[{min}~{max}]")
     private String remark;
 }

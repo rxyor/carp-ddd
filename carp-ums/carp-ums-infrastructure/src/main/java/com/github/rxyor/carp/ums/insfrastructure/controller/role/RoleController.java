@@ -19,6 +19,7 @@ import com.github.rxyor.common.core.model.R;
 import com.google.common.base.Preconditions;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -63,6 +64,13 @@ public class RoleController {
         @NotNull(message = "角色id不能为空")
         @RequestParam("id") Long id) {
         return R.success(roleQryService.findWithPermissions(id));
+    }
+
+    @ApiOperation("查询所有启用")
+    @GetMapping("/list/enable")
+    public R<List<RoleDTO>> listEnable() {
+        List<RoleDTO> list = roleQryService.listEnable();
+        return R.success(list);
     }
 
     @ApiOperation("分页查询")
