@@ -16,26 +16,12 @@ import org.springframework.data.domain.Page;
  */
 public interface UserQryService {
 
-    /**
-     * find by username
-     *
-     * @param username
-     * @return
-     */
+
     UserRetDTO find(String username);
 
-    /**
-     * find by id
-     *
-     * @param id
-     * @return
-     */
+    UserRetDTO findWithRoles(Long id);
+
     UserDTO find(Long id);
 
-    /**
-     * 分页查询
-     *
-     * @return
-     */
     Page<UserDTO> page(UserQry qry);
 }

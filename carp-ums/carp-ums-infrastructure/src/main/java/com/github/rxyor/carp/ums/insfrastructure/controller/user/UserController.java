@@ -3,6 +3,7 @@ package com.github.rxyor.carp.ums.insfrastructure.controller.user;
 import com.github.rxyor.carp.query.dto.user.UserDTO;
 import com.github.rxyor.carp.query.qry.user.UserQry;
 import com.github.rxyor.carp.query.service.user.UserQryService;
+import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
 import com.github.rxyor.carp.ums.api.enums.common.DisableEnum;
 import com.github.rxyor.carp.ums.application.command.user.AllocRoleCmd;
 import com.github.rxyor.carp.ums.application.command.user.DisableUserCmd;
@@ -54,6 +55,14 @@ public class UserController {
         @NotNull(message = "用户id不能为空")
         @RequestParam("id") Long id) {
         return R.success(userQryService.find(id));
+    }
+
+    @ApiOperation("获取用户信息[id]")
+    @GetMapping("/get/with_roles")
+    public R<UserRetDTO> getWithRoles(
+        @NotNull(message = "用户id不能为空")
+        @RequestParam("id") Long id) {
+        return R.success(userQryService.findWithRoles(id));
     }
 
     @ApiOperation("分页查询")

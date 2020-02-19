@@ -8,6 +8,7 @@ import com.github.rxyor.carp.ums.insfrastructure.repository.user.criteria.UserCr
 import com.github.rxyor.carp.ums.insfrastructure.repository.user.dataobj.UserDO;
 import com.github.rxyor.carp.ums.shared.common.uitl.BeanUtil;
 import com.google.common.base.Preconditions;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -44,6 +45,15 @@ public class UserQryServiceImpl implements UserQryService {
             return BeanUtil.copy(userDO, UserRetDTO.class);
         }
         return null;
+    }
+
+    @Override
+    public UserRetDTO findWithRoles(Long id) {
+        Preconditions.checkArgument(id!=null,
+            "id不能为空");
+
+        UserDO userDO = userCriteria.dao().find(id);
+        return BeanUtil.copy(userDO, UserRetDTO.class);
     }
 
     /**
