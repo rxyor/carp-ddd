@@ -18,7 +18,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 @Configuration
 public class RedisCacheConfig {
 
-    @Value("${spring.application.name:carp-auth}")
+    @Value("${spring.application.name:carp-ums}")
     private String appName;
 
     @SuppressWarnings("unchecked")

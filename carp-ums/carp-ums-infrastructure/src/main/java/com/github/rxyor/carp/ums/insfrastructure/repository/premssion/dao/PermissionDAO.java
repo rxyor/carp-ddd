@@ -14,4 +14,7 @@ public interface PermissionDAO
     PermissionDO find(@Param("id") Long id);
 
     List<PermissionDO> findByDisable(Integer disable);
+
+    @Query("from PermissionDO p where p.permissionCode like ':permissionCode%'")
+    List<PermissionDO> findAllByPermissionCodeRightLike(@Param("permissionCode") String permissionCode);
 }

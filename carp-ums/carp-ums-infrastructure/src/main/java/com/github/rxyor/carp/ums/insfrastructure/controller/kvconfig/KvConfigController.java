@@ -15,6 +15,8 @@ import com.github.rxyor.common.core.model.R;
 import com.google.common.base.Preconditions;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -52,6 +54,18 @@ public class KvConfigController {
         @NotNull(message = "配置id不能为空")
         @RequestParam("id") Long id) {
         return R.success(kvConfigQryService.find(id));
+    }
+
+    @ApiOperation("获取配置信息[id]")
+    @GetMapping("/list/key")
+    public R<List<KvConfigDTO>> listByKey(
+        @NotBlank(message = "key不能为空")
+        @RequestParam("key") String key,
+        @RequestParam("appId") String appId) {
+        if (StringUtils.isBlank(appId)) {
+            appId = AppIdEnum.GLOBAL.getCode();
+        }
+        return R.success(kvConfigQryService.find(key, appId));
     }
 
     @ApiOperation("分页查询")

@@ -1,5 +1,6 @@
 package com.github.rxyor.carp.query.dto.common;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -11,6 +12,7 @@ import lombok.Data;
  * @date 2020/2/19 周三 17:00:00
  * @since 1.0.0
  */
+@AllArgsConstructor
 @Data
 public class OptionDTO {
 
@@ -18,4 +20,6 @@ public class OptionDTO {
 
     private String label;
 
+    public OptionDTO() {
+    }
 }

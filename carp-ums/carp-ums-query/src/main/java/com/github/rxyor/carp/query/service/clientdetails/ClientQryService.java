@@ -1,7 +1,9 @@
 package com.github.rxyor.carp.query.service.clientdetails;
 
 import com.github.rxyor.carp.query.dto.clientdetails.ClientDTO;
+import com.github.rxyor.carp.query.dto.common.OptionDTO;
 import com.github.rxyor.carp.query.qry.clientdetails.ClientQry;
+import java.util.List;
 import org.springframework.data.domain.Page;
 
 /**
@@ -18,4 +20,6 @@ public interface ClientQryService {
     Page<ClientDTO> page(ClientQry qry);
 
     ClientDTO find(Long id);
+
+    List<OptionDTO> listAuthorities(String keyword);
 }

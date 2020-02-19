@@ -1,7 +1,12 @@
 package com.github.rxyor.carp.query.dto.clientdetails;
 
+import com.google.common.base.Splitter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *<p>
@@ -14,6 +19,7 @@ import lombok.Data;
  */
 @Data
 public class ClientDTO {
+
     /**
      * 主键id
      */
@@ -83,4 +89,32 @@ public class ClientDTO {
      * 更新时间
      */
     private Date updateTime;
+
+    public List<String> getAuthorizedGrantTypeList(){
+        return toList(this.authorizedGrantTypes);
+    }
+
+    public List<String> getResourceIdList(){
+        return toList(this.resourceIds);
+    }
+
+    public List<String> getScopeList(){
+        return toList(this.authorizedGrantTypes);
+    }
+
+    public List<String> getAuthorityList(){
+        return toList(this.authorities);
+    }
+
+    public List<String> getWebServerRedirectUriList(){
+        return toList(this.webServerRedirectUri);
+    }
+
+    private List<String> toList(String s) {
+        if (StringUtils.isBlank(s)) {
+            return new ArrayList<>(0);
+        }
+        List<String> list = Splitter.on(",").omitEmptyStrings().trimResults().splitToList(s);
+        return list.stream().distinct().collect(Collectors.toList());
+    }
 }
