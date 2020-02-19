@@ -61,7 +61,7 @@ public class KvConfigController {
     public R<List<KvConfigDTO>> listByKey(
         @NotBlank(message = "key不能为空")
         @RequestParam("key") String key,
-        @RequestParam("appId") String appId) {
+        @RequestParam(value = "appId", required = false) String appId) {
         if (StringUtils.isBlank(appId)) {
             appId = AppIdEnum.GLOBAL.getCode();
         }
