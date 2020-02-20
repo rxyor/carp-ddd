@@ -14,6 +14,6 @@ public interface RoleDAO extends JpaRepository<RoleDO, Long>, JpaSpecificationEx
 
     List<RoleDO> findAllByDisable(Integer disable);
 
-    @Query("from RoleDO r where r.roleCode like ':roleCode%'")
+    @Query("from RoleDO r where r.roleCode like :roleCode%")
     List<RoleDO> findAllByRoleCodeRightLike(@Param("roleCode") String roleCode);
 }

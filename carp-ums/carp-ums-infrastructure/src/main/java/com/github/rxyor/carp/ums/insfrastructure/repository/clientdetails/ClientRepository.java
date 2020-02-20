@@ -62,8 +62,8 @@ public class ClientRepository implements IClientRepository {
             throw new CoreException(
                 String.format("id[%s]客户端不存在", client.getId()));
         }
-        SpringBeanUtil.copyIgnoreNull(clientDO, client);
-        this.save(client);
+        SpringBeanUtil.copyIgnoreNull(client,clientDO);
+        clientDAO.save(clientDO);
     }
 
     @Override

@@ -16,9 +16,9 @@ import lombok.ToString;
 @ToString
 public enum AppIdEnum implements KeyValue<String> {
 
-    GLOBAL("GLOBAL", "全局"),
-    UMS("UMS", "用户权限服务"),
-    AUTH("AUTH", "登录授权服务"),
+    GLOBAL("GLOBAL", "GLOBAL"),
+    UMS("carp-ums", "UMS"),
+    AUTH("carp-auth", "AUTH"),
     ;
 
     @Getter

@@ -99,7 +99,7 @@ public class ClientDTO {
     }
 
     public List<String> getScopeList(){
-        return toList(this.authorizedGrantTypes);
+        return toList(this.scope);
     }
 
     public List<String> getAuthorityList(){
