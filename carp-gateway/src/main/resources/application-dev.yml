@@ -1,0 +1,22 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: carp-auth
+          uri: lb://carp-auth
+          predicates:
+            - Path= /oauth2/**
+          filters:
+            - NoneGatewayFilter
+        - id: carp-ums
+          uri: lb://carp-ums
+          predicates:
+            - Path= /ums/**
+          filters:
+            - NoneGatewayFilter

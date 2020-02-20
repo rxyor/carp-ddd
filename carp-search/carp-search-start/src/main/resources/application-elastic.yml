@@ -6,4 +6,4 @@ spring:
   elasticsearch:
     rest:
       uris:
-        - http://test.dev:9200
+        - http://carp-dev:9200

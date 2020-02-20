@@ -1,5 +1,5 @@
 server:
-  port: 8002
+  port: 8001
 spring:
   application:
     name: carp-auth
@@ -7,7 +7,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr:  ${NACOS-HOST:test.dev}:${NACOS-PORT:8848}
+        server-addr:  ${NACOS-HOST:carp-dev}:${NACOS-PORT:8848}
         service: ${spring.application.name}
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}

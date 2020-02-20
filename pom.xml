@@ -15,6 +15,7 @@
         <module>carp-pms</module>
         <module>carp-search</module>
         <module>carp-ums</module>
+        <module>carp-gateway</module>
     </modules>
 
     <properties>
