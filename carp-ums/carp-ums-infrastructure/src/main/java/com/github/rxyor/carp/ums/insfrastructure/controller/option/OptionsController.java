@@ -3,6 +3,7 @@ package com.github.rxyor.carp.ums.insfrastructure.controller.option;
 import com.github.rxyor.carp.query.dto.common.OptionDTO;
 import com.github.rxyor.carp.query.service.clientdetails.ClientQryService;
 import com.github.rxyor.carp.ums.shared.interfaces.enums.AppIdEnum;
+import com.github.rxyor.carp.ums.shared.interfaces.enums.PasswordEncoderEnum;
 import com.github.rxyor.common.core.enums.KeyValue;
 import com.github.rxyor.common.core.model.R;
 import com.google.common.collect.Lists;
@@ -35,10 +36,17 @@ public class OptionsController {
 
     private final ClientQryService clientQryService;
 
-    @ApiOperation("分页查询")
+    @ApiOperation("AppId")
     @GetMapping("/app_id/list")
     public R<List<OptionDTO>> listAppId() {
         List<KeyValue> list = Lists.newArrayList(AppIdEnum.values());
+        return R.success(OptionsMapper.convert(list));
+    }
+
+    @ApiOperation("PasswordEncoder")
+    @GetMapping("/password_encoder/list")
+    public R<List<OptionDTO>> listPasswordEncoder() {
+        List<KeyValue> list = Lists.newArrayList(PasswordEncoderEnum.values());
         return R.success(OptionsMapper.convert(list));
     }
 

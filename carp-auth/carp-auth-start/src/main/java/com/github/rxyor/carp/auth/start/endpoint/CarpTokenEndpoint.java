@@ -1,8 +1,10 @@
 package com.github.rxyor.carp.auth.start.endpoint;
 
 import com.github.rxyor.carp.auth.common.model.LoginUser;
+import com.github.rxyor.carp.auth.common.model.Options;
 import com.github.rxyor.carp.auth.security.support.security.core.Oauth2User;
 import com.github.rxyor.common.core.model.R;
+import com.github.rxyor.common.util.lang2.BeanUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.security.Principal;
@@ -142,6 +144,8 @@ public class CarpTokenEndpoint {
         loginUser.setNickname(user.getNickname());
         loginUser.setAvatar(user.getAvatar());
         loginUser.setResources(resources);
+        loginUser.setRoleList(BeanUtil.copy(user.getRoleList(), Options.class));
+        loginUser.setPermissionList(BeanUtil.copy(user.getPermissionList(), Options.class));
 
         return R.success(loginUser);
     }

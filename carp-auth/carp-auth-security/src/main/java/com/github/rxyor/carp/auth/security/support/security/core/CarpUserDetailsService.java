@@ -14,8 +14,10 @@ import com.github.rxyor.common.support.util.CryptoUtil;
 import com.github.rxyor.common.support.util.RedisKeyBuilder;
 import com.github.rxyor.common.util.lang2.BeanUtil;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -78,6 +80,8 @@ public class CarpUserDetailsService implements UserDetailsService {
         }
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         authorities.addAll(BeanUtil.copy(this.getRoles(user), SimpleGrantedAuthority.class));
+        List<Map<String, Object>> roleList = getRoleList(user);
+        List<Map<String, Object>> permissionList = getPermissionList(user);
         return Oauth2User.builder()
             .username(user.getUsername())
             .password(user.getPassword())
@@ -90,8 +94,39 @@ public class CarpUserDetailsService implements UserDetailsService {
             .avatar(user.getAvatar())
             .phone(user.getPhone())
             .nickname(user.getNickname())
+            .roleList(roleList)
+            .permissionList(permissionList)
             .build();
     }
+
+    private List<Map<String, Object>> getRoleList(UserRetDTO user) {
+        List<Map<String, Object>> roleList = new ArrayList<>(32);
+        user.getRoleList().forEach(r -> {
+            Map<String, Object> map = new HashMap<>(2);
+            map.put("value", Prefix.ROLE + r.getRoleCode());
+            map.put("label", r.getRoleName());
+            roleList.add(map);
+        });
+        return roleList;
+    }
+
+    private List<Map<String, Object>> getPermissionList(UserRetDTO user) {
+        List<Map<String, Object>> permissionList = new ArrayList<>(32);
+        Map<String, Boolean> distinct = new HashMap<>(32);
+        user.getRoleList().forEach(r -> {
+            r.getPermissionList().forEach(p -> {
+                if (!Boolean.TRUE.equals(distinct.get(p.getPermissionCode()))) {
+                    distinct.put(p.getPermissionCode(), true);
+                    Map<String, Object> map = new HashMap<>(2);
+                    map.put("value", p.getPermissionCode());
+                    map.put("label", p.getPermissionName());
+                    permissionList.add(map);
+                }
+            });
+        });
+        return permissionList;
+    }
+
 
     /**
      *获取用户的角色和权限

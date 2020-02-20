@@ -2,6 +2,8 @@ package com.github.rxyor.carp.auth.security.support.security.core;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,6 +31,8 @@ public class Oauth2User implements UserDetails, Serializable {
     private String phone;
     private String email;
     private String avatar;
+    private List<Map<String, Object>> roleList;
+    private List<Map<String, Object>> permissionList;
 
     private Collection<SimpleGrantedAuthority> authorities;
     private boolean accountNonExpired;
@@ -133,5 +137,21 @@ public class Oauth2User implements UserDetails, Serializable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public List<Map<String, Object>> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Map<String, Object>> roleList) {
+        this.roleList = roleList;
+    }
+
+    public List<Map<String, Object>> getPermissionList() {
+        return permissionList;
+    }
+
+    public void setPermissionList(List<Map<String, Object>> permissionList) {
+        this.permissionList = permissionList;
     }
 }

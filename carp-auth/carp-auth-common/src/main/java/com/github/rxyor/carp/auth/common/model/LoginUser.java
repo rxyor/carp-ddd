@@ -44,4 +44,8 @@ public class LoginUser {
      * 角色、权限Code
      */
     private List<String> resources;
+
+    private List<Options> roleList;
+
+    private List<Options> permissionList;
 }
