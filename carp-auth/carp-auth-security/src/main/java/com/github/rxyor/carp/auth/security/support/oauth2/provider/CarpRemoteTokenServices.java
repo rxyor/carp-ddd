@@ -1,7 +1,11 @@
 package com.github.rxyor.carp.auth.security.support.oauth2.provider;
 
+import com.github.rxyor.carp.auth.common.enums.BizExCodeEnum;
+import com.github.rxyor.carp.auth.security.exception.LoginTimeoutException;
 import com.github.rxyor.carp.auth.security.exception.UnauthorizedException;
 import com.github.rxyor.common.core.enums.CoreExCodeEnum;
+import com.github.rxyor.common.core.model.R;
+import com.github.rxyor.common.util.lang2.BeanUtil;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
@@ -23,7 +27,6 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
@@ -147,15 +150,14 @@ public class CarpRemoteTokenServices implements ResourceServerTokenServices {
             new HttpEntity<>(formData, headers), Map.class).getBody();
         if (map != null) {
             @SuppressWarnings("unchecked")
-            Object data = map.get("data");
-            if (data != null && data instanceof Map) {
-                return (Map<String, Object>) map.get("data");
+            R r = BeanUtil.copy(map, R.class);
+            if (r.getData() != null && r.getData() instanceof Map) {
+                return (Map<String, Object>) r.getData();
             } else {
-                String msg = (String) map.get("msg");
-                if (StringUtils.isEmpty(msg)) {
-                    msg = "获取token失败";
+                if (BizExCodeEnum.LOGIN_TIMEOUT.getCode().equals(r.getCode())) {
+                    throw new LoginTimeoutException(r.getCode(), r.getMsg());
                 }
-                throw new UnauthorizedException(CoreExCodeEnum.AUTHENTICATION_FAIL.getCode(),msg);
+                throw new UnauthorizedException(CoreExCodeEnum.AUTHENTICATION_FAIL.getCode(), r.getMsg());
             }
         }
         return new HashMap<>(0);

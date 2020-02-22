@@ -1,5 +1,6 @@
 package com.github.rxyor.carp.auth.start.handler;
 
+import com.github.rxyor.carp.auth.common.enums.BizExCodeEnum;
 import com.github.rxyor.carp.auth.security.exception.CarpOauth2Exception;
 import com.github.rxyor.common.core.enums.CoreExCodeEnum;
 import com.github.rxyor.common.core.model.R;
@@ -149,7 +150,8 @@ public class ExceptionController implements ErrorController {
             if (e instanceof UsernameNotFoundException
                 || e instanceof BadCredentialsException
                 || e instanceof InvalidGrantException) {
-                return R.fail(invalidAuthCode, "用户名或密码错误", ((Exception) e).getMessage());
+                return R.fail(BizExCodeEnum.USERNAME_PASSWORD_ERROR.getCode(),
+                    "用户名或密码错误", ((Exception) e).getMessage());
             } else if (e instanceof DisabledException) {
                 return R.fail(invalidAuthCode, "用户已被禁用", ((Exception) e).getMessage());
             } else if (e instanceof LockedException) {
@@ -159,7 +161,8 @@ public class ExceptionController implements ErrorController {
             } else if (e instanceof CredentialsExpiredException) {
                 return R.fail(invalidAuthCode, "证书过期", ((Exception) e).getMessage());
             } else if (e instanceof InvalidTokenException) {
-                return R.fail(invalidAuthCode, "Token无效或者已过期", ((Exception) e).getMessage());
+                return R.fail(BizExCodeEnum.LOGIN_TIMEOUT.getCode(),
+                    "登录超时, 请重新登录", ((Exception) e).getMessage());
             } else if (e instanceof Throwable) {
                 Throwable ex = (Throwable) e;
                 while (ex != null && !(ex instanceof CarpOauth2Exception)) {
