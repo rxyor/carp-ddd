@@ -22,6 +22,6 @@ docker run\
 # 查看日志
 docker logs carp-auth;
 #删除build过程中产生的镜像    #docker image prune -a -f
-docker rmi $(docker images -f "dangling=true" -q)
+docker rmi $(docker images | grep carp-auth -f "dangling=true" -q)
 # 对空间进行自动清理
-docker system prune -a -f
+#docker system prune -a -f
