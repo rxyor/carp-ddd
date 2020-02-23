@@ -22,6 +22,8 @@ docker run\
 # 查看日志
 docker logs carp-gateway;
 #删除build过程中产生的镜像    #docker image prune -a -f
-docker rmi $(docker images | grep carp-gateway -f "dangling=true" -q)
+if [docker rmi $(docker images | grep carp-gateway -f "dangling=true" -q)]
+then
+fi
 # 对空间进行自动清理
 #docker system prune -a -f
