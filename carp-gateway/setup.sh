@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 image_version=`date +%Y%m%d%H%M`;
 # 关闭carp-gateway容器
 docker stop carp-gateway || true;
@@ -22,6 +22,6 @@ docker run\
 # 查看日志
 docker logs carp-gateway;
 #删除build过程中产生的镜像    #docker image prune -a -f
-docker rmi $(docker images | grep carp-gateway -f "dangling=true" -q) > /dev/null 2>&1
+docker rmi $(docker images | grep carp-gateway -f "dangling=true" -q)
 # 对空间进行自动清理
 #docker system prune -a -f
