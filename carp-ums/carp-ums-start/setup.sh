@@ -12,7 +12,7 @@ docker build . -t carp-ums:$image_version;
 docker images;
 # 基于carp-ums 镜像 构建一个容器 carp-ums
 docker run\
-    -p 8002:8080 -d\
+    -p 8002:8002 -d\
     --name carp-ums\
     --add-host carp-gateway:192.168.0.116\
     --add-host carp-auth:192.168.0.116\

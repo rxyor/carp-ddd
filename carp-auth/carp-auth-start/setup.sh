@@ -12,7 +12,7 @@ docker build . -t carp-auth:$image_version;
 docker images;
 # 基于carp-auth 镜像 构建一个容器 carp-auth
 docker run\
-    -p 8001:8080 -d\
+    -p 8001:8001 -d\
     --name carp-auth\
     --add-host carp-gateway:192.168.0.116\
     --add-host carp-auth:192.168.0.116\
