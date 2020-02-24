@@ -3,6 +3,7 @@ package com.github.rxyor.carp.auth.start.endpoint;
 import com.github.rxyor.carp.auth.common.model.LoginUser;
 import com.github.rxyor.carp.auth.common.model.Options;
 import com.github.rxyor.carp.auth.security.support.security.core.Oauth2User;
+import com.github.rxyor.carp.auth.security.util.RedisKey;
 import com.github.rxyor.common.core.model.R;
 import com.github.rxyor.common.util.lang2.BeanUtil;
 import io.swagger.annotations.Api;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +51,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/oauth2")
 public class CarpTokenEndpoint {
+
+    @Resource
+    private RedissonClient redissonClient;
 
     @Resource(name = "redisTokenStore")
     private TokenStore tokenStore;
@@ -89,6 +94,13 @@ public class CarpTokenEndpoint {
             OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
             if (accessToken != null) {
                 tokenStore.removeAccessToken(accessToken);
+                //删除缓存的用户信息
+                OAuth2Authentication authentication = tokenStore.readAuthentication(token);
+                Object o = authentication.getPrincipal();
+                if (o != null && o instanceof Oauth2User) {
+                    String cacheKey = RedisKey.userDetails(((Oauth2User) o).getUsername());
+                    redissonClient.getBucket(cacheKey).deleteAsync();
+                }
             }
         } catch (Throwable e) {
             log.error("Token[{}]退出登录失败, 错误:", token, e);

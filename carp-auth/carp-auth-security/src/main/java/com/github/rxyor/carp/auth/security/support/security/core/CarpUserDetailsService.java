@@ -4,6 +4,7 @@ import com.github.rxyor.carp.auth.common.enums.BizExCodeEnum;
 import com.github.rxyor.carp.auth.security.config.CarpAuthClientProperties;
 import com.github.rxyor.carp.auth.security.consts.SecurityConst.Prefix;
 import com.github.rxyor.carp.auth.security.exception.CarpOauth2Exception;
+import com.github.rxyor.carp.auth.security.util.RedisKey;
 import com.github.rxyor.carp.ums.api.dto.ums.PermissionRetDTO;
 import com.github.rxyor.carp.ums.api.dto.ums.RoleRetDTO;
 import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
@@ -11,7 +12,6 @@ import com.github.rxyor.carp.ums.api.enums.common.DisableEnum;
 import com.github.rxyor.carp.ums.api.feign.user.UserFeignService;
 import com.github.rxyor.common.core.model.R;
 import com.github.rxyor.common.support.util.CryptoUtil;
-import com.github.rxyor.common.support.util.RedisKeyBuilder;
 import com.github.rxyor.common.util.lang2.BeanUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +52,7 @@ public class CarpUserDetailsService implements UserDetailsService {
 
     @Override
     public Oauth2User loadUserByUsername(String username) throws UsernameNotFoundException {
-        final String key = RedisKeyBuilder.append("CarpUserDetailsService::" + username);
+        final String key = RedisKey.userDetails(username);
         RBucket<Oauth2User> bucket = redissonClient.getBucket(key);
         if (!bucket.isExists()) {
             R<UserRetDTO> ret;
