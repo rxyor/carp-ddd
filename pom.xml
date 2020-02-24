@@ -465,23 +465,6 @@
                 <version>${spring-boot.version}</version>
             </plugin>
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker-maven-plugin.version}</version>
-                <configuration>
-                    <dockerDirectory/>
-                    <dockerHost>http://local.home:2375</dockerHost>
-                    <imageName>${docker.image.tag}/${project.artifactId}</imageName>
-                    <resources>
-                        <resource>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                            <targetPath>/</targetPath>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <configuration>
