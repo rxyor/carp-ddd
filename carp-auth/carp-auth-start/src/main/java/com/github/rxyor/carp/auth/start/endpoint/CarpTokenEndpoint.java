@@ -96,7 +96,7 @@ public class CarpTokenEndpoint {
                 tokenStore.removeAccessToken(accessToken);
                 //删除缓存的用户信息
                 OAuth2Authentication authentication = tokenStore.readAuthentication(token);
-                Object o = authentication.getPrincipal();
+                Object o = Optional.ofNullable(authentication.getPrincipal()).orElse(null);
                 if (o != null && o instanceof Oauth2User) {
                     String cacheKey = RedisKey.userDetails(((Oauth2User) o).getUsername());
                     redissonClient.getBucket(cacheKey).deleteAsync();
