@@ -93,7 +93,6 @@ public class CarpTokenEndpoint {
         try {
             OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
             if (accessToken != null) {
-                tokenStore.removeAccessToken(accessToken);
                 //删除缓存的用户信息
                 OAuth2Authentication authentication = tokenStore.readAuthentication(token);
                 Object o = Optional.ofNullable(authentication.getPrincipal()).orElse(null);
@@ -101,6 +100,8 @@ public class CarpTokenEndpoint {
                     String cacheKey = RedisKey.userDetails(((Oauth2User) o).getUsername());
                     redissonClient.getBucket(cacheKey).deleteAsync();
                 }
+
+                tokenStore.removeAccessToken(accessToken);
             }
         } catch (Throwable e) {
             log.error("Token[{}]退出登录失败, 错误:", token, e);
