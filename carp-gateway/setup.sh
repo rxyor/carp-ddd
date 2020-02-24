@@ -3,9 +3,9 @@ image_version=`date +%Y%m%d%H%M`;
 # 关闭carp-gateway容器
 docker stop carp-gateway || true;
 # 删除carp-gateway容器
-docker rm carp-gateway || true;
-# 删除carp-gateway镜像
-docker rmi --force $(docker images | grep carp-gateway | awk '{print $3}')
+ret = `docker rm carp-gateway || true`;
+# 删除carp-ums镜像
+ret = `docker rmi --force $(docker images | grep carp-gateway | awk '{print $3}')`
 # 构建carp-gateway:$image_version镜像
 docker build . -t carp-gateway:$image_version;
 # 查看镜像列表
