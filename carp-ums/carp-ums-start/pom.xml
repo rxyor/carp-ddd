@@ -17,11 +17,6 @@
             <artifactId>carp-ums-infrastructure</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.github.rxyor</groupId>
-            <artifactId>carp-auth-security</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <!--0:modules-->
         <!--注册中心客户端-->
         <dependency>

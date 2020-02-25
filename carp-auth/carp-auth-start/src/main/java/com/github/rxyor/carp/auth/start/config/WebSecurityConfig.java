@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 /**
  *<p>
@@ -52,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/oauth2/token/access").permitAll();
         http.exceptionHandling().authenticationEntryPoint(new AuthorizeAuthExceptionEntryPoint(objectMapper));
         http.exceptionHandling().accessDeniedHandler(new CarpAccessDeniedHandler(objectMapper));
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
     }
 
     @Override

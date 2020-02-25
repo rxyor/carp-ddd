@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -58,6 +59,7 @@ public abstract class AbstractResourceServerConfig extends ResourceServerConfigu
         http.httpBasic().disable();
         http.formLogin().disable();
         http.headers().frameOptions().disable();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
             .authorizeRequests();
         //是否开启资源权限校验
@@ -84,6 +86,10 @@ public abstract class AbstractResourceServerConfig extends ResourceServerConfigu
         DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
         DefaultUserAuthenticationConverter userAuthenticationConverter = new DefaultUserAuthenticationConverter();
         userAuthenticationConverter.setUserDetailsService(userDetailsService);
+        //将用户信息通过SecurityContext绑定到ThreadLocal上下文时，
+        // 需要调用userAuthenticationConverter的userDetailsService获取用户信息
+        accessTokenConverter.setUserTokenConverter(userAuthenticationConverter);
+
         remoteTokenServices.setRestTemplate(restTemplate);
         remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
         resources.authenticationEntryPoint(resourceAuthExceptionEntryPoint);
@@ -106,7 +112,7 @@ public abstract class AbstractResourceServerConfig extends ResourceServerConfigu
      * @param resources 资源服务
      */
     public void configureResourceServer(ResourceServerSecurityConfigurer resources) {
-        if(resourceServerProperties!=null){
+        if (resourceServerProperties != null) {
             if (StringUtils.isNotEmpty(resourceServerProperties.getResourceId())) {
                 resources.resourceId(resourceServerProperties.getResourceId());
             }

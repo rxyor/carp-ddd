@@ -1,5 +1,7 @@
 package com.github.rxyor.carp.ums.insfrastructure.controller.user;
 
+import com.github.rxyor.carp.auth.security.support.security.core.Oauth2User;
+import com.github.rxyor.carp.auth.security.util.AuthHolder;
 import com.github.rxyor.carp.query.dto.user.UserDTO;
 import com.github.rxyor.carp.query.qry.user.UserQry;
 import com.github.rxyor.carp.query.service.user.UserQryService;
@@ -22,6 +24,7 @@ import io.swagger.annotations.ApiOperation;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,6 +73,8 @@ public class UserController {
     public R<Page<UserDTO>> page(@RequestBody UserQry req) {
         Preconditions.checkNotNull(req, "查询参数不能为空");
 
+        Oauth2User user = AuthHolder.user();
+        Object o = SecurityContextHolder.getContext().getAuthentication();
         Page<UserDTO> page = userQryService.page(req);
         return R.success(page);
     }
