@@ -1,12 +1,16 @@
-package com.github.rxyor.carp.auth.security.support.redis;
+package com.github.rxyor.carp.auth.security.support.token.store.redis.fastjson;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.util.IOUtils;
+import com.alibaba.fastjson.util.TypeUtils;
 import com.google.common.base.Preconditions;
 import java.nio.charset.Charset;
 import org.springframework.data.redis.serializer.SerializationException;
+import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStoreSerializationStrategy;
 
 /**
@@ -20,15 +24,24 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
  */
 public class FastjsonRedisTokenStoreSerializationStrategy implements RedisTokenStoreSerializationStrategy {
 
-    private final static ParserConfig defaultRedisConfig = new ParserConfig();
+    private static ParserConfig config = new ParserConfig();
 
     static {
-        defaultRedisConfig.setAutoTypeSupport(true);
+        init();
     }
 
-    static {
-        //设置Fastjson Json自动转换为Java对象
-        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+    protected static void init() {
+        //自定义oauth2序列化：DefaultOAuth2RefreshToken 没有setValue方法，会导致JSON序列化为null
+        config.setAutoTypeSupport(true);
+        config.putDeserializer(DefaultOAuth2RefreshToken.class, new DefaultOauth2RefreshTokenSerializer());
+        config.putDeserializer(OAuth2Authentication.class, new OAuth2AuthenticationSerializer());
+        config.addAccept("org.springframework.security.oauth2.provider.");
+        config.addAccept("org.springframework.security.oauth2.provider.client");
+
+        TypeUtils.addMapping("org.springframework.security.oauth2.provider.OAuth2Authentication",
+            OAuth2Authentication.class);
+        TypeUtils.addMapping("org.springframework.security.oauth2.provider.client.BaseClientDetails",
+            BaseClientDetails.class);
     }
 
     @Override
@@ -40,7 +53,7 @@ public class FastjsonRedisTokenStoreSerializationStrategy implements RedisTokenS
         }
 
         try {
-            return JSON.parseObject(new String(bytes, IOUtils.UTF8), clazz, defaultRedisConfig);
+            return JSON.parseObject(new String(bytes, IOUtils.UTF8), clazz, config);
         } catch (Exception ex) {
             throw new SerializationException("Could not serialize: " + ex.getMessage(), ex);
         }

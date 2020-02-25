@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.auth.security.support.oauth2.common;
+package com.github.rxyor.carp.auth.security.support.token.store.redis.fastjson;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.DefaultJSONParser;

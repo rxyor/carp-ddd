@@ -1,11 +1,11 @@
 package com.github.rxyor.carp.auth.start.config;
 
-import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpRedisTokenStore;
-import org.redisson.api.RedissonClient;
+import com.github.rxyor.carp.auth.security.support.token.store.redis.fastjson.FastjsonRedisTokenStoreSerializationStrategy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 /**
  *<p>
@@ -31,10 +31,10 @@ public class RedisStoreConfig {
     }
 
     @Bean
-    public CarpRedisTokenStore redisTokenStore(RedissonClient redissonClient) {
-        CarpRedisTokenStore store = new CarpRedisTokenStore(redissonClient);
-        store.setPrefix(appName + "::" + "auth:");
+    public RedisTokenStore redisTokenStore() {
+        RedisTokenStore store = new RedisTokenStore(redisConnectionFactory);
+        store.setPrefix(appName + "::");
+        store.setSerializationStrategy(new FastjsonRedisTokenStoreSerializationStrategy());
         return store;
     }
-
 }
