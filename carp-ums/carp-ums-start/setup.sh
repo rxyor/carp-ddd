@@ -14,6 +14,7 @@ docker images;
 docker run\
     -p 8002:8002 -d\
     --name carp-ums\
+    --net host\
     --add-host carp-gateway:192.168.0.116\
     --add-host carp-auth:192.168.0.116\
     --add-host carp-ums:192.168.0.116\
