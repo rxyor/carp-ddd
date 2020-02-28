@@ -1,7 +1,10 @@
 package com.github.rxyor.carp.auth.security.util;
 
 import com.github.rxyor.carp.auth.security.support.security.core.Oauth2User;
+import java.util.Optional;
 import lombok.experimental.UtilityClass;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
@@ -17,8 +20,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class AuthHolder {
 
     public static Oauth2User user() {
-        Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (o instanceof Oauth2User) {
+        Object o = Optional.ofNullable(SecurityContextHolder.getContext())
+            .map(SecurityContext::getAuthentication)
+            .map(Authentication::getPrincipal)
+            .orElse(null);
+
+        if (o != null && (o instanceof Oauth2User)) {
             return (Oauth2User) o;
         }
         return null;
