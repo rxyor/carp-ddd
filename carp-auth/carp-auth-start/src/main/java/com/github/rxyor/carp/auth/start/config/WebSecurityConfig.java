@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/oauth/token").permitAll()
             .antMatchers("/oauth2/token/access").permitAll();
+        http.logout().logoutUrl("/oauth2/token/remove");
         http.exceptionHandling().authenticationEntryPoint(new AuthorizeAuthExceptionEntryPoint(objectMapper));
         http.exceptionHandling().accessDeniedHandler(new CarpAccessDeniedHandler(objectMapper));
     }

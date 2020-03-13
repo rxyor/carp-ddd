@@ -10,6 +10,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -18,8 +20,10 @@ import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -50,7 +54,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "Oauth2")
 @RestController
 @RequestMapping("/oauth2")
-public class CarpTokenEndpoint {
+public class CarpTokenEndpoint implements InitializingBean {
 
     @Resource
     private RedissonClient redissonClient;
@@ -177,5 +181,11 @@ public class CarpTokenEndpoint {
             return token;
         }
         return null;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        tokenEndpoint.setAllowedRequestMethods(new HashSet<>(
+            Arrays.asList(HttpMethod.POST, HttpMethod.GET)));
     }
 }
