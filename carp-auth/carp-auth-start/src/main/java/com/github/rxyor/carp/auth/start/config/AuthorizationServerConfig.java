@@ -1,15 +1,20 @@
 package com.github.rxyor.carp.auth.start.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.rxyor.carp.auth.security.config.CarpAuthClientProperties;
 import com.github.rxyor.carp.auth.security.consts.SecurityConst.TokenAccess;
+import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpAccessDeniedHandler;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpClientDetailsService;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpTokenEnhancer;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpWebResponseExceptionTranslator;
+import com.github.rxyor.carp.auth.security.support.security.web.AuthorizeAuthExceptionEntryPoint;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
+import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -49,6 +54,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Resource
     private UserDetailsService userDetailsService;
 
+    @Resource
+    private ObjectMapper objectMapper;
+
     /**
      *配置客户端Client 数据库存储，并配置查询语句
      *
@@ -83,7 +91,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         security
             .tokenKeyAccess(TokenAccess.PERMIT_ALL)
             .checkTokenAccess(TokenAccess.PERMIT_ALL)
-            .allowFormAuthenticationForClients();
+            .allowFormAuthenticationForClients()
+            .accessDeniedHandler(new CarpAccessDeniedHandler(objectMapper))
+            .authenticationEntryPoint(new AuthorizeAuthExceptionEntryPoint(objectMapper))
+            .addObjectPostProcessor(new ObjectPostProcessor<ExceptionHandlingConfigurer>() {
+                @Override
+                public <O extends ExceptionHandlingConfigurer> O postProcess(O object) {
+                    object.accessDeniedHandler(new CarpAccessDeniedHandler(objectMapper));
+                    return (O) object.authenticationEntryPoint(new AuthorizeAuthExceptionEntryPoint(objectMapper));
+                }
+            });
     }
 
     @Override

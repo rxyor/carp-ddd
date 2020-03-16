@@ -52,9 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/oauth/token").permitAll()
             .antMatchers("/oauth2/token/access").permitAll();
         http.logout().logoutUrl("/oauth2/token/remove");
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
-        http.exceptionHandling().authenticationEntryPoint(new AuthorizeAuthExceptionEntryPoint(objectMapper));
-        http.exceptionHandling().accessDeniedHandler(new CarpAccessDeniedHandler(objectMapper));
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+        http.exceptionHandling()
+            .authenticationEntryPoint(new AuthorizeAuthExceptionEntryPoint(objectMapper))
+            .accessDeniedHandler(new CarpAccessDeniedHandler(objectMapper));
     }
 
     @Override
@@ -67,4 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/favor.ico");
     }
+
+
 }

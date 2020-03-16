@@ -1,7 +1,10 @@
 package com.github.rxyor.carp.auth.security.support.oauth2.resource;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.rxyor.carp.auth.security.config.CarpAuthResourceProperties;
+import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpAccessDeniedHandler;
 import com.github.rxyor.carp.auth.security.support.oauth2.provider.CarpRemoteTokenServices;
+import com.github.rxyor.carp.auth.security.support.security.web.AuthorizeAuthExceptionEntryPoint;
 import com.github.rxyor.carp.auth.security.support.security.web.ResourceAuthExceptionEntryPoint;
 import javax.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
@@ -52,6 +55,9 @@ public abstract class AbstractResourceServerConfig extends ResourceServerConfigu
     @Resource
     private ResourceServerProperties resourceServerProperties;
 
+    @Resource
+    private ObjectMapper objectMapper;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         //允许使用iframe 嵌套，避免swagger-ui 不被加载的问题
@@ -59,7 +65,9 @@ public abstract class AbstractResourceServerConfig extends ResourceServerConfigu
         http.httpBasic().disable();
         http.formLogin().disable();
         http.headers().frameOptions().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+        http.exceptionHandling().authenticationEntryPoint(new AuthorizeAuthExceptionEntryPoint(objectMapper));
+        http.exceptionHandling().accessDeniedHandler(new CarpAccessDeniedHandler(objectMapper));
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
             .authorizeRequests();
         //是否开启资源权限校验
