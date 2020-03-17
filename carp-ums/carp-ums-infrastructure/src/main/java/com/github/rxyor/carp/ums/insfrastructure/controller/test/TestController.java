@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/ums/test")
 public class TestController {
 
+    @PreAuthorize("hasRole('ADMIN')")
     @ApiOperation("异步获取上下文用户信息")
     @GetMapping("/security/async")
     public R<Object> asyncGetContextUser() throws Exception {
@@ -48,6 +50,7 @@ public class TestController {
         return R.success(list.isEmpty() ? null : list.get(0));
     }
 
+    @PreAuthorize("hasAnyRole('ROOT','ADMIN')")
     @ApiOperation("获取上下文用户信息")
     @GetMapping("/security/sync")
     public R<Object> getContextUser() {
