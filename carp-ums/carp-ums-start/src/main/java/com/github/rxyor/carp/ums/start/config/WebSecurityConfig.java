@@ -2,7 +2,6 @@ package com.github.rxyor.carp.ums.start.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
  *<p>
@@ -15,6 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
 
 }

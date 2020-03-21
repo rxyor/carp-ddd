@@ -87,7 +87,7 @@ public class CarpUserDetailsService implements UserDetailsService {
             .password(user.getPassword())
             .enabled(DisableEnum.ENABLE.getCode().equals(user.getDisable()))
             .accountNonExpired(true)
-            .accountNonLocked(true)
+            .accountNonLocked(DisableEnum.ENABLE.getCode().equals(user.getLocked()))
             .credentialsNonExpired(true)
             .authorities(authorities)
             .email(user.getEmail())
