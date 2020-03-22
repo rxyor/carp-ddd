@@ -9,6 +9,7 @@ import com.github.rxyor.carp.ums.api.dto.ums.PermissionRetDTO;
 import com.github.rxyor.carp.ums.api.dto.ums.RoleRetDTO;
 import com.github.rxyor.carp.ums.api.dto.ums.UserRetDTO;
 import com.github.rxyor.carp.ums.api.enums.common.DisableEnum;
+import com.github.rxyor.carp.ums.api.enums.common.LockedEnum;
 import com.github.rxyor.carp.ums.api.feign.user.UserFeignService;
 import com.github.rxyor.common.core.model.R;
 import com.github.rxyor.common.support.util.CryptoUtil;
@@ -87,7 +88,7 @@ public class CarpUserDetailsService implements UserDetailsService {
             .password(user.getPassword())
             .enabled(DisableEnum.ENABLE.getCode().equals(user.getDisable()))
             .accountNonExpired(true)
-            .accountNonLocked(DisableEnum.ENABLE.getCode().equals(user.getLocked()))
+            .accountNonLocked(LockedEnum.UNLOCK.getCode().equals(user.getLocked()))
             .credentialsNonExpired(true)
             .authorities(authorities)
             .email(user.getEmail())
