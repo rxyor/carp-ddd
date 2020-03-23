@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 image_version=`date +%Y%m%d%H%M`;
+target_ip='192.168.0.116'
 # 关闭carp-ums容器
 docker stop carp-ums || true;
 # 删除carp-ums容器
@@ -13,12 +14,13 @@ docker images;
 # 基于carp-ums 镜像 构建一个容器 carp-ums
 docker run\
     -p 8002:8002 -d\
+    --restart always\
     --name carp-ums\
     --net host\
-    --add-host carp-gateway:192.168.0.116\
-    --add-host carp-auth:192.168.0.116\
-    --add-host carp-ums:192.168.0.116\
-    --add-host carp-dev:192.168.0.116\
+    --add-host carp-gateway:$target_ip\
+    --add-host carp-auth:$target_ip\
+    --add-host carp-ums:$target_ip\
+    --add-host carp-dev:$target_ip\
     carp-ums:$image_version ;
 # 查看日志
 docker logs carp-ums;

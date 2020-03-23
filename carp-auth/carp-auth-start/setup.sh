@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 image_version=`date +%Y%m%d%H%M`;
+target_ip='192.168.0.116'
 # 关闭carp-auth容器
 docker stop carp-auth || true;
 # 删除carp-auth容器
@@ -13,12 +14,13 @@ docker images;
 # 基于carp-auth 镜像 构建一个容器 carp-auth
 docker run\
     -p 8001:8001 -d\
+    --restart always\
     --name carp-auth\
     --net host\
-    --add-host carp-gateway:192.168.0.116\
-    --add-host carp-auth:192.168.0.116\
-    --add-host carp-ums:192.168.0.116\
-    --add-host carp-dev:192.168.0.116\
+    --add-host carp-gateway:$target_ip\
+    --add-host carp-auth:$target_ip\
+    --add-host carp-ums:$target_ip\
+    --add-host carp-dev:$target_ip\
     carp-auth:$image_version ;
 # 查看日志
 docker logs carp-auth;
