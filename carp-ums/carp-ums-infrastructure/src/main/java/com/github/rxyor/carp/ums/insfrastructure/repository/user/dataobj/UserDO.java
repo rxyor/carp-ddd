@@ -97,6 +97,12 @@ public class UserDO implements Serializable {
     private String remark;
 
     /**
+     * 系统属性[0:普通, 1:系统]
+     */
+    @Column(name = "sys")
+    private Integer sys = 0;
+
+    /**
      * 创建时间
      */
     @Column(name = "create_time", insertable = false)
