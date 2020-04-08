@@ -1,5 +1,11 @@
 server:
-  port: 8002
+  port: 8010
 spring:
   application:
     name: carp-common-rocketmq
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr:  ${NACOS-HOST:carp-dev}:${NACOS-PORT:8848}
+        service: ${spring.application.name}
