@@ -8,6 +8,8 @@ import com.github.rxyor.carp.common.eventbus.listener.BusRegister;
 import com.github.rxyor.carp.common.eventbus.listener.IEventListener;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.producer.SendCallback;
+import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 
 /**
@@ -65,21 +67,19 @@ public class MqEventBus<E extends IEvent> extends BusRegister implements IEventB
             log.debug("[{}] send event, content:[{}]", this.getClass().getName(), content);
         }
 
-        rocketMQTemplate.convertAndSend(carpEventBusProperties.getTopic(),content);
+        rocketMQTemplate.asyncSendOrderly(carpEventBusProperties.getTopic(), content, event.getEventKey(),
+            new SendCallback() {
+                @Override
+                public void onSuccess(SendResult sendResult) {
+                    log.info("[{}] send event success, content:[{}], send result[{}]:",
+                        this.getClass().getName(), content, sendResult);
+                }
 
-//        rocketMQTemplate.asyncSendOrderly(carpEventBusProperties.getTopic(), content, event.getEventKey(),
-//            new SendCallback() {
-//                @Override
-//                public void onSuccess(SendResult sendResult) {
-//                    log.info("[{}] send event success, content:[{}], send result[{}]:",
-//                        this.getClass().getName(), content, sendResult);
-//                }
-//
-//                @Override
-//                public void onException(Throwable throwable) {
-//                    log.error("[{}] send event fail, content:[{}], error:",
-//                        this.getClass().getName(), content, throwable);
-//                }
-//            });
+                @Override
+                public void onException(Throwable throwable) {
+                    log.error("[{}] send event fail, content:[{}], error:",
+                        this.getClass().getName(), content, throwable);
+                }
+            });
     }
 }

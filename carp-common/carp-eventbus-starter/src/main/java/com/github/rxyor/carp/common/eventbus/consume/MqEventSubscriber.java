@@ -1,6 +1,7 @@
 package com.github.rxyor.carp.common.eventbus.consume;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.parser.ParserConfig;
 import com.github.rxyor.carp.common.eventbus.core.IEvent;
 import com.github.rxyor.carp.common.eventbus.produce.GuavaEventBus;
 import lombok.extern.slf4j.Slf4j;
@@ -17,16 +18,13 @@ import org.apache.rocketmq.spring.core.RocketMQListener;
  * @since 1.0.0
  */
 @Slf4j
-//@RocketMQMessageListener(
-//    consumerGroup = "${carp.eventbus.rocketmq.group}",
-//    topic = "${carp.eventbus.rocketmq.topic}",
-//    accessKey = "${carp.eventbus.rocketmq.access-key}",
-//    secretKey = "${carp.eventbus.rocketmq.secret-key}",
-//    customizedTraceTopic = "${carp.eventbus.rocketmq.customized-trace-topic}",
-//    nameServer = "${carp.eventbus.rocketmq.name-server}",
-//    accessChannel = "${carp.eventbus.rocketmq.access-channel}"
-//)
 public class MqEventSubscriber<E extends IEvent> implements RocketMQListener<String> {
+
+    private static ParserConfig config = new ParserConfig();
+
+    static {
+        config.setAutoTypeSupport(true);
+    }
 
     @Override
     public void onMessage(String msg) {
@@ -37,8 +35,12 @@ public class MqEventSubscriber<E extends IEvent> implements RocketMQListener<Str
         }
 
         try {
-            IEvent event = (IEvent) JSON.parseObject(msg);
-            GuavaEventBus.send(event);
+            Object data =  JSON.parse(msg,config);
+            if(data instanceof IEvent){
+                GuavaEventBus.send((IEvent) data);
+            }else {
+                log.error("MqEventSubscriber ignore not event type msg , context:[{}]",msg);
+            }
         } catch (Exception e) {
             log.error("Msg:[] parse to event or send event fail, error:", msg, e);
         }

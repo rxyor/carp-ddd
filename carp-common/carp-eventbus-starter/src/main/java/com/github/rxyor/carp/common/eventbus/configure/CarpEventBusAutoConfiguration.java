@@ -1,20 +1,16 @@
 package com.github.rxyor.carp.common.eventbus.configure;
 
-import com.github.rxyor.carp.common.eventbus.consume.MqEventSubscriber;
 import com.github.rxyor.carp.common.eventbus.produce.MqEventBus;
 import javax.annotation.Resource;
 import org.apache.rocketmq.client.AccessChannel;
+import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.spring.autoconfigure.RocketMQProperties;
 import org.apache.rocketmq.spring.autoconfigure.RocketMQProperties.Producer;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.apache.rocketmq.spring.support.RocketMQMessageConverter;
 import org.apache.rocketmq.spring.support.RocketMQUtil;
-import org.springframework.beans.BeansException;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.StandardEnvironment;
@@ -32,9 +28,7 @@ import org.springframework.util.StringUtils;
  */
 @Configuration
 @EnableConfigurationProperties(CarpEventBusProperties.class)
-public class CarpEventBusAutoConfiguration implements ApplicationContextAware {
-
-    private ConfigurableApplicationContext applicationContext;
+public class CarpEventBusAutoConfiguration {
 
     @Resource
     private StandardEnvironment environment;
@@ -48,36 +42,26 @@ public class CarpEventBusAutoConfiguration implements ApplicationContextAware {
     @Resource
     private RocketMQMessageConverter rocketMQMessageConverter;
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = (ConfigurableApplicationContext) applicationContext;
-    }
-
-//    @Bean
-    public MqEventSubscriber mqEventSubscriber() {
-        return new MqEventSubscriber();
-    }
-
     @Bean
-    public MqEventBus mqEventBus() {
+    public MqEventBus mqEventBus() throws MQClientException {
         RocketMQTemplate rocketMQTemplate = new RocketMQTemplate();
-        rocketMQTemplate.setProducer(mqProducer(rocketMQProperties));
+        rocketMQTemplate.setProducer(mqProducer(rocketMQProperties, carpEventBusProperties));
         rocketMQTemplate.setMessageConverter(rocketMQMessageConverter.getMessageConverter());
 
         return new MqEventBus(rocketMQTemplate, carpEventBusProperties);
     }
 
     @Bean
-    public MqEventListenerContainerConfiguration mqEventListenerContainerProxy() {
-        return new MqEventListenerContainerConfiguration(environment,
-            carpEventBusProperties, rocketMQProperties,
-            rocketMQMessageConverter);
+    public MqEventListenerContainerConfiguration mqEventListenerContainerConfiguration() {
+        return new MqEventListenerContainerConfiguration(
+            environment, carpEventBusProperties,
+            rocketMQProperties, rocketMQMessageConverter);
     }
 
-    public DefaultMQProducer mqProducer(RocketMQProperties rocketMQProperties) {
+    public DefaultMQProducer mqProducer(RocketMQProperties rocketMQProperties,CarpEventBusProperties carpEventBusProperties) throws MQClientException {
         Producer producerConfig = rocketMQProperties.getProducer();
         String nameServer = rocketMQProperties.getNameServer();
-        String groupName = producerConfig.getGroup();
+        String groupName = carpEventBusProperties.getGroup();
         Assert.hasText(nameServer, "[rocketmq.name-server] must not be null");
         Assert.hasText(groupName, "[rocketmq.producer.group] must not be null");
         String accessChannel = rocketMQProperties.getAccessChannel();
@@ -98,6 +82,7 @@ public class CarpEventBusAutoConfiguration implements ApplicationContextAware {
         producer.setMaxMessageSize(producerConfig.getMaxMessageSize());
         producer.setCompressMsgBodyOverHowmuch(producerConfig.getCompressMessageBodyThreshold());
         producer.setRetryAnotherBrokerWhenNotStoreOK(producerConfig.isRetryNextServer());
+        producer.start();
         return producer;
     }
 
