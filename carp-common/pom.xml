@@ -11,5 +11,8 @@
 
     <artifactId>carp-common</artifactId>
     <packaging>pom</packaging>
-
+    <modules>
+        <module>carp-eventbus-starter</module>
+        <module>carp-common-rocketmq</module>
+    </modules>
 </project>

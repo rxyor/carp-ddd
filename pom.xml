@@ -63,7 +63,7 @@
         <redisson.version>3.11.3</redisson.version>
         <rocketmq-spring-boot-starter.version>2.1.0</rocketmq-spring-boot-starter.version>
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
-        <spring-cloud-alibaba.version>2.1.1.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2.2.0.RELEASE</spring-cloud-alibaba.version>
         <spring-cloud-dependencies.version>Hoxton.RELEASE</spring-cloud-dependencies.version>
         <spring-data-elasticsearch.version>3.2.3.RELEASE</spring-data-elasticsearch.version>
         <spring-security-oauth2.version>2.3.4.RELEASE</spring-security-oauth2.version>
