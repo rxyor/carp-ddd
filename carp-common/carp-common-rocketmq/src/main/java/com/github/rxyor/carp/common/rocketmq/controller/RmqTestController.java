@@ -1,9 +1,13 @@
 package com.github.rxyor.carp.common.rocketmq.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.github.rxyor.carp.common.eventbus.produce.MqEventBus;
 import com.github.rxyor.carp.common.rocketmq.model.Event;
+import com.github.rxyor.carp.common.rocketmq.model.OrderEvent;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.math.BigDecimal;
+import java.util.Date;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +36,18 @@ public class RmqTestController {
     public Object testSend() {
         String s = "Hello World, RocketMQ!";
         rocketMQTemplate.convertAndSend("Topic_carp_rocketmq", JSON.toJSONString(new Event()));
+        return "ok";
+    }
+
+    @ApiOperation(tags = "rmq", value = "send test")
+    @PostMapping("/event/send")
+    public Object testSendEvent() {
+        OrderEvent event = new OrderEvent();
+        event.setOrderNo("9999999966661111");
+        event.setCreateTime(new Date());
+        event.setPrice(new BigDecimal(999));
+        event.setCount(10);
+        MqEventBus.send(event);
         return "ok";
     }
 }
