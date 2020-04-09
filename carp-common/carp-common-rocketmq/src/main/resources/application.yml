@@ -6,10 +6,11 @@ spring:
 rocketmq:
   name-server: carp-dev:9876
   producer:
-    group: GID_carp_rocketmq
+    group: GID_carp_rocketmq2
     customized-trace-topic: Topic_carp_rocketmq
 
-mqeventbus:
-  consumer:
-    group: CID_carp_rocketmq
-    customized-trace-topic: Topic_carp_rocketmq
+carp:
+  eventbus:
+    rocketmq:
+      group: GID_carp_rocketmq
+      topic: Topic_carp_rocketmq

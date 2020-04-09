@@ -8,10 +8,7 @@ import com.github.rxyor.carp.common.eventbus.listener.BusRegister;
 import com.github.rxyor.carp.common.eventbus.listener.IEventListener;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.rocketmq.client.producer.SendCallback;
-import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
-import org.springframework.beans.factory.InitializingBean;
 
 /**
  *<p>
@@ -23,7 +20,7 @@ import org.springframework.beans.factory.InitializingBean;
  * @since 1.0.0
  */
 @Slf4j
-public class MqEventBus<E extends IEvent> extends BusRegister implements IEventBus<E>, InitializingBean {
+public class MqEventBus<E extends IEvent> extends BusRegister implements IEventBus<E> {
 
     private static MqEventBus<? extends IEvent> INSTANCE;
 
@@ -38,6 +35,7 @@ public class MqEventBus<E extends IEvent> extends BusRegister implements IEventB
 
         this.rocketMQTemplate = rocketMQTemplate;
         this.carpEventBusProperties = carpEventBusProperties;
+        MqEventBus.INSTANCE = this;
     }
 
     public static <E extends IEvent> void send(E event) {
@@ -67,24 +65,21 @@ public class MqEventBus<E extends IEvent> extends BusRegister implements IEventB
             log.debug("[{}] send event, content:[{}]", this.getClass().getName(), content);
         }
 
-        rocketMQTemplate.asyncSendOrderly(carpEventBusProperties.getTopic(), content, event.getEventKey(),
-            new SendCallback() {
-                @Override
-                public void onSuccess(SendResult sendResult) {
-                    log.info("[{}] send event success, content:[{}], send result[{}]:",
-                        this.getClass().getName(), content, sendResult);
-                }
+        rocketMQTemplate.convertAndSend(carpEventBusProperties.getTopic(),content);
 
-                @Override
-                public void onException(Throwable throwable) {
-                    log.error("[{}] send event fail, content:[{}], error:",
-                        this.getClass().getName(), content, throwable);
-                }
-            });
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        INSTANCE = this;
+//        rocketMQTemplate.asyncSendOrderly(carpEventBusProperties.getTopic(), content, event.getEventKey(),
+//            new SendCallback() {
+//                @Override
+//                public void onSuccess(SendResult sendResult) {
+//                    log.info("[{}] send event success, content:[{}], send result[{}]:",
+//                        this.getClass().getName(), content, sendResult);
+//                }
+//
+//                @Override
+//                public void onException(Throwable throwable) {
+//                    log.error("[{}] send event fail, content:[{}], error:",
+//                        this.getClass().getName(), content, throwable);
+//                }
+//            });
     }
 }

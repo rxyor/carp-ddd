@@ -1,7 +1,7 @@
 package com.github.rxyor.carp.common.eventbus.configure;
 
-import com.github.rxyor.carp.common.eventbus.produce.MqEventBus;
 import com.github.rxyor.carp.common.eventbus.consume.MqEventSubscriber;
+import com.github.rxyor.carp.common.eventbus.produce.MqEventBus;
 import javax.annotation.Resource;
 import org.apache.rocketmq.client.AccessChannel;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -10,9 +10,14 @@ import org.apache.rocketmq.spring.autoconfigure.RocketMQProperties.Producer;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.apache.rocketmq.spring.support.RocketMQMessageConverter;
 import org.apache.rocketmq.spring.support.RocketMQUtil;
+import org.springframework.beans.BeansException;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.StandardEnvironment;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -27,7 +32,12 @@ import org.springframework.util.StringUtils;
  */
 @Configuration
 @EnableConfigurationProperties(CarpEventBusProperties.class)
-public class CarpEventBusAutoConfiguration {
+public class CarpEventBusAutoConfiguration implements ApplicationContextAware {
+
+    private ConfigurableApplicationContext applicationContext;
+
+    @Resource
+    private StandardEnvironment environment;
 
     @Resource
     private CarpEventBusProperties carpEventBusProperties;
@@ -38,7 +48,12 @@ public class CarpEventBusAutoConfiguration {
     @Resource
     private RocketMQMessageConverter rocketMQMessageConverter;
 
-    @Bean
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = (ConfigurableApplicationContext) applicationContext;
+    }
+
+//    @Bean
     public MqEventSubscriber mqEventSubscriber() {
         return new MqEventSubscriber();
     }
@@ -50,6 +65,13 @@ public class CarpEventBusAutoConfiguration {
         rocketMQTemplate.setMessageConverter(rocketMQMessageConverter.getMessageConverter());
 
         return new MqEventBus(rocketMQTemplate, carpEventBusProperties);
+    }
+
+    @Bean
+    public MqEventListenerContainerConfiguration mqEventListenerContainerProxy() {
+        return new MqEventListenerContainerConfiguration(environment,
+            carpEventBusProperties, rocketMQProperties,
+            rocketMQMessageConverter);
     }
 
     public DefaultMQProducer mqProducer(RocketMQProperties rocketMQProperties) {

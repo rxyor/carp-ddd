@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
-@RocketMQMessageListener(topic = "Topic_carp_rocketmq", consumerGroup = "${mqeventbus.consumer.customized-trace-topic}")
+@RocketMQMessageListener(topic = "Topic_carp_rocketmq", consumerGroup = "GID_carp_rocketmq")
 public class RmqConsumeListener implements RocketMQListener<Object> {
 
     @Override

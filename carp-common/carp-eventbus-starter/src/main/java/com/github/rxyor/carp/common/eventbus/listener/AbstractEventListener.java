@@ -3,6 +3,7 @@ package com.github.rxyor.carp.common.eventbus.listener;
 import com.github.rxyor.carp.common.eventbus.produce.GuavaAsyncEventBus;
 import com.github.rxyor.carp.common.eventbus.produce.GuavaEventBus;
 import com.github.rxyor.carp.common.eventbus.produce.MqEventBus;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *<p>
@@ -14,6 +15,9 @@ import com.github.rxyor.carp.common.eventbus.produce.MqEventBus;
  * @since 1.0.0
  */
 public class AbstractEventListener implements IEventListener {
+
+    @Autowired
+    private MqEventBus mqEventBus;
 
     @Override
     public void destroy() throws Exception {
