@@ -14,5 +14,6 @@
     <modules>
         <module>carp-eventbus-starter</module>
         <module>carp-common-rocketmq</module>
+        <module>carp-timer-starter</module>
     </modules>
 </project>
