@@ -67,19 +67,21 @@ public class MqEventBus<E extends IEvent> extends BusRegister implements IEventB
             log.debug("[{}] send event, content:[{}]", this.getClass().getName(), content);
         }
 
-        rocketMQTemplate.asyncSendOrderly(carpEventBusProperties.getTopic(), content, event.getEventKey(),
-            new SendCallback() {
-                @Override
-                public void onSuccess(SendResult sendResult) {
-                    log.info("[{}] send event success, content:[{}], send result[{}]:",
-                        this.getClass().getName(), content, sendResult);
-                }
+        SendCallback callback = new SendCallback() {
+            @Override
+            public void onSuccess(SendResult sendResult) {
+                log.info("[{}] send event success, content:[{}], send result[{}]:",
+                    this.getClass().getName(), content, sendResult);
+            }
 
-                @Override
-                public void onException(Throwable throwable) {
-                    log.error("[{}] send event fail, content:[{}], error:",
-                        this.getClass().getName(), content, throwable);
-                }
-            });
+            @Override
+            public void onException(Throwable throwable) {
+                log.error("[{}] send event fail, content:[{}], error:",
+                    this.getClass().getName(), content, throwable);
+            }
+        };
+
+        rocketMQTemplate.asyncSendOrderly(carpEventBusProperties.getTopic(),
+            content, event.getEventKey(), callback);
     }
 }
