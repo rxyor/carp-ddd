@@ -41,7 +41,7 @@
         <spring-boot-maven-plugin.version>2.2.4.RELEASE</spring-boot-maven-plugin.version>
         <!--1: plugin-->
         <HikariCP.version>3.4.1</HikariCP.version>
-        <carp.version>1.0.14.6</carp.version>
+        <carp.version>1.0.14.10</carp.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-lang3.version>3.7</commons-lang3.version>
@@ -253,6 +253,11 @@
             <dependency>
                 <groupId>com.github.rxyor</groupId>
                 <artifactId>carp-cacheablettl-starter</artifactId>
+                <version>${carp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.rxyor</groupId>
+                <artifactId>carp-eventbus-starter</artifactId>
                 <version>${carp.version}</version>
             </dependency>
             <dependency>

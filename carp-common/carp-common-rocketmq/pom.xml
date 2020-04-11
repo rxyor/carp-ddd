@@ -12,18 +12,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.rxyor</groupId>
-            <artifactId>carp-eventbus-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-alibaba-nacos-discovery</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.rxyor</groupId>
             <artifactId>carp-common-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-eventbus-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>

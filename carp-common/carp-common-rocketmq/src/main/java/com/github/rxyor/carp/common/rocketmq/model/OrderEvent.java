@@ -1,6 +1,6 @@
 package com.github.rxyor.carp.common.rocketmq.model;
 
-import com.github.rxyor.carp.common.eventbus.core.IEvent;
+import com.github.rxyor.carp.spring.boot.eventbus.core.IEvent;
 import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;

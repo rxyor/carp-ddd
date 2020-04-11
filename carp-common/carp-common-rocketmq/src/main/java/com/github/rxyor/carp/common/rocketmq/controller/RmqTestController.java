@@ -1,9 +1,9 @@
 package com.github.rxyor.carp.common.rocketmq.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.github.rxyor.carp.common.eventbus.produce.MqEventBus;
 import com.github.rxyor.carp.common.rocketmq.model.Event;
 import com.github.rxyor.carp.common.rocketmq.model.OrderEvent;
+import com.github.rxyor.carp.spring.boot.eventbus.produce.MqEventBus;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.math.BigDecimal;

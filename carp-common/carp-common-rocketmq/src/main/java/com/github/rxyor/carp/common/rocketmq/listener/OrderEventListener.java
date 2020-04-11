@@ -1,7 +1,7 @@
 package com.github.rxyor.carp.common.rocketmq.listener;
 
-import com.github.rxyor.carp.common.eventbus.listener.AbstractEventListener;
 import com.github.rxyor.carp.common.rocketmq.model.OrderEvent;
+import com.github.rxyor.carp.spring.boot.eventbus.listener.AbstractEventListener;
 import com.google.common.eventbus.Subscribe;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,6 +21,6 @@ public class OrderEventListener extends AbstractEventListener {
 
     @Subscribe
     public void subOrderEvent(OrderEvent event) {
-        log.info("Subscribe order event:", event);
+        log.info("Subscribe order event:{}", event);
     }
 }
