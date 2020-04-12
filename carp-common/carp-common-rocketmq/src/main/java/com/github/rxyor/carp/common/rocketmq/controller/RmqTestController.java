@@ -47,7 +47,7 @@ public class RmqTestController {
         event.setCreateTime(new Date());
         event.setPrice(new BigDecimal(999));
         event.setCount(10);
-        MqEventBus.send(event);
+        MqEventBus.send(event,10L);
         return "ok";
     }
 }

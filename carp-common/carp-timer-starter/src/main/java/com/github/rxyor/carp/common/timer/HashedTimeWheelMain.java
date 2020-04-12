@@ -26,10 +26,10 @@ public class HashedTimeWheelMain {
                 Thread.sleep(3000);
             }
             int finalI = i;
-            TimerTask task = timeout -> System.out.println(
-                String.format("Thead:[%s] execute task:[%s]", Thread.currentThread().getName(), finalI));
+            TimerTask task = timeout -> System.out
+                .println(String.format("Thead:[%s] execute task:[%s]", Thread.currentThread().getName(), finalI));
 
-            timer.newTimeout(task, i%1000, TimeUnit.SECONDS);
+            timer.newTimeout(task, i % 1000, TimeUnit.SECONDS);
             i++;
         }
     }
