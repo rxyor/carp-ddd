@@ -30,6 +30,9 @@ spring:
           - data-id: application-mybatis.yml
             group: ${spring.application.name}
             refresh: true
+          - data-id: application-leaf.yml
+            group: ${spring.application.name}
+            refresh: true
 logging:
   config: classpath:config/properties/log4j2.properties
   file:

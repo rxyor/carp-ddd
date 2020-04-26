@@ -1,0 +1,6 @@
+leaf:
+  segment:
+    enable: true
+    url: jdbc:mysql://carp-dev:3306/leaf?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 12345678

@@ -266,6 +266,11 @@
                 <version>${carp.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.github.rxyor</groupId>
+                <artifactId>carp-leaf-boot-starter</artifactId>
+                <version>${carp.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>

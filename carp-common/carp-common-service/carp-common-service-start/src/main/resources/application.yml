@@ -2,4 +2,4 @@ spring:
   application:
     name: carp-ums
   profiles:
-    include: redis,jdbc,mybatis,feign,auth2,leaf
+    include: leaf
