@@ -17,6 +17,7 @@
         <module>carp-pms</module>
         <module>carp-search</module>
         <module>carp-ums</module>
+        <module>carp-canal</module>
     </modules>
 
     <properties>
