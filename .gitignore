@@ -1,1 +1,13 @@
 # Created by .ignore support plugin (hsz.mobi)
+#idea
+.idea
+*.iml
+**/*.iml
+target
+**/target
+*.log
+**/*.log
+
+#esclipe
+.classpth
+.project
