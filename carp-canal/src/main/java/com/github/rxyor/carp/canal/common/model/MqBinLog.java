@@ -1,7 +1,9 @@
 package com.github.rxyor.carp.canal.common.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
+import org.apache.commons.compress.utils.Lists;
 
 /**
  * Canal RocketMq binlog字段映射类
@@ -60,6 +62,22 @@ public class MqBinLog<T> {
      * dml build timeStamp, 同步时间
      */
     private Long ts;
+
+    public MqBinLog<?> copy() {
+        MqBinLog<?> newObject = new MqBinLog<>();
+        newObject.setData(new ArrayList<>(0));
+        newObject.setOld(new ArrayList<>(0));
+        newObject.setDatabase(this.database);
+        newObject.setTable(this.table);
+        newObject.setPkNames(Lists.newArrayList(this.pkNames.iterator()));
+        newObject.setIsDdl(this.isDdl);
+        newObject.setType(this.type);
+        newObject.setSql(this.sql);
+        newObject.setEs(this.es);
+        newObject.setTs(this.ts);
+
+        return newObject;
+    }
 
     public static enum SqlType {
         INSERT, UPDATE, DELETE, REPLACE

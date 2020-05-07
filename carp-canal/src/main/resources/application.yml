@@ -1,0 +1,5 @@
+server:
+  port: 8011
+
+rocketmq:
+  name-server: carp-dev:9876
