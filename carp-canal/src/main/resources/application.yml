@@ -3,3 +3,12 @@ server:
 
 rocketmq:
   name-server: carp-dev:9876
+
+elasticsearch:
+  nodes: carp-dev:9200
+  schema: http
+  max-connect-total: 50
+  max-connect-per-route: 10
+  connection-request-timeout-millis: 500
+  socket-timeout-millis: 30000
+  connect-timeout-millis: 1000

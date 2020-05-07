@@ -3,9 +3,11 @@ package com.github.rxyor.carp.canal.message.consume;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.github.rxyor.carp.canal.common.model.MqBinLog;
+import com.github.rxyor.carp.canal.ealsticsearch.CanalTestAddressEsService;
 import com.github.rxyor.carp.canal.message.processor.MqBinLogProcessor;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.spring.annotation.ConsumeMode;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
@@ -20,6 +22,8 @@ import org.springframework.stereotype.Component;
 public class MqBinLogReceiver implements RocketMQListener<String> {
 
     private final Map<String, MqBinLogProcessor<?>> processors = new ConcurrentHashMap<>();
+
+
 
     @Override
     public void onMessage(String data) {

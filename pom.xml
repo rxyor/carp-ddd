@@ -11,13 +11,13 @@
 
     <modules>
         <module>carp-auth</module>
+        <module>carp-canal</module>
         <module>carp-common</module>
         <module>carp-gateway</module>
         <module>carp-nacos</module>
         <module>carp-pms</module>
         <module>carp-search</module>
         <module>carp-ums</module>
-        <module>carp-canal</module>
     </modules>
 
     <properties>
@@ -46,7 +46,9 @@
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-lang3.version>3.7</commons-lang3.version>
-        <elasticsearch.verision>6.8.3</elasticsearch.verision>
+        <elasticsearch-rest-high-level-client.version>7.1.0
+        </elasticsearch-rest-high-level-client.version>
+        <elasticsearch.verision>7.1.0</elasticsearch.verision>
         <fastjson.version>1.2.66</fastjson.version>
         <guava.version>23.0</guava.version>
         <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
