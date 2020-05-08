@@ -79,7 +79,4 @@ public class MqBinLog<T> {
         return newObject;
     }
 
-    public static enum SqlType {
-        INSERT, UPDATE, DELETE, REPLACE
-    }
 }
