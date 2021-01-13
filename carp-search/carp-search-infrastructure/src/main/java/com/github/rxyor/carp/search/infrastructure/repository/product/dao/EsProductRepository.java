@@ -16,8 +16,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  */
 public interface EsProductRepository extends ElasticsearchRepository<EsProductDO, Long> {
 
-
-
     /**
      *<p>
      * 查找
