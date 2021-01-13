@@ -16,6 +16,23 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  */
 public interface EsProductRepository extends ElasticsearchRepository<EsProductDO, Long> {
 
-    Page<EsProductDO> findByNameAndNameOrSubTitleOrKeywords(String name,
-        String subTitle, String keywords, Pageable pageable);
+
+
+    /**
+     *<p>
+     * 查找
+     *</p>
+     *
+     * @author qianmu.ly
+     * @since 2021-01-13 16:32:31 v1.0
+     * @param productNo productNo
+     * @param productName productName
+     * @param productTitle productTitle
+     * @param pageable pageable
+     * @return []
+     */
+    Page<EsProductDO> findByProductNoOrProductNameOrProductTitle(
+        String productNo,
+        String productName,
+        String productTitle, Pageable pageable);
 }

@@ -1,10 +1,13 @@
 package com.github.rxyor.carp.search.infrastructure.repository.product.dao;
 
-import com.github.rxyor.carp.search.SpringWithJUnit5IT;
-import com.github.rxyor.carp.search.infrastructure.repository.product.dataobj.EsProductDO;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import com.github.rxyor.carp.search.SpringWithJUnit5IT;
+import com.github.rxyor.carp.search.infrastructure.repository.product.dataobj.EsProductDO;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,22 +26,30 @@ public class EsProductRepositoryTest extends SpringWithJUnit5IT {
     EsProductRepository esProductRepository;
 
     @Test
-    void findByNaAndNameOrSubTitleOrKeywords() {
+    public void findByNaAndNameOrSubTitleOrKeywords() {
         Iterator<EsProductDO> iter = esProductRepository.findAll().iterator();
         List<EsProductDO> list = new ArrayList<>(16);
-        while (iter.hasNext()){
+        while (iter.hasNext()) {
             list.add(iter.next());
         }
-        log.info("result:{}",list);
+        log.info("result:{}", list);
     }
 
     @Test
-    void save( ){
-        EsProductDO data = new EsProductDO();
-        data.setProductSn("SN00001");
-        data.setName("Apple Display");
-        data.setSubTitle("5K");
-        data.setKeywords("apple display 5k");
-        esProductRepository.save(data);
+    void save() {
+        EsProductDO dagaObj = new EsProductDO();
+        dagaObj.setId(System.currentTimeMillis());
+        dagaObj.setProductNo("SN" + dagaObj.getId());
+        dagaObj.setProductName("Apple Display");
+        dagaObj.setProductTitle("【Apple Display】5K Display显示器");
+        dagaObj.setImages(Lists.newArrayList(
+            "https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blt280217a63b82a734"
+                + "/5bbdaacf63ed239936a7dd56/elastic-logo.svg"));
+        dagaObj.setTags(Lists.newArrayList("苹果", "显示器", "5K"));
+        dagaObj.setMinPrice(5999D);
+        dagaObj.setMaxPrice(10999D);
+        dagaObj.setDisable(0);
+        dagaObj.setCrateTime(new Date());
+        esProductRepository.save(dagaObj);
     }
 }
