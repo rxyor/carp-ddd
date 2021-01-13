@@ -7,3 +7,6 @@ spring:
     rest:
       uris:
         - http://carp-dev:9200
+
+elasticsearch:
+  hosts: localhost:9200
