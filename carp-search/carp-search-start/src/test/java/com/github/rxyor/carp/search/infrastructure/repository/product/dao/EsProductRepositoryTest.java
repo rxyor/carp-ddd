@@ -2,7 +2,6 @@ package com.github.rxyor.carp.search.infrastructure.repository.product.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import com.github.rxyor.carp.search.SpringWithJUnit5IT;
@@ -26,12 +25,10 @@ public class EsProductRepositoryTest extends SpringWithJUnit5IT {
     EsProductRepository esProductRepository;
 
     @Test
-    public void findByNaAndNameOrSubTitleOrKeywords() {
-        Iterator<EsProductDO> iter = esProductRepository.findAll().iterator();
-        List<EsProductDO> list = new ArrayList<>(16);
-        while (iter.hasNext()) {
-            list.add(iter.next());
-        }
+    public void findAll() {
+        Iterable<EsProductDO> iterable = esProductRepository.findAll();
+        final List<EsProductDO> list = new ArrayList<>();
+        iterable.forEach(list::add);
         log.info("result:{}", list);
     }
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.rxyor</groupId>
@@ -46,9 +45,9 @@
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-lang3.version>3.7</commons-lang3.version>
-        <elasticsearch-rest-high-level-client.version>7.1.0
+        <elasticsearch-rest-high-level-client.version>7.7.1
         </elasticsearch-rest-high-level-client.version>
-        <elasticsearch.verision>7.1.0</elasticsearch.verision>
+        <elasticsearch.verision>7.7.1</elasticsearch.verision>
         <fastjson.version>1.2.66</fastjson.version>
         <guava.version>23.0</guava.version>
         <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
@@ -65,10 +64,10 @@
         <reactor-core.version>3.3.0.RELEASE</reactor-core.version>
         <redisson.version>3.11.3</redisson.version>
         <rocketmq-spring-boot-starter.version>2.1.0</rocketmq-spring-boot-starter.version>
-        <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+        <spring-boot.version>2.4.1</spring-boot.version>
         <spring-cloud-alibaba.version>2.2.0.RELEASE</spring-cloud-alibaba.version>
-        <spring-cloud-dependencies.version>Hoxton.RELEASE</spring-cloud-dependencies.version>
-        <spring-data-elasticsearch.version>3.2.3.RELEASE</spring-data-elasticsearch.version>
+        <spring-cloud-dependencies.version>2020.0.0</spring-cloud-dependencies.version>
+        <spring-data-elasticsearch.version>4.0.0.RELEASE</spring-data-elasticsearch.version>
         <spring-security-oauth2.version>2.3.4.RELEASE</spring-security-oauth2.version>
         <springfox-swagger2.version>2.6.0</springfox-swagger2.version>
         <zookeeper-discovery.version>2.2.0.RELEASE</zookeeper-discovery.version>
@@ -86,10 +85,45 @@
             <!--1: spring-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-devtools</artifactId>
                 <version>${spring-boot.version}</version>
                 <optional>true</optional>
                 <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -105,58 +139,23 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
+                <artifactId>spring-boot-starter-undertow</artifactId>
                 <version>${spring-boot.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter</artifactId>
-                <version>${spring-boot.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${spring-boot.version}</version>
                 <exclusions>
-                    <!--rm tomcat-->
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-tomcat</artifactId>
-                    </exclusion>
                     <!--rm logging-->
                     <exclusion>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-starter-logging</artifactId>
                     </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-undertow</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-jdbc</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-jpa</artifactId>
-                <version>${spring-boot.version}</version>
-                <exclusions>
+                    <!--rm tomcat-->
                     <exclusion>
                         <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-logging</artifactId>
+                        <artifactId>spring-boot-starter-tomcat</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -179,16 +178,16 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-elasticsearch</artifactId>
+                <version>${spring-data-elasticsearch.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.security.oauth</groupId>
                 <artifactId>spring-security-oauth2</artifactId>
                 <version>${spring-security-oauth2.version}</version>
             </dependency>
             <!--1: spring-->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
             <!--spring cloud alibaba-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
@@ -209,18 +208,23 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
+                <artifactId>jackson-annotations</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
+                <artifactId>jackson-core</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
             <dependency>
@@ -230,12 +234,12 @@
             </dependency>
             <dependency>
                 <groupId>com.github.rxyor</groupId>
-                <artifactId>carp-common-core</artifactId>
+                <artifactId>carp-cacheablettl-starter</artifactId>
                 <version>${carp.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.rxyor</groupId>
-                <artifactId>carp-common-util</artifactId>
+                <artifactId>carp-common-core</artifactId>
                 <version>${carp.version}</version>
             </dependency>
             <dependency>
@@ -245,17 +249,7 @@
             </dependency>
             <dependency>
                 <groupId>com.github.rxyor</groupId>
-                <artifactId>carp-redis</artifactId>
-                <version>${carp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.rxyor</groupId>
-                <artifactId>carp-snowflake</artifactId>
-                <version>${carp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.rxyor</groupId>
-                <artifactId>carp-cacheablettl-starter</artifactId>
+                <artifactId>carp-common-util</artifactId>
                 <version>${carp.version}</version>
             </dependency>
             <dependency>
@@ -265,12 +259,22 @@
             </dependency>
             <dependency>
                 <groupId>com.github.rxyor</groupId>
+                <artifactId>carp-leaf-boot-starter</artifactId>
+                <version>${carp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.rxyor</groupId>
+                <artifactId>carp-redis</artifactId>
+                <version>${carp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.rxyor</groupId>
                 <artifactId>carp-redisson-starter</artifactId>
                 <version>${carp.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.rxyor</groupId>
-                <artifactId>carp-leaf-boot-starter</artifactId>
+                <artifactId>carp-snowflake</artifactId>
                 <version>${carp.version}</version>
             </dependency>
             <dependency>
@@ -300,12 +304,12 @@
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
+                <artifactId>springfox-swagger-ui</artifactId>
                 <version>${springfox-swagger2.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
+                <artifactId>springfox-swagger2</artifactId>
                 <version>${springfox-swagger2.version}</version>
             </dependency>
             <!--db-->
@@ -325,18 +329,13 @@
                 <version>${rocketmq-spring-boot-starter.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.elasticsearch</groupId>
-                <artifactId>elasticsearch</artifactId>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
                 <version>${elasticsearch.verision}</version>
             </dependency>
             <dependency>
                 <groupId>org.elasticsearch.client</groupId>
                 <artifactId>elasticsearch-rest-high-level-client</artifactId>
-                <version>${elasticsearch.verision}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.elasticsearch.client</groupId>
-                <artifactId>elasticsearch-rest-client</artifactId>
                 <version>${elasticsearch.verision}</version>
             </dependency>
             <dependency>
@@ -347,6 +346,11 @@
             <dependency>
                 <groupId>org.elasticsearch.plugin</groupId>
                 <artifactId>transport-netty4-client</artifactId>
+                <version>${elasticsearch.verision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
                 <version>${elasticsearch.verision}</version>
             </dependency>
             <dependency>
@@ -387,12 +391,12 @@
             </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-processor</artifactId>
+                <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
+                <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
             <dependency>
@@ -407,6 +411,11 @@
             </dependency>
             <dependency>
                 <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson.version}</version>
                 <exclusions>
@@ -415,11 +424,6 @@
                         <artifactId>spring-boot-starter-logging</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson</artifactId>
-                <version>${redisson.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.redisson</groupId>
@@ -448,30 +452,6 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>${maven-clean-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven-compiler-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven-surefire-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>${maven-war-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>${maven-install-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>${maven-deploy-plugin.version}</version>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>${maven-source-plugin.version}</version>
@@ -480,6 +460,30 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring-boot-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven-clean-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven-install-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-war-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

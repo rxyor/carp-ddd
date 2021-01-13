@@ -20,7 +20,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * @since 1.0.0
  */
 @Data
-@Document(indexName = "wms_product", type = "_doc", shards = 1, replicas = 0)
+@Document(indexName = "wms_product", shards = 1, replicas = 0)
 public class EsProductDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
