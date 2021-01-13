@@ -1,6 +1,9 @@
 package com.github.rxyor.carp.search.infrastructure.repository.product.dataobj;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -17,7 +20,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * @since 1.0.0
  */
 @Data
-@Document(indexName = "pms_product", shards = 1, replicas = 1)
+@Document(indexName = "wms_product", shards = 1, replicas = 0)
 public class EsProductDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,14 +29,32 @@ public class EsProductDO implements Serializable {
     private Long id;
 
     @Field(type = FieldType.Keyword)
-    private String productSn;
+    private String productNo;
 
     @Field(analyzer = "ik_max_word", type = FieldType.Text)
-    private String name;
+    private String productName;
 
     @Field(analyzer = "ik_max_word", type = FieldType.Text)
-    private String subTitle;
+    private String productTitle;
 
-    @Field(analyzer = "ik_max_word", type = FieldType.Text)
-    private String keywords;
+    @Field(type = FieldType.Auto)
+    private List<String> images;
+
+    @Field(type = FieldType.Auto)
+    private List<String> tags;
+
+    @Field(type = FieldType.Double)
+    private Double minPrice;
+
+    @Field(type = FieldType.Double)
+    private Double maxPrice;
+
+    @Field(type = FieldType.Integer)
+    private Integer disable;
+
+    @Field(type = FieldType.Date)
+    private Date crateTime;
+
+    @Field(type = FieldType.Date)
+    private Date updateTime;
 }
