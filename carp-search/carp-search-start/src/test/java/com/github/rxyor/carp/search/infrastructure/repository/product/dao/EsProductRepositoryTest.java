@@ -37,20 +37,20 @@ public class EsProductRepositoryTest extends SpringWithJUnit5IT {
 
     @Test
     void save() {
-        EsProductDO dagaObj = new EsProductDO();
-        dagaObj.setId(System.currentTimeMillis());
-        dagaObj.setProductNo("SN" + dagaObj.getId());
-        dagaObj.setProductName("Apple Display");
-        dagaObj.setProductTitle("【Apple Display】5K Display显示器");
-        dagaObj.setImages(Lists.newArrayList(
+        EsProductDO dataObj = new EsProductDO();
+        dataObj.setId(System.currentTimeMillis());
+        dataObj.setProductNo("SN" + dataObj.getId());
+        dataObj.setProductName("Apple Display");
+        dataObj.setProductTitle("【Apple Display】5K Display显示器");
+        dataObj.setImages(Lists.newArrayList(
             "https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blt280217a63b82a734"
                 + "/5bbdaacf63ed239936a7dd56/elastic-logo.svg"));
-        dagaObj.setTags(Lists.newArrayList("苹果", "显示器", "5K"));
-        dagaObj.setMinPrice(5999D);
-        dagaObj.setMaxPrice(10999D);
-        dagaObj.setDisable(0);
-        dagaObj.setCrateTime(new Date());
-        esProductRepository.save(dagaObj);
+        dataObj.setTags(Lists.newArrayList("苹果", "显示器", "5K"));
+        dataObj.setMinPrice(5999D);
+        dataObj.setMaxPrice(10999D);
+        dataObj.setDisable(0);
+        dataObj.setCrateTime(new Date());
+        esProductRepository.save(dataObj);
     }
 
     @Test
