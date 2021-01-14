@@ -9,6 +9,9 @@ import com.github.rxyor.carp.search.infrastructure.repository.product.dataobj.Es
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 /**
  *<p>
@@ -48,5 +51,13 @@ public class EsProductRepositoryTest extends SpringWithJUnit5IT {
         dagaObj.setDisable(0);
         dagaObj.setCrateTime(new Date());
         esProductRepository.save(dagaObj);
+    }
+
+    @Test
+    void findByProductNoOrProductNameOrProductTitle() {
+        Pageable pageable = PageRequest.of(1, 2);
+        Page<EsProductDO> result = esProductRepository.findByProductNoOrProductNameOrProductTitle("1610528045009",
+            null, null, pageable);
+        log.info("result:{}", result.getContent());
     }
 }
