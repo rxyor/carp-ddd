@@ -3,21 +3,25 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>com.github.rxyor</groupId>
-        <artifactId>carp-search</artifactId>
+        <artifactId>carp-common</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>carp-search-domain</artifactId>
+    <artifactId>carp-commons</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.github.rxyor</groupId>
-            <artifactId>carp-search-shared</artifactId>
-            <version>${project.version}</version>
+            <artifactId>carp-common-util</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <groupId>com.github.rxyor</groupId>
+            <artifactId>carp-common-support</artifactId>
         </dependency>
     </dependencies>
 </project>

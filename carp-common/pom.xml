@@ -15,5 +15,6 @@
         <module>carp-common-rocketmq</module>
         <module>carp-timer-starter</module>
         <module>carp-common-service</module>
+        <module>carp-commons</module>
     </modules>
 </project>
