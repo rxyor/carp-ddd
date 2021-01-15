@@ -1,4 +1,4 @@
-package com.github.rxyor.carp.search.infrastructure.repository.product.dataobj;
+package com.github.rxyor.carp.search.infrastructure.repository.user.dataobj;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.List;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
@@ -20,6 +21,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * @since 1.0.0
  */
 @Data
+@Document(indexName = "ums_user", shards = 1, replicas = 0)
 public class EsUserDO implements Serializable {
 
     private static final long serialVersionUID = 6737706257026877445L;

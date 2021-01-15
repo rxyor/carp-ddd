@@ -1,9 +1,7 @@
-package com.github.rxyor.carp.search.infrastructure.repository.product.dataobj;
+package com.github.rxyor.carp.search.infrastructure.repository.user.dataobj;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -20,30 +18,30 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * @since 1.0.0
  */
 @Data
-public class EsRoleDO implements Serializable {
+public class EsPermissionDO implements Serializable {
 
-    private static final long serialVersionUID = 3339586648362111817L;
+    private static final long serialVersionUID = -7350242108052033850L;
 
     /**
-     * 角色id
+     * 权限id
      */
     @Id
     private Long id;
 
     /**
-     * 角色编码
+     * 权限编码
      */
     @Field(analyzer = "ik_max_word", type = FieldType.Text)
-    private String roleCode;
+    private String permissionCode;
 
     /**
-     * 角色名称
+     * 权限名称
      */
     @Field(analyzer = "ik_max_word", type = FieldType.Text)
-    private String roleName;
+    private String permissionName;
 
     /**
-     * 角色描述
+     * 权限描述
      */
     @Field(analyzer = "ik_max_word", type = FieldType.Text)
     private String remark;
@@ -65,12 +63,4 @@ public class EsRoleDO implements Serializable {
      */
     @Field(type = FieldType.Date)
     private Date updateTime;
-
-    /**
-     * 权限列表
-     */
-    @Field(type = FieldType.Object)
-    private List<EsPermissionDO> permissionList = new ArrayList<>(8);
-
-
 }

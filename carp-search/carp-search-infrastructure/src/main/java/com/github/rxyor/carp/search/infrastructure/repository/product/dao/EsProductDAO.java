@@ -14,7 +14,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  * @date 2020/1/5 周日 22:22:00
  * @since 1.0.0
  */
-public interface EsProductRepository extends ElasticsearchRepository<EsProductDO, Long> {
+public interface EsProductDAO extends ElasticsearchRepository<EsProductDO, Long> {
 
     /**
      *<p>

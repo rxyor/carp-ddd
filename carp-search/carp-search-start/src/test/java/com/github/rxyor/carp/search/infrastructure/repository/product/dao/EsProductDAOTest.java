@@ -22,14 +22,14 @@ import org.springframework.data.domain.Pageable;
  * @date 2020/1/5 周日 22:41:00
  * @since 1.0.0
  */
-public class EsProductRepositoryTest extends SpringWithJUnit5IT {
+public class EsProductDAOTest extends SpringWithJUnit5IT {
 
     @Autowired
-    EsProductRepository esProductRepository;
+    EsProductDAO esProductDAO;
 
     @Test
     public void findAll() {
-        Iterable<EsProductDO> iterable = esProductRepository.findAll();
+        Iterable<EsProductDO> iterable = esProductDAO.findAll();
         final List<EsProductDO> list = new ArrayList<>();
         iterable.forEach(list::add);
         log.info("result:{}", list);
@@ -50,13 +50,13 @@ public class EsProductRepositoryTest extends SpringWithJUnit5IT {
         dataObj.setMaxPrice(10999D);
         dataObj.setDisable(0);
         dataObj.setCrateTime(new Date());
-        esProductRepository.save(dataObj);
+        esProductDAO.save(dataObj);
     }
 
     @Test
     void findByProductNoOrProductNameOrProductTitle() {
         Pageable pageable = PageRequest.of(1, 2);
-        Page<EsProductDO> result = esProductRepository.findByProductNoOrProductNameOrProductTitle("1610528045009",
+        Page<EsProductDO> result = esProductDAO.findByProductNoOrProductNameOrProductTitle("1610528045009",
             null, null, pageable);
         log.info("result:{}", result.getContent());
     }
