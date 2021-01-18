@@ -1,7 +1,8 @@
 package com.github.rxyor.carp.ums.insfrastructure.repository.user.dao;
 
-import com.github.rxyor.carp.ums.insfrastructure.repository.user.dataobj.UserDO;
 import java.util.List;
+
+import com.github.rxyor.carp.ums.insfrastructure.repository.user.dataobj.UserDO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,7 @@ public interface UserDAO extends JpaSpecificationExecutor<UserDO>,
     @Query("from UserDO u where u.username=:username and u.disable=0")
     UserDO find(@Param("username") String username);
 
+    @Override
     @Query("from UserDO u where  u.disable=0")
     List<UserDO> findAll();
 
