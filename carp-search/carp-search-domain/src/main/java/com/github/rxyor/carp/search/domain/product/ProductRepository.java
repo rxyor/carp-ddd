@@ -2,7 +2,7 @@ package com.github.rxyor.carp.search.domain.product;
 
 /**
  *<p>
- *
+ * 产品仓储层
  *</p>
  *
  * @author qianmu.ly
