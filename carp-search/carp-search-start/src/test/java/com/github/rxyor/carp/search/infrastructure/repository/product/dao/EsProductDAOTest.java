@@ -54,6 +54,24 @@ public class EsProductDAOTest extends SpringWithJUnit5IT {
     }
 
     @Test
+    void saveV2() {
+        EsProductDO dataObj = new EsProductDO();
+        dataObj.setId(1L);
+        dataObj.setProductNo("SN" + dataObj.getId());
+        dataObj.setProductName("Apple Display");
+        dataObj.setProductTitle("【Apple Display】4K Display显示器");
+        dataObj.setImages(Lists.newArrayList(
+            "https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blt280217a63b82a734"
+                + "/5bbdaacf63ed239936a7dd56/elastic-logo.svg"));
+        dataObj.setTags(Lists.newArrayList("苹果", "显示器", "4K"));
+        dataObj.setMinPrice(5999D);
+        dataObj.setMaxPrice(10999D);
+        dataObj.setDisable(0);
+        dataObj.setCrateTime(new Date());
+        esProductDAO.save(dataObj);
+    }
+
+    @Test
     void findByProductNoOrProductNameOrProductTitle() {
         Pageable pageable = PageRequest.of(1, 2);
         Page<EsProductDO> result = esProductDAO.findByProductNoOrProductNameOrProductTitle("1610528045009",
