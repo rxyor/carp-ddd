@@ -23,8 +23,6 @@ public class MqBinLogReceiver implements RocketMQListener<String> {
 
     private final Map<String, MqBinLogProcessor<?>> processors = new ConcurrentHashMap<>();
 
-
-
     @Override
     public void onMessage(String data) {
         if (StringUtils.isBlank(data)) {
