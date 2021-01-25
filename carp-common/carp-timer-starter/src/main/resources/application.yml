@@ -1,7 +1,0 @@
-server:
-  port: 8011
-spring:
-  application:
-    name: carp-timer-starter
-  redis:
-    host: carp-dev
