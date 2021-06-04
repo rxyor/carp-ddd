@@ -47,7 +47,7 @@
         <elasticsearch.verision>6.8.3</elasticsearch.verision>
         <fastjson.version>1.2.66</fastjson.version>
         <guava.version>23.0</guava.version>
-        <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
+        <hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
         <jackson.version>2.10.0</jackson.version>
         <joda-time.version>2.10.4</joda-time.version>
         <junit-platform-runner.version>1.5.2</junit-platform-runner.version>
