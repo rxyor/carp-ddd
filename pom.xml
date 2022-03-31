@@ -60,7 +60,7 @@
         <mysql-connector-java.version>5.1.31</mysql-connector-java.version>
         <reactor-core.version>3.3.0.RELEASE</reactor-core.version>
         <redisson.version>3.11.3</redisson.version>
-        <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+        <spring-boot.version>2.5.12</spring-boot.version>
         <spring-cloud-alibaba.version>2.1.1.RELEASE</spring-cloud-alibaba.version>
         <spring-cloud-dependencies.version>Hoxton.RELEASE</spring-cloud-dependencies.version>
         <spring-data-elasticsearch.version>3.2.3.RELEASE</spring-data-elasticsearch.version>
